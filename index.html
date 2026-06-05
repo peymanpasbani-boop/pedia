@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B2B Hotel Board</title>
 
+<!-- فونت فارسی شیک -->
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: 'Vazirmatn', Arial, sans-serif;
     background:#f5f6fa;
     margin:0;
     padding:0;
     color:#111827;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header{
     background:#0b1220;
     color:white;
@@ -35,7 +38,6 @@ body{
 .logo{
     font-size:18px;
     font-weight:600;
-    letter-spacing:0.5px;
 }
 
 .nav a{
@@ -53,11 +55,10 @@ body{
     margin-top:10px;
     font-size:12.5px;
     color:#94a3b8;
-    line-height:1.5;
-    max-width:900px;
+    line-height:1.6;
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .container{
     max-width:1100px;
     margin:20px auto;
@@ -70,7 +71,7 @@ body{
     margin-bottom:12px;
 }
 
-/* Controls */
+/* CONTROLS */
 .controls{
     display:flex;
     gap:10px;
@@ -79,11 +80,11 @@ body{
 }
 
 input,select,button{
-    padding:9px 10px;
+    padding:10px;
     border:1px solid #e5e7eb;
     border-radius:6px;
     font-size:13px;
-    outline:none;
+    font-family:'Vazirmatn', Arial;
 }
 
 button{
@@ -97,7 +98,7 @@ button:hover{
     background:#1d4ed8;
 }
 
-/* ===== TABLE ===== */
+/* TABLE */
 .table-wrapper{
     background:white;
     border-radius:10px;
@@ -120,11 +121,10 @@ thead th{
     background:#f9fafb;
     position:sticky;
     top:0;
-    text-align:left;
     padding:12px;
+    text-align:left;
     border-bottom:1px solid #e5e7eb;
     color:#374151;
-    font-weight:600;
 }
 
 tbody td{
@@ -138,15 +138,11 @@ tbody tr:hover{
 
 .city{
     font-weight:600;
-    color:#111827;
 }
 
-.stars{
-    color:#fbbf24;
-}
-.price{
-    font-weight:600;
-}
+.stars{ color:#fbbf24; }
+
+.price{ font-weight:600; }
 </style>
 </head>
 
@@ -168,8 +164,8 @@ tbody tr:hover{
         </div>
 
         <div class="desc">
-            Professional B2B hotel booking solutions in Istanbul, Baku, and Moscow.  
-            Powered by global hotel APIs and Amadeus expertise, we provide fast, accurate, and scalable pricing access for travel agencies.
+            Professional B2B hotel booking platform for Istanbul, Baku, and Moscow.
+            Powered by Amadeus systems and global hotel APIs for travel agencies.
         </div>
 
     </div>
@@ -178,19 +174,19 @@ tbody tr:hover{
 <!-- MAIN -->
 <div class="container">
 
-<div class="title">Hotel Price Dashboard</div>
+<div class="title">داشبورد قیمت هتل‌ها</div>
 
 <div class="controls">
-    <input id="search" placeholder="Search hotel...">
-    
+    <input id="search" placeholder="جستجو هتل...">
+
     <select id="cityFilter">
-        <option value="all">All Cities</option>
-        <option value="Istanbul">Istanbul</option>
-        <option value="Baku">Baku</option>
-        <option value="Moscow">Moscow</option>
+        <option value="all">همه شهرها</option>
+        <option value="Istanbul">استانبول</option>
+        <option value="Baku">باکو</option>
+        <option value="Moscow">مسکو</option>
     </select>
 
-    <button onclick="sortPrice()">Sort Price</button>
+    <button onclick="sortPrice()">مرتب‌سازی قیمت</button>
 </div>
 
 <div class="table-wrapper">
@@ -199,9 +195,9 @@ tbody tr:hover{
 <thead>
 <tr>
 <th>City</th>
-<th>Hotel</th>
-<th>Rating</th>
-<th>Price</th>
+<th>Hotel Name</th>
+<th>Stars</th>
+<th>Rate</th>
 </tr>
 </thead>
 
