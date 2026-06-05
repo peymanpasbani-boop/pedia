@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>B2B Hotel Price Board</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f6f7fb;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .table-wrapper {
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+    }
+
+    th {
+        background: #f0f2f5;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    tr:hover {
+        background: #f9fafc;
+    }
+
+    .city {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .stars {
+        color: #f5b301;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>B2B Hotel Price Board</h1>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Hotel Name</th>
+                    <th>Rating</th>
+                    <th>Price / Night</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- Istanbul -->
+                <tr>
+                    <td class="city">Istanbul</td>
+                    <td>Hilton Istanbul Bosphorus</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$180/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Istanbul</td>
+                    <td>Marriott Istanbul</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$150/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Istanbul</td>
+                    <td>Ramada Plaza</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$120/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Istanbul</td>
+                    <td>Swissotel The Bosphorus</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$220/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Istanbul</td>
+                    <td>Elite World Hotel</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$110/night</td>
+                </tr>
+
+                <!-- Baku -->
+                <tr>
+                    <td class="city">Baku</td>
+                    <td>Fairmont Baku</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$200/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Baku</td>
+                    <td>JW Marriott Baku</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$230/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Baku</td>
+                    <td>Holiday Inn Baku</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$130/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Baku</td>
+                    <td>Hilton Baku</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$210/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Baku</td>
+                    <td>Park Inn Baku</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$120/night</td>
+                </tr>
+
+                <!-- Moscow -->
+                <tr>
+                    <td class="city">Moscow</td>
+                    <td>Radisson Moscow</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$250/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Moscow</td>
+                    <td>Ritz-Carlton Moscow</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$400/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Moscow</td>
+                    <td>Azimut Hotel</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$140/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Moscow</td>
+                    <td>Metropol Hotel</td>
+                    <td class="stars">⭐⭐⭐⭐⭐</td>
+                    <td>$300/night</td>
+                </tr>
+                <tr>
+                    <td class="city">Moscow</td>
+                    <td>Holiday Inn Moscow</td>
+                    <td class="stars">⭐⭐⭐⭐</td>
+                    <td>$160/night</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
