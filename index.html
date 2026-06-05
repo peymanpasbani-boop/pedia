@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>B2B Hotel Network</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <style>
 :root {
   --red-900: #7f1010;
@@ -15,6 +15,7 @@
   --red-400: #ef5350;
   --red-100: #fff0f0;
   --red-50:  #fff8f8;
+  --gold-600: #a06808;
   --gold-500: #c8860a;
   --gold-400: #e0a020;
   --gold-300: #f5c842;
@@ -80,7 +81,6 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .search-input:focus { border-color:var(--red-500); box-shadow:0 0 0 3px rgba(211,35,35,.1); }
 .sort-btn { height:44px; padding:0 22px; border-radius:var(--r-sm); border:none; background:linear-gradient(135deg,var(--red-700),var(--red-500)); color:var(--white); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px; white-space:nowrap; box-shadow:0 4px 14px rgba(211,35,35,.35); transition:all .2s; letter-spacing:-.01em; }
 .sort-btn:hover { background:linear-gradient(135deg,var(--red-800),var(--red-600)); box-shadow:0 6px 20px rgba(211,35,35,.45); transform:translateY(-1px); }
-.sort-btn:active { transform:translateY(0); }
 
 /* ── TABLE ── */
 .table-wrapper { background:var(--white); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid var(--border); }
@@ -91,16 +91,12 @@ thead th:nth-child(3), tbody td:nth-child(3) { width:16%; }
 thead th:nth-child(4), tbody td:nth-child(4) { width:22%; }
 thead tr { background:#fafafa; }
 thead th { padding:14px 20px; text-align:left; font-size:11px; font-weight:700; color:var(--ink-3); border-bottom:1.5px solid var(--border); letter-spacing:.06em; text-transform:uppercase; }
-
-/* increased row padding for breathing room */
 tbody td { padding:16px 20px; border-bottom:1px solid var(--border-lt); font-size:13px; font-weight:500; color:var(--ink); vertical-align:middle; transition:background .1s; }
 tbody tr:last-child td { border-bottom:none; }
 tbody tr:hover td { background:var(--red-50); }
 tbody tr { cursor:pointer; }
-
 tbody td:nth-child(1) { font-weight:700; font-size:12px; color:var(--red-700); }
 tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:0; font-weight:600; color:var(--ink); }
-
 .star-badge { display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:var(--r-xs); background:var(--gold-100); color:var(--gold-500); border:1px solid #f0d080; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; white-space:nowrap; letter-spacing:.03em; }
 .star-icon { font-size:11px; }
 .rate-badge { display:inline-flex; align-items:center; padding:5px 14px; border-radius:var(--r-xs); background:var(--red-100); color:var(--red-700); border:1px solid #ffd0d0; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; white-space:nowrap; }
@@ -108,172 +104,478 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .table-footer::before { content:'▸'; color:var(--red-400); }
 
 /* ══════════════════════════════════════
-   FOOTER — light, compact, glassy card
+   FOOTER — luxury editorial redesign
    ══════════════════════════════════════ */
 .footer {
-  margin-top: 40px;
-  background: linear-gradient(150deg, #f8d8d8 0%, #fdeaea 55%, #fdf0f0 100%);
-  border-top: 1px solid #f0c0c0;
-  padding: 20px 24px 16px;
+  margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+  background: #0f0505;
+}
+
+.footer-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+.footer-glow {
+  position: absolute;
+  width: 600px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(180,20,20,0.18) 0%, transparent 70%);
+  top: -100px; left: 50%; transform: translateX(-50%);
+  pointer-events: none; z-index: 0;
+}
+
+.footer-top-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--red-700) 20%, var(--gold-400) 50%, var(--red-700) 80%, transparent 100%);
 }
 
 .footer-inner {
   max-width: 1400px;
   margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 48px 24px 0;
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 260px 1fr auto;
+  gap: 48px;
+  align-items: start;
 }
 
-.footer-brand { display:flex; align-items:center; gap:10px; flex-shrink:0; }
-.footer-logo-mark { width:32px; height:32px; background:linear-gradient(135deg,var(--red-700),var(--red-500)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 2px 8px rgba(211,35,35,.25); }
-.footer-brand-text { font-size:13px; font-weight:800; color:var(--red-800); letter-spacing:-.02em; }
-.footer-brand-text span { font-weight:400; color:var(--red-400); }
+/* Brand column */
+.footer-brand { }
+.footer-logo-lockup { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.footer-logo-mark {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--red-700), var(--red-500));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 20px rgba(211,35,35,.4), 0 0 0 1px rgba(255,255,255,.08);
+}
+.footer-brand-name {
+  font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -.02em; line-height: 1.1;
+}
+.footer-brand-name span { display: block; font-size: 11px; font-weight: 400; color: rgba(255,255,255,.4); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
+.footer-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.7;
+  margin-bottom: 22px;
+  padding-left: 2px;
+}
+.footer-divider-h {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.1) 0%, transparent 100%);
+  margin-bottom: 20px;
+}
+.footer-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,.2);
+  letter-spacing: .04em;
+}
 
-.footer-contacts { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-.footer-contact-item { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:500; color:var(--red-800); opacity:.8; }
-.footer-contact-icon { width:26px; height:26px; border-radius:6px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.7); border:1px solid rgba(211,35,35,.18); font-size:13px; box-shadow:var(--shadow-sm); flex-shrink:0; }
-.footer-divider { width:1px; height:14px; background:rgba(211,35,35,.2); flex-shrink:0; }
+/* Contact column */
+.footer-contacts { display: flex; flex-direction: column; gap: 0; }
+.footer-contacts-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--red-400); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.footer-contacts-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(211,35,35,.3), transparent);
+}
+.footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.footer-contact-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  transition: all .2s;
+}
+.footer-contact-card:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(211,35,35,.3);
+  transform: translateY(-2px);
+}
+.fc-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.fc-icon.red { background: rgba(211,35,35,.15); border: 1px solid rgba(211,35,35,.25); }
+.fc-icon.gold { background: rgba(200,134,10,.15); border: 1px solid rgba(200,134,10,.25); }
+.fc-icon.blue { background: rgba(30,100,200,.15); border: 1px solid rgba(30,100,200,.25); }
+.fc-icon.green { background: rgba(20,160,80,.15); border: 1px solid rgba(20,160,80,.25); }
+.fc-info { }
+.fc-label { font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 3px; }
+.fc-value { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85); }
 
-.footer-right { display:flex; align-items:center; gap:14px; flex-shrink:0; }
-.social-links { display:flex; gap:6px; }
-.social-btn { width:32px; height:32px; border-radius:8px; border:1px solid rgba(211,35,35,.2); background:rgba(255,255,255,.7); display:flex; align-items:center; justify-content:center; text-decoration:none; cursor:pointer; transition:all .18s; box-shadow:var(--shadow-sm); color:var(--red-600); }
-.social-btn:hover { border-color:var(--red-500); background:var(--white); transform:translateY(-2px); box-shadow:0 4px 12px rgba(211,35,35,.2); color:var(--red-700); }
-.social-btn svg { width:15px; height:15px; fill:currentColor; }
-.footer-copy { font-size:10.5px; color:var(--red-700); opacity:.5; font-family:'IBM Plex Mono',monospace; letter-spacing:.02em; white-space:nowrap; }
+/* Social column */
+.footer-social { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+.footer-social-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--red-400);
+}
+.social-links { display: flex; flex-direction: column; gap: 8px; }
+.social-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  text-decoration: none; cursor: pointer;
+  transition: all .2s;
+  color: rgba(255,255,255,.6);
+  font-size: 12px; font-weight: 600;
+  white-space: nowrap;
+  min-width: 150px;
+}
+.social-btn:hover { background: rgba(255,255,255,.09); border-color: rgba(211,35,35,.35); color: #fff; transform: translateX(-3px); }
+.social-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+.social-btn .sb-platform { font-size: 10px; color: rgba(255,255,255,.3); font-weight: 400; margin-left: auto; }
+
+.footer-bottom {
+  max-width: 1400px; margin: 0 auto;
+  padding: 20px 24px 24px;
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,.06);
+  margin-top: 40px;
+}
+.footer-bottom-left { font-size: 11px; color: rgba(255,255,255,.2); font-family: 'IBM Plex Mono', monospace; }
+.footer-bottom-center {
+  display: flex; align-items: center; gap: 6px;
+}
+.footer-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--red-600); }
+.footer-dot.gold { background: var(--gold-400); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+.footer-bottom-right { font-size: 11px; color: rgba(255,255,255,.2); }
 
 /* ══════════════════════════════════════
-   BOOKING MODAL — glassmorphism
+   BOOKING MODAL
    ══════════════════════════════════════ */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
-  background: rgba(20, 5, 5, 0.55);
-  backdrop-filter: blur(6px);
+  background: rgba(10,2,2,0.65);
+  backdrop-filter: blur(8px);
   display: flex; align-items: center; justify-content: center;
   padding: 20px;
   opacity: 0; pointer-events: none;
   transition: opacity .25s ease;
 }
 .modal-overlay.open { opacity: 1; pointer-events: all; }
-
 .modal {
-  background: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.96);
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,.9);
   border-radius: 22px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.22), 0 0 0 1px rgba(211,35,35,.08);
-  width: 100%; max-width: 480px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.28), 0 0 0 1px rgba(211,35,35,.08);
+  width: 100%; max-width: 520px;
   padding: 32px 30px 28px;
   position: relative;
-  transform: translateY(18px) scale(.97);
-  transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+  transform: translateY(20px) scale(.96);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  max-height: 90vh; overflow-y: auto;
 }
 .modal-overlay.open .modal { transform: translateY(0) scale(1); }
-
 .modal-close {
   position: absolute; top: 16px; right: 18px;
   width: 30px; height: 30px; border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--white);
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px; cursor: pointer; color: var(--ink-3);
-  transition: all .15s; line-height: 1;
+  font-size:16px; cursor:pointer; color:var(--ink-3);
+  transition:all .15s; line-height:1;
 }
-.modal-close:hover { background: var(--red-100); border-color: var(--red-300); color: var(--red-600); }
+.modal-close:hover { background:var(--red-100); border-color:#ffd0d0; color:var(--red-600); }
 
 .modal-hotel-header {
-  display: flex; align-items: flex-start; gap: 14px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-lt);
+  display:flex; align-items:flex-start; gap:14px;
+  margin-bottom:22px; padding-bottom:18px;
+  border-bottom:1px solid var(--border-lt);
 }
 .modal-hotel-icon {
-  width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--red-700), var(--red-500));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  box-shadow: 0 4px 14px rgba(211,35,35,.3);
+  width:46px; height:46px; border-radius:12px; flex-shrink:0;
+  background:linear-gradient(135deg,var(--red-700),var(--red-500));
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; box-shadow:0 4px 14px rgba(211,35,35,.3);
 }
-.modal-hotel-name { font-size: 16px; font-weight: 800; color: var(--ink); letter-spacing: -.02em; margin-bottom: 4px; }
-.modal-hotel-meta { display: flex; align-items: center; gap: 8px; }
-.modal-city-tag { font-size: 11px; font-weight: 600; color: var(--red-700); background: var(--red-100); border: 1px solid #ffd0d0; padding: 2px 8px; border-radius: 20px; }
-.modal-stars { font-size: 11px; font-weight: 700; color: var(--gold-500); background: var(--gold-100); border: 1px solid #f0d080; padding: 2px 8px; border-radius: 20px; font-family: 'IBM Plex Mono', monospace; }
+.modal-hotel-name { font-size:16px; font-weight:800; color:var(--ink); letter-spacing:-.02em; margin-bottom:5px; }
+.modal-hotel-meta { display:flex; align-items:center; gap:8px; }
+.modal-city-tag { font-size:11px; font-weight:600; color:var(--red-700); background:var(--red-100); border:1px solid #ffd0d0; padding:2px 8px; border-radius:20px; }
+.modal-stars { font-size:11px; font-weight:700; color:var(--gold-500); background:var(--gold-100); border:1px solid #f0d080; padding:2px 8px; border-radius:20px; font-family:'IBM Plex Mono',monospace; }
 
-.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.modal-field { display: flex; flex-direction: column; gap: 5px; }
-.modal-field.full { grid-column: 1/-1; }
-.modal-label { font-size: 10.5px; font-weight: 700; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; }
+.modal-section-label {
+  font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--red-600); margin-bottom:10px; margin-top:18px;
+  display:flex; align-items:center; gap:8px;
+}
+.modal-section-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--red-100),transparent); }
+
+/* Room type selector */
+.room-types { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:4px; }
+.room-card {
+  border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:10px 8px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .15s;
+  background:var(--white);
+  user-select:none;
+}
+.room-card:hover { border-color:var(--red-400); background:var(--red-50); }
+.room-card.selected { border-color:var(--red-500); background:var(--red-100); box-shadow:0 0 0 3px rgba(211,35,35,.1); }
+.room-icon { font-size:20px; margin-bottom:4px; display:block; }
+.room-label { font-size:11px; font-weight:700; color:var(--ink); display:block; }
+.room-sub { font-size:10px; color:var(--ink-3); display:block; margin-top:1px; }
+
+.modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-field { display:flex; flex-direction:column; gap:5px; }
+.modal-field.full { grid-column:1/-1; }
+.modal-label { font-size:10.5px; font-weight:700; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase; }
 .modal-input {
-  height: 40px; border-radius: var(--r-sm);
-  border: 1.5px solid var(--border);
-  padding: 0 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; color: var(--ink);
-  background: rgba(255,255,255,.85);
-  outline: none;
-  transition: border-color .15s, box-shadow .15s;
+  height:40px; border-radius:var(--r-sm);
+  border:1.5px solid var(--border);
+  padding:0 12px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px; color:var(--ink);
+  background:rgba(255,255,255,.9);
+  outline:none;
+  transition:border-color .15s, box-shadow .15s;
 }
-.modal-input:focus { border-color: var(--red-500); box-shadow: 0 0 0 3px rgba(211,35,35,.1); }
+.modal-input:focus { border-color:var(--red-500); box-shadow:0 0 0 3px rgba(211,35,35,.1); }
 
-/* Summary box */
+/* Passenger rows */
+.passenger-list { display:flex; flex-direction:column; gap:8px; }
+.passenger-row {
+  display:grid; grid-template-columns:28px 1fr 1fr;
+  gap:8px; align-items:center;
+}
+.pax-num {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--red-100); border:1px solid #ffd0d0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:var(--red-700);
+  flex-shrink:0;
+}
+
+/* Summary */
 .modal-summary {
-  margin-top: 16px;
-  background: linear-gradient(135deg, var(--red-50), #fff9f9);
-  border: 1px solid #ffd8d8;
-  border-radius: var(--r-md);
-  padding: 16px 18px;
+  margin-top:18px;
+  background:linear-gradient(135deg,#0f0505,#1a0808);
+  border:1px solid rgba(211,35,35,.2);
+  border-radius:var(--r-md);
+  padding:18px 20px;
+  position:relative; overflow:hidden;
 }
-.modal-summary-row {
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 12.5px; color: var(--ink-3); margin-bottom: 8px;
+.modal-summary::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--red-700), var(--gold-400), var(--red-700));
 }
-.modal-summary-row:last-child { margin-bottom: 0; }
-.modal-summary-row.total {
-  padding-top: 10px;
-  margin-top: 6px;
-  border-top: 1px solid #ffd0d0;
-  font-size: 14px; font-weight: 800; color: var(--ink);
-}
-.modal-summary-row.commission { color: var(--gold-500); font-weight: 600; }
-.mono { font-family: 'IBM Plex Mono', monospace; font-weight: 700; }
+.sum-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.sum-row:last-child { margin-bottom:0; }
+.sum-label { font-size:12px; color:rgba(255,255,255,.5); }
+.sum-value { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; color:rgba(255,255,255,.85); }
+.sum-divider { height:1px; background:rgba(255,255,255,.08); margin:12px 0; }
+.sum-total .sum-label { font-size:13px; font-weight:700; color:rgba(255,255,255,.8); }
+.sum-total .sum-value { font-size:16px; color:#fff; }
+.sum-commission .sum-label { color:var(--gold-400); }
+.sum-commission .sum-value { color:var(--gold-300); }
+.sum-net .sum-label { color:rgba(255,255,255,.7); font-weight:600; font-size:13px; }
+.sum-net .sum-value { color:#fff; font-size:15px; }
+.sum-note { font-size:10px; color:rgba(255,255,255,.25); text-align:right; margin-top:10px; font-family:'IBM Plex Mono',monospace; }
 
 .modal-submit-btn {
-  width: 100%; margin-top: 18px; height: 46px;
-  border-radius: var(--r-sm); border: none;
-  background: linear-gradient(135deg, var(--red-700), var(--red-500));
-  color: var(--white);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  box-shadow: 0 4px 18px rgba(211,35,35,.38);
-  transition: all .2s;
-  letter-spacing: -.01em;
+  width:100%; margin-top:18px; height:48px;
+  border-radius:var(--r-sm); border:none;
+  background:linear-gradient(135deg,var(--red-700),var(--red-500));
+  color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px; font-weight:700;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 4px 18px rgba(211,35,35,.38);
+  transition:all .2s; letter-spacing:-.01em;
 }
-.modal-submit-btn:hover { background: linear-gradient(135deg, var(--red-800), var(--red-600)); box-shadow: 0 6px 22px rgba(211,35,35,.48); transform: translateY(-1px); }
-.modal-submit-btn:active { transform: translateY(0); }
+.modal-submit-btn:hover { background:linear-gradient(135deg,var(--red-800),var(--red-600)); box-shadow:0 6px 22px rgba(211,35,35,.48); transform:translateY(-1px); }
 
-/* success toast */
+/* ══════════════════════════════════════
+   VOUCHER PAGE
+   ══════════════════════════════════════ */
+#voucherPage {
+  display: none;
+  position: fixed; inset: 0; z-index: 2000;
+  background: #f5f0e8;
+  overflow-y: auto;
+}
+#voucherPage.open { display: block; }
+
+.voucher-wrap {
+  max-width: 820px; margin: 40px auto; padding: 0 20px 60px;
+}
+
+.voucher-card {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+  overflow: hidden;
+  border: 1px solid #e8e0d0;
+}
+
+.voucher-header {
+  background: linear-gradient(135deg, #0f0505 0%, #1a0a0a 40%, #2a0e0e 100%);
+  padding: 32px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; overflow: hidden;
+}
+.voucher-header::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.015) 40px, rgba(255,255,255,.015) 80px);
+}
+.voucher-header-stripe {
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--red-700),var(--gold-400),var(--red-700));
+}
+.v-brand { position:relative; }
+.v-brand-name { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:#fff; letter-spacing:-.01em; }
+.v-brand-sub { font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-top:3px; }
+.v-voucher-badge {
+  position:relative;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:14px 20px;
+  text-align:right;
+}
+.v-badge-label { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.35); }
+.v-badge-num { font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; color:var(--gold-300); margin-top:3px; }
+
+.voucher-body { padding: 36px 40px; }
+
+.v-section-title {
+  font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--red-600); margin-bottom:16px;
+  display:flex; align-items:center; gap:10px;
+}
+.v-section-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#f0d8d8,transparent); }
+
+.v-hotel-block {
+  background:linear-gradient(135deg,#fdf8f0,#fff9f4);
+  border:1px solid #e8d8c0;
+  border-radius:14px;
+  padding:22px 24px;
+  margin-bottom:28px;
+  display:flex; align-items:flex-start; gap:18px;
+}
+.v-hotel-icon {
+  width:52px; height:52px; border-radius:13px; flex-shrink:0;
+  background:linear-gradient(135deg,var(--red-700),var(--red-400));
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; box-shadow:0 4px 16px rgba(211,35,35,.25);
+}
+.v-hotel-name { font-size:20px; font-weight:800; color:var(--ink); letter-spacing:-.02em; margin-bottom:6px; }
+.v-hotel-meta { display:flex; gap:10px; flex-wrap:wrap; }
+.v-meta-pill {
+  font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px;
+}
+.v-meta-pill.city { background:var(--red-100); color:var(--red-700); border:1px solid #ffd0d0; }
+.v-meta-pill.stars { background:var(--gold-100); color:var(--gold-600); border:1px solid #f0d080; font-family:'IBM Plex Mono',monospace; }
+.v-meta-pill.room { background:#f0f8ff; color:#2060a0; border:1px solid #c0d8f0; }
+
+.v-stay-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px;
+}
+.v-stay-card {
+  background:#fafafa; border:1px solid var(--border); border-radius:12px; padding:14px 16px;
+}
+.v-stay-label { font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; }
+.v-stay-value { font-size:14px; font-weight:700; color:var(--ink); }
+.v-stay-value.mono { font-family:'IBM Plex Mono',monospace; }
+
+.v-pax-table { width:100%; border-collapse:collapse; margin-bottom:28px; }
+.v-pax-table th { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); padding:8px 12px; text-align:left; border-bottom:1px solid var(--border); }
+.v-pax-table td { font-size:13px; font-weight:500; padding:10px 12px; border-bottom:1px solid var(--border-lt); }
+.v-pax-table tr:last-child td { border-bottom:none; }
+.v-pax-table tr:nth-child(even) td { background:#fafafa; }
+.v-pax-num { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--red-100); border:1px solid #ffd0d0; font-size:11px; font-weight:700; color:var(--red-700); }
+
+.v-finance-block {
+  background:linear-gradient(135deg,#0f0505,#1a0808);
+  border-radius:14px; padding:22px 24px;
+  margin-bottom:28px; position:relative; overflow:hidden;
+}
+.v-finance-block::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--red-700),var(--gold-400),var(--red-700)); }
+.v-finance-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.v-finance-row:last-child { margin-bottom:0; }
+.v-fl { font-size:12px; color:rgba(255,255,255,.5); }
+.v-fv { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; color:rgba(255,255,255,.85); }
+.v-finance-divider { height:1px; background:rgba(255,255,255,.08); margin:14px 0; }
+.v-finance-row.big .v-fl { font-size:14px; color:rgba(255,255,255,.75); font-weight:600; }
+.v-finance-row.big .v-fv { font-size:18px; color:#fff; }
+.v-finance-row.commission .v-fl { color:var(--gold-400); }
+.v-finance-row.commission .v-fv { color:var(--gold-300); }
+.v-finance-row.net .v-fl { color:#7fc97f; font-weight:600; font-size:14px; }
+.v-finance-row.net .v-fv { color:#a8e6a8; font-size:17px; }
+
+.voucher-footer-bar {
+  background:#fafafa; border-top:1px solid var(--border);
+  padding:18px 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px;
+}
+.v-footer-contact { font-size:12px; color:var(--ink-3); display:flex; align-items:center; gap:6px; }
+.v-barcode {
+  font-family:'IBM Plex Mono',monospace; font-size:18px;
+  color:var(--ink-4); letter-spacing:.2em;
+}
+
+.voucher-actions {
+  display:flex; gap:10px; margin-top:24px; justify-content:flex-end;
+}
+.v-btn {
+  height:42px; padding:0 22px; border-radius:var(--r-sm);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700;
+  cursor:pointer; display:flex; align-items:center; gap:7px;
+  transition:all .2s;
+}
+.v-btn.primary { background:linear-gradient(135deg,var(--red-700),var(--red-500)); color:#fff; border:none; box-shadow:0 4px 14px rgba(211,35,35,.3); }
+.v-btn.primary:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(211,35,35,.4); }
+.v-btn.secondary { background:var(--white); color:var(--ink-2); border:1.5px solid var(--border); }
+.v-btn.secondary:hover { border-color:var(--red-400); color:var(--red-600); }
+
+/* Toast */
 .toast {
-  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(60px);
-  background: #1a1a1a; color: #fff;
-  padding: 12px 22px; border-radius: 30px;
-  font-size: 13px; font-weight: 600;
-  box-shadow: 0 8px 28px rgba(0,0,0,.25);
-  z-index: 2000; white-space: nowrap;
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
-  opacity: 0;
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px);
+  background:#1a1a1a; color:#fff;
+  padding:12px 22px; border-radius:30px;
+  font-size:13px; font-weight:600;
+  box-shadow:0 8px 28px rgba(0,0,0,.25);
+  z-index:3000; white-space:nowrap;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+  opacity:0;
 }
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
-@media (max-width: 768px) {
-  .footer-inner { flex-direction:column; align-items:flex-start; gap:14px; }
-  .footer-right { width:100%; justify-content:space-between; }
-  .footer-contacts { gap:12px; }
-  .modal { padding: 24px 18px 20px; }
-  .modal-grid { grid-template-columns: 1fr; }
+@media (max-width:768px) {
+  .footer-inner { grid-template-columns:1fr; gap:28px; }
+  .footer-social { align-items:flex-start; }
+  .footer-contact-grid { grid-template-columns:1fr; }
+  .modal { padding:24px 18px 20px; }
+  .modal-grid { grid-template-columns:1fr; }
+  .room-types { grid-template-columns:repeat(3,1fr); }
+  .voucher-body { padding:24px; }
+  .voucher-header { padding:24px; flex-direction:column; gap:16px; align-items:flex-start; }
+  .v-stay-grid { grid-template-columns:1fr 1fr; }
+  .voucher-footer-bar { flex-direction:column; }
 }
 </style>
 </head>
@@ -366,40 +668,96 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer class="footer">
+  <div class="footer-noise"></div>
+  <div class="footer-glow"></div>
+  <div class="footer-top-stripe"></div>
+
   <div class="footer-inner">
+    <!-- Brand -->
     <div class="footer-brand">
-      <div class="footer-logo-mark">🏨</div>
-      <div class="footer-brand-text">B2B Hotel <span>Network</span></div>
+      <div class="footer-logo-lockup">
+        <div class="footer-logo-mark">🏨</div>
+        <div class="footer-brand-name">B2B Hotel Network<span>Exclusive B2B Platform</span></div>
+      </div>
+      <div class="footer-tagline">
+        Connecting travel agencies to premium hotels across Moscow, Istanbul, Baku & Yerevan — directly, swiftly, reliably.
+      </div>
+      <div class="footer-divider-h"></div>
+      <div class="footer-copy">© 2026 B2B Hotel Network · All rights reserved</div>
     </div>
+
+    <!-- Contacts -->
     <div class="footer-contacts">
-      <div class="footer-contact-item"><span class="footer-contact-icon">📞</span>+98 910 219 8262</div>
-      <div class="footer-divider"></div>
-      <div class="footer-contact-item"><span class="footer-contact-icon">📞</span>+7 655 432 4674</div>
-      <div class="footer-divider"></div>
-      <div class="footer-contact-item"><span class="footer-contact-icon">📍</span>Moscow, Near Red Square</div>
-      <div class="footer-divider"></div>
-      <div class="footer-contact-item"><span class="footer-contact-icon">👤</span>Peyman Pasbani</div>
+      <div class="footer-contacts-label">Contact & Office</div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-card">
+          <div class="fc-icon red">📞</div>
+          <div class="fc-info">
+            <div class="fc-label">Iran Office</div>
+            <div class="fc-value">+98 910 219 8262</div>
+          </div>
+        </div>
+        <div class="footer-contact-card">
+          <div class="fc-icon blue">📞</div>
+          <div class="fc-info">
+            <div class="fc-label">Russia Office</div>
+            <div class="fc-value">+7 655 432 4674</div>
+          </div>
+        </div>
+        <div class="footer-contact-card">
+          <div class="fc-icon gold">📍</div>
+          <div class="fc-info">
+            <div class="fc-label">Location</div>
+            <div class="fc-value">Moscow, Near Red Square</div>
+          </div>
+        </div>
+        <div class="footer-contact-card">
+          <div class="fc-icon green">👤</div>
+          <div class="fc-info">
+            <div class="fc-label">Representative</div>
+            <div class="fc-value">Peyman Pasbani</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="footer-right">
+
+    <!-- Socials -->
+    <div class="footer-social">
+      <div class="footer-social-label">Connect</div>
       <div class="social-links">
         <a class="social-btn" href="#" title="Telegram">
           <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+          <span class="sb-platform">@b2bhotel</span>
         </a>
         <a class="social-btn" href="#" title="WhatsApp">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+          <span class="sb-platform">Live chat</span>
         </a>
         <a class="social-btn" href="#" title="Twitter / X">
           <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.632 5.905-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Follow Us
+          <span class="sb-platform">@b2bhotel</span>
         </a>
       </div>
-      <span class="footer-copy">© 2026 B2B Hotel Network</span>
     </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-left">PLATFORM v2.1.0 · SECURE B2B PORTAL</div>
+    <div class="footer-bottom-center">
+      <div class="footer-dot"></div>
+      <div class="footer-dot gold"></div>
+      <div class="footer-dot"></div>
+    </div>
+    <div class="footer-bottom-right">24/7 AGENCY SUPPORT</div>
   </div>
 </footer>
 
-<!-- BOOKING MODAL -->
+<!-- ══ BOOKING MODAL ══ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
   <div class="modal" id="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -415,6 +773,28 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
       </div>
     </div>
 
+    <!-- Room type -->
+    <div class="modal-section-label">Room Type</div>
+    <div class="room-types" id="roomTypes">
+      <div class="room-card selected" data-beds="1" data-label="Single" onclick="selectRoom(this)">
+        <span class="room-icon">🛏️</span>
+        <span class="room-label">Single</span>
+        <span class="room-sub">1 bed</span>
+      </div>
+      <div class="room-card" data-beds="2" data-label="Double" onclick="selectRoom(this)">
+        <span class="room-icon">🛏️🛏️</span>
+        <span class="room-label">Double</span>
+        <span class="room-sub">2 beds</span>
+      </div>
+      <div class="room-card" data-beds="3" data-label="Triple" onclick="selectRoom(this)">
+        <span class="room-icon">🛏️🛏️🛏️</span>
+        <span class="room-label">Triple</span>
+        <span class="room-sub">3 beds</span>
+      </div>
+    </div>
+
+    <!-- Dates -->
+    <div class="modal-section-label" style="margin-top:18px">Stay Details</div>
     <div class="modal-grid">
       <div class="modal-field">
         <label class="modal-label">Check-in</label>
@@ -424,41 +804,58 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
         <label class="modal-label">Check-out</label>
         <input class="modal-input" type="date" id="mCheckout" onchange="calcSummary()" />
       </div>
-      <div class="modal-field">
-        <label class="modal-label">Guests</label>
-        <input class="modal-input" type="number" id="mGuests" min="1" max="20" value="2" onchange="calcSummary()" />
-      </div>
-      <div class="modal-field">
-        <label class="modal-label">Agency Contact</label>
-        <input class="modal-input" type="tel" id="mPhone" placeholder="+98 …" />
-      </div>
+    </div>
+
+    <!-- Passengers -->
+    <div class="modal-section-label" style="margin-top:18px">Passenger Details</div>
+    <div class="passenger-list" id="passengerList"></div>
+
+    <!-- Agency -->
+    <div class="modal-section-label" style="margin-top:18px">Agency Information</div>
+    <div class="modal-grid">
       <div class="modal-field full">
         <label class="modal-label">Agency Name</label>
         <input class="modal-input" type="text" id="mAgency" placeholder="Travel agency name" />
       </div>
+      <div class="modal-field">
+        <label class="modal-label">Booker Name</label>
+        <input class="modal-input" type="text" id="mBooker" placeholder="Your full name" />
+      </div>
+      <div class="modal-field">
+        <label class="modal-label">Contact Number</label>
+        <input class="modal-input" type="tel" id="mPhone" placeholder="+98 …" />
+      </div>
     </div>
 
+    <!-- Summary -->
     <div class="modal-summary" id="mSummary">
-      <div class="modal-summary-row">
-        <span>Rate / Night</span>
-        <span class="mono" id="mRatePerNight">—</span>
+      <div class="sum-row">
+        <span class="sum-label">Rate / Night</span>
+        <span class="sum-value" id="sRateNight">—</span>
       </div>
-      <div class="modal-summary-row">
-        <span>Nights</span>
-        <span class="mono" id="mNights">—</span>
+      <div class="sum-row">
+        <span class="sum-label">Nights</span>
+        <span class="sum-value" id="sNights">—</span>
       </div>
-      <div class="modal-summary-row">
-        <span>Guests</span>
-        <span class="mono" id="mGuestsSummary">—</span>
+      <div class="sum-row">
+        <span class="sum-label">Room Type</span>
+        <span class="sum-value" id="sRoomType">—</span>
       </div>
-      <div class="modal-summary-row total">
-        <span>Total Amount</span>
-        <span class="mono" id="mTotal">—</span>
+      <div class="sum-divider"></div>
+      <div class="sum-row sum-total">
+        <span class="sum-label">Gross Total</span>
+        <span class="sum-value" id="sTotal">—</span>
       </div>
-      <div class="modal-summary-row commission">
-        <span>Agency Commission (7%)</span>
-        <span class="mono" id="mCommission">—</span>
+      <div class="sum-row sum-commission">
+        <span class="sum-label">Agency Commission (7%)</span>
+        <span class="sum-value" id="sCommission">—</span>
       </div>
+      <div class="sum-divider"></div>
+      <div class="sum-row sum-net">
+        <span class="sum-label">Net Payable</span>
+        <span class="sum-value" id="sNet">—</span>
+      </div>
+      <div class="sum-note" id="sNote"></div>
     </div>
 
     <button class="modal-submit-btn" onclick="submitRequest()">
@@ -467,8 +864,132 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
   </div>
 </div>
 
+<!-- ══ VOUCHER PAGE ══ -->
+<div id="voucherPage">
+  <div class="voucher-wrap">
+    <div class="voucher-actions" style="margin-bottom:16px">
+      <button class="v-btn secondary" onclick="closeVoucher()">← Back to Dashboard</button>
+      <button class="v-btn primary" onclick="window.print()">🖨️ Print Voucher</button>
+    </div>
+
+    <div class="voucher-card">
+      <div class="voucher-header">
+        <div class="voucher-header-stripe"></div>
+        <div class="v-brand">
+          <div class="v-brand-name">B2B Hotel Network</div>
+          <div class="v-brand-sub">Official Reservation Voucher</div>
+        </div>
+        <div class="v-voucher-badge">
+          <div class="v-badge-label">Voucher No.</div>
+          <div class="v-badge-num" id="vVoucherNum">—</div>
+        </div>
+      </div>
+
+      <div class="voucher-body">
+        <!-- Hotel info -->
+        <div class="v-section-title">Hotel Information</div>
+        <div class="v-hotel-block">
+          <div class="v-hotel-icon">🏨</div>
+          <div>
+            <div class="v-hotel-name" id="vHotelName">—</div>
+            <div class="v-hotel-meta">
+              <span class="v-meta-pill city" id="vCity">—</span>
+              <span class="v-meta-pill stars" id="vStars">—</span>
+              <span class="v-meta-pill room" id="vRoomPill">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stay -->
+        <div class="v-section-title">Stay Details</div>
+        <div class="v-stay-grid">
+          <div class="v-stay-card">
+            <div class="v-stay-label">Check-in</div>
+            <div class="v-stay-value" id="vCheckin">—</div>
+          </div>
+          <div class="v-stay-card">
+            <div class="v-stay-label">Check-out</div>
+            <div class="v-stay-value" id="vCheckout">—</div>
+          </div>
+          <div class="v-stay-card">
+            <div class="v-stay-label">Nights</div>
+            <div class="v-stay-value mono" id="vNights">—</div>
+          </div>
+        </div>
+
+        <!-- Passengers -->
+        <div class="v-section-title">Passenger List</div>
+        <table class="v-pax-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+          <tbody id="vPaxBody"></tbody>
+        </table>
+
+        <!-- Agency info -->
+        <div class="v-section-title">Agency & Booker</div>
+        <div class="v-stay-grid" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="v-stay-card">
+            <div class="v-stay-label">Agency Name</div>
+            <div class="v-stay-value" id="vAgency">—</div>
+          </div>
+          <div class="v-stay-card">
+            <div class="v-stay-label">Booker</div>
+            <div class="v-stay-value" id="vBooker">—</div>
+          </div>
+          <div class="v-stay-card">
+            <div class="v-stay-label">Contact</div>
+            <div class="v-stay-value" id="vPhone">—</div>
+          </div>
+        </div>
+
+        <!-- Finance -->
+        <div class="v-section-title" style="margin-top:24px">Financial Summary</div>
+        <div class="v-finance-block">
+          <div class="v-finance-row">
+            <span class="v-fl">Rate / Night</span>
+            <span class="v-fv" id="vRateNight">—</span>
+          </div>
+          <div class="v-finance-row">
+            <span class="v-fl">Number of Nights</span>
+            <span class="v-fv" id="vFNights">—</span>
+          </div>
+          <div class="v-finance-divider"></div>
+          <div class="v-finance-row big">
+            <span class="v-fl">Gross Total</span>
+            <span class="v-fv" id="vGross">—</span>
+          </div>
+          <div class="v-finance-row commission">
+            <span class="v-fl">Agency Commission (7%)</span>
+            <span class="v-fv" id="vCommission">—</span>
+          </div>
+          <div class="v-finance-divider"></div>
+          <div class="v-finance-row net">
+            <span class="v-fl">Net Payable by Agency</span>
+            <span class="v-fv" id="vNet">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="voucher-footer-bar">
+        <div class="v-footer-contact">📞 +98 910 219 8262 &nbsp;|&nbsp; +7 655 432 4674 &nbsp;|&nbsp; Moscow, Near Red Square</div>
+        <div class="v-barcode" id="vBarcode">|||||  ||  |||  ||||||</div>
+      </div>
+    </div>
+
+    <div class="voucher-actions">
+      <button class="v-btn secondary" onclick="closeVoucher()">← Back to Dashboard</button>
+      <button class="v-btn primary" onclick="window.print()">🖨️ Print Voucher</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
-<div class="toast" id="toast">✅ Reservation request sent successfully!</div>
+<div class="toast" id="toast">✅ Reservation request sent — Voucher ready!</div>
 
 <script>
 const DATA = [
@@ -494,151 +1015,230 @@ const DATA = [
   { city:"Yerevan",  name:"Republica Hotel",           stars:4, price:120 },
 ];
 
-let currentCity = "all", sortAsc = false, activeHotel = null;
+let currentCity="all", sortAsc=false, activeHotel=null;
+let selectedBeds=1, selectedRoomLabel="Single";
 
-function render(list) {
-  const tbody = document.getElementById("tbody");
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:36px;color:var(--ink-4)">No hotels found.</td></tr>`;
-    document.getElementById("tfoot").textContent = "0 properties";
-    document.getElementById("totalBadge").textContent = "0 properties";
+/* ── TABLE ── */
+function render(list){
+  const tbody=document.getElementById("tbody");
+  if(!list.length){
+    tbody.innerHTML=`<tr><td colspan="4" style="text-align:center;padding:36px;color:var(--ink-4)">No hotels found.</td></tr>`;
+    document.getElementById("tfoot").textContent="0 properties";
+    document.getElementById("totalBadge").textContent="0 properties";
     return;
   }
-  tbody.innerHTML = list.map(h => `
-    <tr onclick="openModal(${JSON.stringify(h).replace(/"/g,'&quot;')})">
+  tbody.innerHTML=list.map(h=>`
+    <tr onclick='openModal(${JSON.stringify(h).replace(/'/g,"&#39;")})'>
       <td>${h.city}</td>
       <td title="${h.name}">${h.name}</td>
       <td><span class="star-badge"><span class="star-icon">★</span> ${h.stars}</span></td>
-      <td><span class="rate-badge">$${h.price}</span></td>
+      <td><span class="rate-badge">$${h.price} / night</span></td>
     </tr>`).join("");
-  const txt = `Showing ${list.length} propert${list.length===1?"y":"ies"} — click any row to book`;
-  document.getElementById("tfoot").textContent = txt;
-  document.getElementById("totalBadge").textContent = list.length + " properties";
+  const txt=`Showing ${list.length} propert${list.length===1?"y":"ies"} — click any row to book`;
+  document.getElementById("tfoot").textContent=txt;
+  document.getElementById("totalBadge").textContent=list.length+" properties";
 }
 
-function filtered() {
-  const q = document.getElementById("search").value.toLowerCase().trim();
-  return DATA.filter(h =>
-    (currentCity === "all" || h.city === currentCity) &&
-    h.name.toLowerCase().includes(q)
-  );
+function filtered(){
+  const q=document.getElementById("search").value.toLowerCase().trim();
+  return DATA.filter(h=>(currentCity==="all"||h.city===currentCity)&&h.name.toLowerCase().includes(q));
 }
-
-function setCity(city, el) {
-  currentCity = city;
-  document.querySelectorAll(".ctab").forEach(c => c.classList.remove("active"));
+function setCity(city,el){
+  currentCity=city;
+  document.querySelectorAll(".ctab").forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
-  sortAsc = false;
-  document.getElementById("sortIcon").textContent = "↑↓";
+  sortAsc=false; document.getElementById("sortIcon").textContent="↑↓";
   render(filtered());
 }
-
-function sortPrice() {
-  sortAsc = !sortAsc;
-  document.getElementById("sortIcon").textContent = sortAsc ? "↑" : "↓";
-  render(filtered().sort((a,b) => sortAsc ? a.price-b.price : b.price-a.price));
+function sortPrice(){
+  sortAsc=!sortAsc;
+  document.getElementById("sortIcon").textContent=sortAsc?"↑":"↓";
+  render(filtered().sort((a,b)=>sortAsc?a.price-b.price:b.price-a.price));
 }
-
-document.getElementById("search").addEventListener("input", () => {
-  sortAsc = false;
-  document.getElementById("sortIcon").textContent = "↑↓";
-  render(filtered());
+document.getElementById("search").addEventListener("input",()=>{
+  sortAsc=false; document.getElementById("sortIcon").textContent="↑↓"; render(filtered());
 });
+
+/* ── ROOM SELECT ── */
+function selectRoom(el){
+  document.querySelectorAll(".room-card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  selectedBeds=parseInt(el.dataset.beds);
+  selectedRoomLabel=el.dataset.label;
+  buildPassengers(selectedBeds);
+  calcSummary();
+}
+
+function buildPassengers(n){
+  const list=document.getElementById("passengerList");
+  list.innerHTML="";
+  for(let i=1;i<=n;i++){
+    const row=document.createElement("div");
+    row.className="passenger-row";
+    row.innerHTML=`
+      <div class="pax-num">${i}</div>
+      <input class="modal-input" type="text" id="pax-fn-${i}" placeholder="First name" style="height:38px;font-size:12px" />
+      <input class="modal-input" type="text" id="pax-ln-${i}" placeholder="Last name" style="height:38px;font-size:12px" />
+    `;
+    list.appendChild(row);
+  }
+}
 
 /* ── MODAL ── */
-function openModal(hotel) {
-  activeHotel = hotel;
-  document.getElementById("mHotelName").textContent = hotel.name;
-  document.getElementById("mCityTag").textContent = hotel.city;
-  document.getElementById("mStars").textContent = "★ " + hotel.stars;
+function openModal(hotel){
+  activeHotel=hotel;
+  document.getElementById("mHotelName").textContent=hotel.name;
+  document.getElementById("mCityTag").textContent=hotel.city;
+  document.getElementById("mStars").textContent="★ "+hotel.stars;
 
-  // default dates: today → today+3
-  const today = new Date();
-  const checkout = new Date(today); checkout.setDate(today.getDate() + 3);
-  document.getElementById("mCheckin").value = fmtDate(today);
-  document.getElementById("mCheckout").value = fmtDate(checkout);
-  document.getElementById("mGuests").value = 2;
-  document.getElementById("mPhone").value = "";
-  document.getElementById("mAgency").value = "";
+  // reset room type to Single
+  document.querySelectorAll(".room-card").forEach(c=>c.classList.remove("selected"));
+  document.querySelector(".room-card[data-beds='1']").classList.add("selected");
+  selectedBeds=1; selectedRoomLabel="Single";
+  buildPassengers(1);
 
+  const today=new Date();
+  const checkout=new Date(today); checkout.setDate(today.getDate()+3);
+  document.getElementById("mCheckin").value=fmtDate(today);
+  document.getElementById("mCheckout").value=fmtDate(checkout);
+  document.getElementById("mPhone").value="";
+  document.getElementById("mAgency").value="";
+  document.getElementById("mBooker").value="";
   calcSummary();
   document.getElementById("modalOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow="hidden";
 }
 
-function closeModal() {
+function closeModal(){
   document.getElementById("modalOverlay").classList.remove("open");
-  document.body.style.overflow = "";
+  document.body.style.overflow="";
+}
+function closeModalOnOverlay(e){
+  if(e.target===document.getElementById("modalOverlay")) closeModal();
+}
+function fmtDate(d){ return d.toISOString().split("T")[0]; }
+function fmtDisplay(s){
+  if(!s) return "—";
+  const [y,m,d]=s.split("-");
+  const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${d} ${months[parseInt(m)-1]} ${y}`;
 }
 
-function closeModalOnOverlay(e) {
-  if (e.target === document.getElementById("modalOverlay")) closeModal();
+function calcSummary(){
+  if(!activeHotel) return;
+  const ci=document.getElementById("mCheckin").value;
+  const co=document.getElementById("mCheckout").value;
+  document.getElementById("sRateNight").textContent="$"+activeHotel.price+" / night";
+  document.getElementById("sRoomType").textContent=selectedRoomLabel+" ("+selectedBeds+" bed"+(selectedBeds>1?"s":"")+")";
+
+  if(!ci||!co){
+    ["sNights","sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—");
+    return;
+  }
+  const d1=new Date(ci),d2=new Date(co);
+  const nights=Math.round((d2-d1)/86400000);
+  if(nights<=0){
+    document.getElementById("sNights").textContent="Invalid dates";
+    ["sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—");
+    return;
+  }
+  const gross=activeHotel.price*nights;
+  const commission=gross*0.07;
+  const net=gross-commission;
+  document.getElementById("sNights").textContent=nights+" night"+(nights>1?"s":"");
+  document.getElementById("sTotal").textContent="$"+gross.toLocaleString();
+  document.getElementById("sCommission").textContent="$"+commission.toFixed(2);
+  document.getElementById("sNet").textContent="$"+net.toFixed(2);
+  document.getElementById("sNote").textContent="Net payable = Gross Total − Commission";
 }
 
-function fmtDate(d) {
-  return d.toISOString().split("T")[0];
-}
+/* ── SUBMIT ── */
+function submitRequest(){
+  const ci=document.getElementById("mCheckin").value;
+  const co=document.getElementById("mCheckout").value;
+  const phone=document.getElementById("mPhone").value.trim();
+  const agency=document.getElementById("mAgency").value.trim();
+  const booker=document.getElementById("mBooker").value.trim();
 
-function calcSummary() {
-  if (!activeHotel) return;
-  const ci = document.getElementById("mCheckin").value;
-  const co = document.getElementById("mCheckout").value;
-  const guests = parseInt(document.getElementById("mGuests").value) || 1;
+  if(!ci||!co||new Date(co)<=new Date(ci)){
+    alert("Please enter valid check-in and check-out dates."); return;
+  }
+  if(!phone){ alert("Please enter your agency contact number."); return; }
+  if(!booker){ alert("Please enter the booker's name."); return; }
 
-  document.getElementById("mRatePerNight").textContent = "$" + activeHotel.price + " / night";
-  document.getElementById("mGuestsSummary").textContent = guests + " guest" + (guests>1?"s":"");
-
-  if (!ci || !co) {
-    document.getElementById("mNights").textContent = "—";
-    document.getElementById("mTotal").textContent = "—";
-    document.getElementById("mCommission").textContent = "—";
-    return;
+  // Collect passengers
+  const passengers=[];
+  for(let i=1;i<=selectedBeds;i++){
+    const fn=(document.getElementById("pax-fn-"+i)||{}).value||"";
+    const ln=(document.getElementById("pax-ln-"+i)||{}).value||"";
+    passengers.push({fn:fn.trim()||"—", ln:ln.trim()||"—"});
   }
 
-  const d1 = new Date(ci), d2 = new Date(co);
-  const nights = Math.round((d2 - d1) / 86400000);
+  const nights=Math.round((new Date(co)-new Date(ci))/86400000);
+  const gross=activeHotel.price*nights;
+  const commission=gross*0.07;
+  const net=gross-commission;
 
-  if (nights <= 0) {
-    document.getElementById("mNights").textContent = "Invalid dates";
-    document.getElementById("mTotal").textContent = "—";
-    document.getElementById("mCommission").textContent = "—";
-    return;
-  }
+  // Fill voucher
+  const vnum="VCH-"+Date.now().toString(36).toUpperCase().slice(-8);
+  document.getElementById("vVoucherNum").textContent=vnum;
+  document.getElementById("vHotelName").textContent=activeHotel.name;
+  document.getElementById("vCity").textContent=activeHotel.city;
+  document.getElementById("vStars").textContent="★ "+activeHotel.stars;
+  document.getElementById("vRoomPill").textContent=selectedRoomLabel+" · "+selectedBeds+" bed"+(selectedBeds>1?"s":"");
+  document.getElementById("vCheckin").textContent=fmtDisplay(ci);
+  document.getElementById("vCheckout").textContent=fmtDisplay(co);
+  document.getElementById("vNights").textContent=nights+" night"+(nights>1?"s":"");
+  document.getElementById("vAgency").textContent=agency||"—";
+  document.getElementById("vBooker").textContent=booker;
+  document.getElementById("vPhone").textContent=phone;
+  document.getElementById("vRateNight").textContent="$"+activeHotel.price;
+  document.getElementById("vFNights").textContent=nights+" nights";
+  document.getElementById("vGross").textContent="$"+gross.toLocaleString();
+  document.getElementById("vCommission").textContent="$"+commission.toFixed(2);
+  document.getElementById("vNet").textContent="$"+net.toFixed(2);
+  document.getElementById("vBarcode").textContent="| "+vnum+" |";
 
-  const total = activeHotel.price * nights;
-  const commission = (total * 0.07).toFixed(2);
+  const tbody=document.getElementById("vPaxBody");
+  tbody.innerHTML=passengers.map((p,i)=>`
+    <tr>
+      <td><span class="v-pax-num">${i+1}</span></td>
+      <td>${p.fn}</td>
+      <td>${p.ln}</td>
+    </tr>`).join("");
 
-  document.getElementById("mNights").textContent = nights + " night" + (nights>1?"s":"");
-  document.getElementById("mTotal").textContent = "$" + total.toLocaleString();
-  document.getElementById("mCommission").textContent = "$" + parseFloat(commission).toLocaleString(undefined,{minimumFractionDigits:2});
-}
-
-function submitRequest() {
-  const ci = document.getElementById("mCheckin").value;
-  const co = document.getElementById("mCheckout").value;
-  const phone = document.getElementById("mPhone").value.trim();
-  if (!ci || !co || new Date(co) <= new Date(ci)) {
-    alert("Please enter valid check-in and check-out dates.");
-    return;
-  }
-  if (!phone) {
-    alert("Please enter your agency contact number.");
-    return;
-  }
   closeModal();
-  const toast = document.getElementById("toast");
+
+  // Show voucher
+  const vp=document.getElementById("voucherPage");
+  vp.classList.add("open");
+  document.body.style.overflow="hidden";
+  vp.scrollTop=0;
+
+  const toast=document.getElementById("toast");
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 3200);
+  setTimeout(()=>toast.classList.remove("show"),3000);
 }
 
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+function closeVoucher(){
+  document.getElementById("voucherPage").classList.remove("open");
+  document.body.style.overflow="";
+}
 
-["Istanbul","Baku","Moscow","Yerevan"].forEach(c => {
-  const n = DATA.filter(h => h.city===c).length;
-  const el = document.getElementById("cnt-"+c);
-  if (el) el.textContent = n + " hotel" + (n!==1?"s":"");
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModal();
+    closeVoucher();
+  }
 });
-document.getElementById("cnt-all").textContent = DATA.length + " hotels";
+
+// Init counts
+["Istanbul","Baku","Moscow","Yerevan"].forEach(c=>{
+  const n=DATA.filter(h=>h.city===c).length;
+  const el=document.getElementById("cnt-"+c);
+  if(el) el.textContent=n+" hotel"+(n!==1?"s":"");
+});
+document.getElementById("cnt-all").textContent=DATA.length+" hotels";
 render(filtered());
 </script>
 </body>
