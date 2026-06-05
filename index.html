@@ -1,10 +1,11 @@
+cat > /mnt/user-data/outputs/b2b-hotel.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fa" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>B2B Hotel Network</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <style>
 :root {
   --red-900: #7f1010;
@@ -47,42 +48,46 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .logo-text { font-size:18px; font-weight:800; color:var(--white); letter-spacing:-.02em; }
 .logo-text span { color:rgba(255,255,255,.7); font-weight:400; }
 .nav { display:flex; gap:4px; }
-.nav a { color:rgba(255,255,255,.8); text-decoration:none; font-size:13px; font-weight:500; padding:7px 14px; border-radius:var(--r-sm); border:1px solid transparent; transition:all .15s; }
+.nav a { color:rgba(255,255,255,.8); text-decoration:none; font-size:13px; font-weight:500; padding:7px 14px; border-radius:var(--r-sm); border:1px solid transparent; transition:all .15s; cursor:pointer; }
 .nav a:hover { background:rgba(255,255,255,.15); color:var(--white); border-color:rgba(255,255,255,.2); }
 
-/* ── HERO TAGLINE (above tabs) ── */
+/* ── HERO TAGLINE ── */
 .hero-tagline-block {
   text-align: center;
   padding: 10px 0 4px;
 }
 .hero-main-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 3.5vw, 42px);
-  font-weight: 600;
+  font-family: 'Noto Nastaliq Urdu', 'Vazirmatn', serif;
+  font-size: clamp(18px, 2.6vw, 34px);
+  font-weight: 700;
   color: #fff;
-  letter-spacing: -.01em;
-  line-height: 1.15;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 16px rgba(0,0,0,.25);
+  letter-spacing: 0;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 16px rgba(0,0,0,.3);
+  direction: rtl;
 }
 .hero-main-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold-300);
 }
+/* subtitle chips — tightened, no overflow */
 .hero-subtitle-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+  padding: 0 8px;
 }
-.hero-sub-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4); }
+.hero-sub-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4); flex-shrink:0; }
 .hero-subtitle-item {
-  font-size: 12px;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 11px;
   font-weight: 600;
   color: rgba(255,255,255,.72);
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  letter-spacing: .02em;
+  white-space: nowrap;
 }
 
 .city-tabs { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
@@ -95,17 +100,13 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .ctab.active .ct-name { color:var(--red-700); }
 .ctab.active .ct-count { color:var(--ink-3); }
 
+/* hero box — fa tagline only, no chips */
 .hero-box {
   background:rgba(0,0,0,.15);
   border:1px solid rgba(255,255,255,.13);
   border-radius:var(--r-lg);
-  padding:16px 22px;
+  padding:14px 22px;
   backdrop-filter:blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
 }
 .fa-tagline {
   font-family:'Vazirmatn',sans-serif;
@@ -114,12 +115,8 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
   color:rgba(255,255,255,.85);
   line-height:1.9;
   direction:rtl;
-  flex: 1;
-  min-width: 260px;
+  text-align: right;
 }
-.hero-chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; flex-shrink: 0; }
-.chip { display:inline-flex; align-items:center; gap:5px; padding:5px 13px; border-radius:20px; background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.22); color:rgba(255,255,255,.9); font-size:11px; font-weight:600; font-family:'Vazirmatn',sans-serif; white-space:nowrap; }
-.chip-dot { width:6px; height:6px; border-radius:50%; background:var(--gold-300); }
 
 /* ── MAIN ── */
 .container { max-width:1400px; margin:28px auto; padding:0 24px; }
@@ -154,34 +151,44 @@ tbody td:nth-child(1) { font-weight:700; font-size:12px; color:var(--red-700); }
 tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:0; font-weight:600; color:var(--ink); }
 .star-badge { display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:var(--r-xs); background:var(--gold-100); color:var(--gold-500); border:1px solid #f0d080; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; white-space:nowrap; letter-spacing:.03em; }
 .star-icon { font-size:11px; }
-/* Fixed rate badge — no overflow */
-.rate-badge {
-  display:inline-flex;
-  align-items:center;
-  padding:5px 10px;
-  border-radius:var(--r-xs);
-  background:var(--red-100);
-  color:var(--red-700);
-  border:1px solid #ffd0d0;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:12px;
-  font-weight:700;
-  white-space:nowrap;
-  max-width:100%;
-  overflow:hidden;
-}
+.rate-badge { display:inline-flex; align-items:center; padding:5px 10px; border-radius:var(--r-xs); background:var(--red-100); color:var(--red-700); border:1px solid #ffd0d0; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; white-space:nowrap; max-width:100%; overflow:hidden; }
 .table-footer { padding:11px 20px; background:#fafafa; border-top:1.5px solid var(--border); font-size:11px; color:var(--ink-4); font-family:'IBM Plex Mono',monospace; letter-spacing:.04em; display:flex; align-items:center; gap:6px; }
 .table-footer::before { content:'▸'; color:var(--red-400); }
 
-/* ══════════════════════════════════════
-   FOOTER — compact light
-   ══════════════════════════════════════ */
+/* ── PAGINATION ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding-bottom: 4px;
+}
+.pg-btn {
+  height: 36px;
+  min-width: 36px;
+  padding: 0 10px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--ink-2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.pg-btn:hover:not(:disabled) { border-color: var(--red-400); color: var(--red-600); background: var(--red-50); }
+.pg-btn.active { background: linear-gradient(135deg,var(--red-700),var(--red-500)); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(211,35,35,.3); }
+.pg-btn:disabled { opacity: .35; cursor: not-allowed; }
+.pg-info { font-size: 11px; color: var(--ink-4); font-family: 'IBM Plex Mono', monospace; padding: 0 6px; }
+
+/* ══ FOOTER — compact ══ */
 .footer {
-  margin-top: 60px;
+  margin-top: 48px;
   background: #f0ede8;
   border-top: 1px solid #ddd8d0;
-  position: relative;
-  overflow: hidden;
 }
 .footer-top-stripe {
   height: 3px;
@@ -190,156 +197,203 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .footer-inner {
   max-width: 1400px;
   margin: auto;
-  padding: 32px 24px 28px;
-  display: grid;
-  grid-template-columns: 240px 1fr auto;
-  gap: 40px;
-  align-items: start;
+  padding: 22px 24px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
-
-/* Brand */
-.footer-logo-lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.footer-brand { display:flex; align-items:center; gap:10px; }
 .footer-logo-mark {
-  width: 36px; height: 36px;
+  width: 32px; height: 32px;
   background: linear-gradient(135deg, var(--red-700), var(--red-500));
-  border-radius: 9px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
 }
-.footer-brand-name { font-size: 14px; font-weight: 800; color: var(--ink); letter-spacing: -.02em; line-height: 1.1; }
-.footer-brand-name span { display: block; font-size: 10px; font-weight: 400; color: var(--ink-3); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
-.footer-tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:var(--ink-3); line-height:1.65; margin-bottom:14px; }
-.footer-copy { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--ink-4); }
-
-/* Contacts */
-.footer-contacts-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--red-600); margin-bottom:14px; }
-.footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.footer-contact-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 11px 14px;
-  display: flex; align-items: flex-start; gap: 10px;
+.footer-brand-name { font-size: 13px; font-weight: 800; color: var(--ink); letter-spacing: -.02em; }
+.footer-brand-sub { font-size: 10px; font-weight: 400; color: var(--ink-4); letter-spacing: .04em; text-transform: uppercase; margin-top: 1px; }
+.footer-contacts { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+.footer-contact-item { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ink-2); font-weight:500; }
+.footer-contact-item span { font-size:13px; }
+.footer-social-row { display:flex; gap:8px; }
+.fsoc-btn {
+  display:flex; align-items:center; gap:6px;
+  padding:6px 12px;
+  border-radius:var(--r-sm);
+  border:1px solid var(--border);
+  background:#fff;
+  text-decoration:none;
+  color:var(--ink-2);
+  font-size:11px; font-weight:600;
+  transition:all .18s;
+  cursor:pointer;
 }
-.fc-icon {
-  width: 30px; height: 30px; flex-shrink: 0;
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-  background: var(--red-50); border: 1px solid #ffd0d0;
-}
-.fc-icon.gold { background: var(--gold-100); border-color: #f0d080; }
-.fc-icon.green { background: #edfff5; border-color: #b0e8c8; }
-.fc-icon.blue { background: #edf4ff; border-color: #b0ccf0; }
-.fc-label { font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-4); margin-bottom:2px; }
-.fc-value { font-size:12px; font-weight:600; color:var(--ink); }
-
-/* Social */
-.footer-social { display: flex; flex-direction: column; gap: 8px; }
-.footer-social-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--red-600); margin-bottom:6px; }
-.social-btn {
-  display: flex; align-items: center; gap: 9px;
-  padding: 9px 14px;
-  border-radius: 9px;
-  border: 1px solid var(--border);
-  background: #fff;
-  text-decoration: none; cursor: pointer;
-  transition: all .18s;
-  color: var(--ink-2);
-  font-size: 12px; font-weight: 600;
-  white-space: nowrap; min-width: 140px;
-}
-.social-btn:hover { border-color: var(--red-400); color: var(--red-600); background: var(--red-50); }
-.social-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
-.social-btn .sb-platform { font-size:10px; color:var(--ink-4); font-weight:400; margin-left:auto; }
-
+.fsoc-btn:hover { border-color:var(--red-400); color:var(--red-600); background:var(--red-50); }
+.fsoc-btn svg { width:13px; height:13px; fill:currentColor; flex-shrink:0; }
 .footer-bottom {
   max-width:1400px; margin:0 auto;
-  padding: 14px 24px;
+  padding: 10px 24px;
   border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 8px;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:6px;
 }
-.footer-bottom-left, .footer-bottom-right { font-size:10px; color:var(--ink-4); font-family:'IBM Plex Mono',monospace; }
-.footer-bottom-center { display:flex; align-items:center; gap:5px; }
-.footer-dot { width:4px; height:4px; border-radius:50%; background:var(--red-400); }
-.footer-dot.gold { background:var(--gold-400); animation:pulse 2s infinite; }
+.footer-copy { font-size:10px; color:var(--ink-4); font-family:'IBM Plex Mono',monospace; }
+.footer-dot-row { display:flex; align-items:center; gap:5px; }
+.fdot { width:4px; height:4px; border-radius:50%; background:var(--red-400); }
+.fdot.gold { background:var(--gold-400); animation:pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
 
-/* ══════════════════════════════════════
-   BOOKING MODAL — FIXED / STICKY
-   ══════════════════════════════════════ */
+/* ══ OVERLAY PANELS (About / Contact) ══ */
+.panel-overlay {
+  position:fixed; inset:0; z-index:900;
+  background:rgba(10,2,2,.5);
+  backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+  opacity:0; pointer-events:none;
+  transition:opacity .25s;
+}
+.panel-overlay.open { opacity:1; pointer-events:all; }
+.panel-box {
+  background:#fff;
+  border-radius:22px;
+  box-shadow:0 30px 70px rgba(0,0,0,.22);
+  width:100%; max-width:540px;
+  max-height:calc(100vh - 48px);
+  display:flex; flex-direction:column;
+  transform:translateY(20px) scale(.96);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  overflow:hidden;
+}
+.panel-overlay.open .panel-box { transform:translateY(0) scale(1); }
+.panel-header {
+  background:linear-gradient(135deg,var(--red-800),var(--red-600));
+  padding:22px 26px 18px;
+  position:relative;
+  flex-shrink:0;
+}
+.panel-header::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--red-700),var(--gold-400),var(--red-700)); }
+.panel-close {
+  position:absolute; top:14px; right:16px;
+  width:28px; height:28px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.15);
+  color:#fff; font-size:14px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .15s;
+}
+.panel-close:hover { background:rgba(255,255,255,.3); }
+.panel-title {
+  font-family:'Vazirmatn',sans-serif;
+  font-size:20px; font-weight:700;
+  color:#fff;
+  direction:rtl;
+  text-align:right;
+  margin-bottom:4px;
+}
+.panel-subtitle {
+  font-family:'Vazirmatn',sans-serif;
+  font-size:11px; font-weight:400;
+  color:rgba(255,255,255,.6);
+  direction:rtl;
+  text-align:right;
+  letter-spacing:.02em;
+}
+.panel-body {
+  overflow-y:auto;
+  padding:22px 26px 24px;
+  flex:1;
+}
+.panel-text {
+  font-family:'Vazirmatn',sans-serif;
+  font-size:14px;
+  font-weight:400;
+  color:var(--ink-2);
+  line-height:2.0;
+  direction:rtl;
+  text-align:justify;
+}
+.panel-text strong { color:var(--red-700); font-weight:700; }
+
+/* Contact panel specifics */
+.contact-cards { display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+.contact-card {
+  background:#fafafa;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 18px;
+  display:flex; align-items:center; gap:14px;
+  text-decoration:none;
+  transition:all .18s;
+}
+.contact-card:hover { border-color:var(--red-400); background:var(--red-50); }
+.cc-icon {
+  width:40px; height:40px; flex-shrink:0;
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+}
+.cc-icon.tg { background:#e8f4ff; border:1px solid #b0d8f0; }
+.cc-icon.wa { background:#edfff5; border:1px solid #b0e8c8; }
+.cc-label {
+  font-family:'Vazirmatn',sans-serif;
+  font-size:10px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-4);
+  direction:rtl; text-align:right;
+  margin-bottom:3px;
+}
+.cc-value {
+  font-size:13px; font-weight:700;
+  color:var(--ink);
+  direction:ltr;
+}
+.cc-handle {
+  font-size:11px; color:var(--ink-3); font-weight:500;
+  direction:ltr;
+}
+.cc-arrow { margin-left:auto; color:var(--ink-4); font-size:16px; }
+.contact-card:hover .cc-arrow { color:var(--red-500); }
+
+/* ══ BOOKING MODAL ══ */
 .modal-overlay {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(10,2,2,0.55);
-  backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
-  transition: opacity .25s ease;
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(10,2,2,.55);
+  backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+  opacity:0; pointer-events:none;
+  transition:opacity .25s;
 }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-
-/* Modal itself is fixed height, scrollable inside */
+.modal-overlay.open { opacity:1; pointer-events:all; }
 .modal {
-  background: rgba(255,255,255,0.97);
-  border: 1px solid rgba(255,255,255,.9);
-  border-radius: 22px;
-  box-shadow: 0 30px 70px rgba(0,0,0,.22);
-  width: 100%; max-width: 500px;
-  /* Fixed height so it never grows off screen */
-  max-height: calc(100vh - 48px);
-  display: flex; flex-direction: column;
-  position: relative;
-  transform: translateY(20px) scale(.96);
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:22px;
+  box-shadow:0 30px 70px rgba(0,0,0,.22);
+  width:100%; max-width:500px;
+  max-height:calc(100vh - 48px);
+  display:flex; flex-direction:column;
+  transform:translateY(20px) scale(.96);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-.modal-overlay.open .modal { transform: translateY(0) scale(1); }
-
-/* Sticky header inside modal */
-.modal-sticky-header {
-  padding: 24px 26px 16px;
-  border-bottom: 1px solid var(--border-lt);
-  flex-shrink: 0;
-  position: relative;
-}
-/* Scrollable body */
-.modal-body {
-  overflow-y: auto;
-  padding: 16px 26px;
-  flex: 1;
-  overscroll-behavior: contain;
-}
-/* Sticky footer with button */
-.modal-footer {
-  padding: 14px 26px 20px;
-  border-top: 1px solid var(--border-lt);
-  flex-shrink: 0;
-}
-
-.modal-close {
-  position: absolute; top: 14px; right: 16px;
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 1px solid var(--border);
-  background: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  font-size:16px; cursor:pointer; color:var(--ink-3);
-  transition:all .15s; line-height:1;
-}
+.modal-overlay.open .modal { transform:translateY(0) scale(1); }
+.modal-sticky-header { padding:24px 26px 16px; border-bottom:1px solid var(--border-lt); flex-shrink:0; position:relative; }
+.modal-body { overflow-y:auto; padding:16px 26px; flex:1; overscroll-behavior:contain; }
+.modal-footer { padding:14px 26px 20px; border-top:1px solid var(--border-lt); flex-shrink:0; }
+.modal-close { position:absolute; top:14px; right:16px; width:30px; height:30px; border-radius:50%; border:1px solid var(--border); background:var(--white); display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; color:var(--ink-3); transition:all .15s; line-height:1; }
 .modal-close:hover { background:var(--red-100); border-color:#ffd0d0; color:var(--red-600); }
-
 .modal-hotel-header { display:flex; align-items:flex-start; gap:14px; }
 .modal-hotel-icon { width:42px; height:42px; border-radius:11px; flex-shrink:0; background:linear-gradient(135deg,var(--red-700),var(--red-500)); display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 4px 12px rgba(211,35,35,.28); }
 .modal-hotel-name { font-size:15px; font-weight:800; color:var(--ink); letter-spacing:-.02em; margin-bottom:5px; }
 .modal-hotel-meta { display:flex; align-items:center; gap:8px; }
 .modal-city-tag { font-size:11px; font-weight:600; color:var(--red-700); background:var(--red-100); border:1px solid #ffd0d0; padding:2px 8px; border-radius:20px; }
 .modal-stars { font-size:11px; font-weight:700; color:var(--gold-500); background:var(--gold-100); border:1px solid #f0d080; padding:2px 8px; border-radius:20px; font-family:'IBM Plex Mono',monospace; }
-
 .modal-section-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--red-600); margin-bottom:10px; margin-top:16px; display:flex; align-items:center; gap:8px; }
 .modal-section-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--red-100),transparent); }
-.modal-section-label:first-child { margin-top: 0; }
-
-/* Room type selector */
+.modal-section-label:first-child { margin-top:0; }
 .room-types { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:4px; }
 .room-card { border:1.5px solid var(--border); border-radius:var(--r-sm); padding:10px 8px; text-align:center; cursor:pointer; transition:all .15s; background:var(--white); user-select:none; }
 .room-card:hover { border-color:var(--red-400); background:var(--red-50); }
@@ -347,22 +401,17 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .room-icon { font-size:18px; margin-bottom:4px; display:block; }
 .room-label { font-size:11px; font-weight:700; color:var(--ink); display:block; }
 .room-sub { font-size:10px; color:var(--ink-3); display:block; margin-top:1px; }
-
 .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .modal-field { display:flex; flex-direction:column; gap:5px; }
 .modal-field.full { grid-column:1/-1; }
 .modal-label { font-size:10.5px; font-weight:700; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase; }
-.modal-input { height:38px; border-radius:var(--r-sm); border:1.5px solid var(--border); padding:0 12px; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--ink); background:rgba(255,255,255,.9); outline:none; transition:border-color .15s, box-shadow .15s; width:100%; }
+.modal-input { height:38px; border-radius:var(--r-sm); border:1.5px solid var(--border); padding:0 12px; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--ink); background:rgba(255,255,255,.9); outline:none; transition:border-color .15s,box-shadow .15s; width:100%; }
 .modal-input:focus { border-color:var(--red-500); box-shadow:0 0 0 3px rgba(211,35,35,.1); }
-
-/* Passenger rows */
 .passenger-list { display:flex; flex-direction:column; gap:8px; }
 .passenger-row { display:grid; grid-template-columns:26px 1fr 1fr; gap:8px; align-items:center; }
 .pax-num { width:26px; height:26px; border-radius:50%; background:var(--red-100); border:1px solid #ffd0d0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--red-700); flex-shrink:0; }
-
-/* Summary */
 .modal-summary { margin-top:16px; background:linear-gradient(135deg,#0f0505,#1a0808); border:1px solid rgba(211,35,35,.2); border-radius:var(--r-md); padding:16px 18px; position:relative; overflow:hidden; }
-.modal-summary::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--red-700), var(--gold-400), var(--red-700)); }
+.modal-summary::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--red-700),var(--gold-400),var(--red-700)); }
 .sum-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
 .sum-row:last-child { margin-bottom:0; }
 .sum-label { font-size:11.5px; color:rgba(255,255,255,.5); }
@@ -375,13 +424,10 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .sum-net .sum-label { color:rgba(255,255,255,.7); font-weight:600; font-size:12px; }
 .sum-net .sum-value { color:#fff; font-size:14px; }
 .sum-note { font-size:9.5px; color:rgba(255,255,255,.25); text-align:right; margin-top:8px; font-family:'IBM Plex Mono',monospace; }
-
 .modal-submit-btn { width:100%; height:46px; border-radius:var(--r-sm); border:none; background:linear-gradient(135deg,var(--red-700),var(--red-500)); color:var(--white); font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(211,35,35,.35); transition:all .2s; }
 .modal-submit-btn:hover { background:linear-gradient(135deg,var(--red-800),var(--red-600)); box-shadow:0 6px 22px rgba(211,35,35,.45); transform:translateY(-1px); }
 
-/* ══════════════════════════════════════
-   VOUCHER PAGE
-   ══════════════════════════════════════ */
+/* ══ VOUCHER PAGE ══ */
 #voucherPage { display:none; position:fixed; inset:0; z-index:2000; background:#f5f0e8; overflow-y:auto; }
 #voucherPage.open { display:block; }
 .voucher-wrap { max-width:820px; margin:40px auto; padding:0 20px 60px; }
@@ -395,7 +441,6 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .v-voucher-badge { position:relative; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 18px; text-align:right; }
 .v-badge-label { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.35); }
 .v-badge-num { font-family:'IBM Plex Mono',monospace; font-size:17px; font-weight:600; color:var(--gold-300); margin-top:3px; }
-
 .voucher-body { padding:32px 36px; }
 .v-section-title { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--red-600); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
 .v-section-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,#f0d8d8,transparent); }
@@ -407,20 +452,17 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .v-meta-pill.city { background:var(--red-100); color:var(--red-700); border:1px solid #ffd0d0; }
 .v-meta-pill.stars { background:var(--gold-100); color:var(--gold-600); border:1px solid #f0d080; font-family:'IBM Plex Mono',monospace; }
 .v-meta-pill.room { background:#f0f8ff; color:#2060a0; border:1px solid #c0d8f0; }
-
 .v-stay-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
 .v-stay-card { background:#fafafa; border:1px solid var(--border); border-radius:12px; padding:12px 14px; }
 .v-stay-label { font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:4px; }
 .v-stay-value { font-size:13px; font-weight:700; color:var(--ink); }
 .v-stay-value.mono { font-family:'IBM Plex Mono',monospace; }
-
 .v-pax-table { width:100%; border-collapse:collapse; margin-bottom:24px; }
 .v-pax-table th { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); padding:8px 12px; text-align:left; border-bottom:1px solid var(--border); }
 .v-pax-table td { font-size:13px; font-weight:500; padding:9px 12px; border-bottom:1px solid var(--border-lt); }
 .v-pax-table tr:last-child td { border-bottom:none; }
 .v-pax-table tr:nth-child(even) td { background:#fafafa; }
 .v-pax-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--red-100); border:1px solid #ffd0d0; font-size:11px; font-weight:700; color:var(--red-700); }
-
 .v-finance-block { background:linear-gradient(135deg,#0f0505,#1a0808); border-radius:14px; padding:20px 22px; margin-bottom:24px; position:relative; overflow:hidden; }
 .v-finance-block::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--red-700),var(--gold-400),var(--red-700)); }
 .v-finance-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:9px; }
@@ -434,19 +476,15 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .v-finance-row.commission .v-fv { color:var(--gold-300); }
 .v-finance-row.net .v-fl { color:#7fc97f; font-weight:600; font-size:13px; }
 .v-finance-row.net .v-fv { color:#a8e6a8; font-size:16px; }
-
 .voucher-footer-bar { background:#fafafa; border-top:1px solid var(--border); padding:16px 36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 .v-footer-contact { font-size:12px; color:var(--ink-3); display:flex; align-items:center; gap:6px; }
 .v-barcode { font-family:'IBM Plex Mono',monospace; font-size:16px; color:var(--ink-4); letter-spacing:.2em; }
-
-.voucher-actions { display:flex; gap:10px; margin-top:20px; justify-content:flex-end; flex-wrap: wrap; }
+.voucher-actions { display:flex; gap:10px; margin-top:20px; justify-content:flex-end; flex-wrap:wrap; }
 .v-btn { height:42px; padding:0 20px; border-radius:var(--r-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px; transition:all .2s; }
 .v-btn.primary { background:linear-gradient(135deg,var(--red-700),var(--red-500)); color:#fff; border:none; box-shadow:0 4px 14px rgba(211,35,35,.3); }
 .v-btn.primary:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(211,35,35,.4); }
 .v-btn.secondary { background:var(--white); color:var(--ink-2); border:1.5px solid var(--border); }
 .v-btn.secondary:hover { border-color:var(--red-400); color:var(--red-600); }
-
-/* Share / save buttons */
 .voucher-share-row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; justify-content:flex-end; }
 .vs-btn { height:38px; padding:0 16px; border-radius:var(--r-sm); font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px; transition:all .2s; border:1.5px solid var(--border); background:#fff; color:var(--ink-2); }
 .vs-btn:hover { border-color:var(--red-400); color:var(--red-600); background:var(--red-50); }
@@ -455,26 +493,23 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .vs-btn.share { background:linear-gradient(135deg,#0077cc,#1a99ee); color:#fff; border:none; box-shadow:0 3px 10px rgba(0,119,204,.3); }
 .vs-btn.share:hover { transform:translateY(-1px); }
 
-/* Toast */
-.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:#1a1a1a; color:#fff; padding:12px 22px; border-radius:30px; font-size:13px; font-weight:600; box-shadow:0 8px 28px rgba(0,0,0,.25); z-index:3000; white-space:nowrap; transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s; opacity:0; }
+.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:#1a1a1a; color:#fff; padding:12px 22px; border-radius:30px; font-size:13px; font-weight:600; box-shadow:0 8px 28px rgba(0,0,0,.25); z-index:3000; white-space:nowrap; transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .3s; opacity:0; }
 .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
 @media (max-width:768px) {
-  .hero-main-title { font-size:22px; }
-  .footer-inner { grid-template-columns:1fr; gap:24px; }
-  .footer-contact-grid { grid-template-columns:1fr; }
+  .hero-main-title { font-size:17px; }
+  .footer-inner { flex-direction:column; gap:16px; }
   .modal-grid { grid-template-columns:1fr; }
   .voucher-body { padding:20px; }
   .voucher-header { padding:20px; flex-direction:column; gap:14px; align-items:flex-start; }
   .v-stay-grid { grid-template-columns:1fr 1fr; }
   .voucher-footer-bar { flex-direction:column; }
 }
-
 @media print {
-  body * { visibility: hidden; }
-  #voucherPage, #voucherPage * { visibility: visible; }
-  #voucherPage { position: absolute; inset: 0; background: #fff; overflow: visible; }
-  .voucher-actions, .voucher-share-row { display: none !important; }
+  body * { visibility:hidden; }
+  #voucherPage, #voucherPage * { visibility:visible; }
+  #voucherPage { position:absolute; inset:0; background:#fff; overflow:visible; }
+  .voucher-actions, .voucher-share-row { display:none !important; }
 }
 </style>
 </head>
@@ -488,15 +523,15 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
         <div class="logo-text">B2B Hotel <span>Network</span></div>
       </div>
       <div class="nav">
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a onclick="openPanel('about')">درباره ما</a>
+        <a onclick="openPanel('contact')">تماس با ما</a>
       </div>
     </div>
 
-    <!-- Hero title block -->
+    <!-- Hero title -->
     <div class="hero-tagline-block">
       <div class="hero-main-title">
-        شبکه کارگزار هتل B2B &nbsp;|&nbsp; <em>مسکو، استانبول، باکو، ایروان</em>
+        شبکه کارگزار هتل B2B &nbsp;|&nbsp; <em>مسکو · استانبول · باکو · ایروان</em>
       </div>
       <div class="hero-subtitle-row">
         <span class="hero-subtitle-item">نرخ‌های همکاری</span>
@@ -543,12 +578,6 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
         استعلام، پیشنهاد و رزرو در کوتاه‌ترین زمان از شبکه تأمین مستقیم؛
         با نرخ‌های همکاری، تأیید سریع و پشتیبانی اختصاصی در تمام مراحل.
       </span>
-      <div class="hero-chips">
-        <span class="chip"><span class="chip-dot"></span>نرخ‌های همکاری</span>
-        <span class="chip"><span class="chip-dot"></span>تأیید سریع</span>
-        <span class="chip"><span class="chip-dot"></span>اتصال مستقیم</span>
-        <span class="chip"><span class="chip-dot"></span>پشتیبانی اختصاصی</span>
-      </div>
     </div>
   </div>
 </div>
@@ -581,96 +610,113 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
     </table>
     <div class="table-footer" id="tfoot"></div>
   </div>
+  <div class="pagination" id="pagination"></div>
 </div>
 
 <!-- ══ FOOTER ══ -->
 <footer class="footer">
   <div class="footer-top-stripe"></div>
   <div class="footer-inner">
-    <!-- Brand -->
-    <div>
-      <div class="footer-logo-lockup">
-        <div class="footer-logo-mark">🏨</div>
-        <div class="footer-brand-name">B2B Hotel Network<span>Exclusive B2B Platform</span></div>
-      </div>
-      <div class="footer-tagline">Connecting travel agencies to premium hotels across Moscow, Istanbul, Baku & Yerevan.</div>
-      <div class="footer-copy">© 2026 B2B Hotel Network · All rights reserved</div>
-    </div>
-
-    <!-- Contacts -->
-    <div>
-      <div class="footer-contacts-label">Contact & Office</div>
-      <div class="footer-contact-grid">
-        <div class="footer-contact-card">
-          <div class="fc-icon">📞</div>
-          <div>
-            <div class="fc-label">Iran Office</div>
-            <div class="fc-value">+98 910 219 8262</div>
-          </div>
-        </div>
-        <div class="footer-contact-card">
-          <div class="fc-icon blue">📞</div>
-          <div>
-            <div class="fc-label">Russia Office</div>
-            <div class="fc-value">+7 655 432 4674</div>
-          </div>
-        </div>
-        <div class="footer-contact-card">
-          <div class="fc-icon gold">📍</div>
-          <div>
-            <div class="fc-label">Location</div>
-            <div class="fc-value">Moscow, Near Red Square</div>
-          </div>
-        </div>
-        <div class="footer-contact-card">
-          <div class="fc-icon green">👤</div>
-          <div>
-            <div class="fc-label">Representative</div>
-            <div class="fc-value">Peyman Pasbani</div>
-          </div>
-        </div>
+    <div class="footer-brand">
+      <div class="footer-logo-mark">🏨</div>
+      <div>
+        <div class="footer-brand-name">B2B Hotel Network</div>
+        <div class="footer-brand-sub">Exclusive B2B Platform</div>
       </div>
     </div>
-
-    <!-- Social -->
-    <div>
-      <div class="footer-social-label">Connect</div>
-      <div class="footer-social">
-        <a class="social-btn" href="#" title="Telegram">
-          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          Telegram
-          <span class="sb-platform">@b2bhotel</span>
-        </a>
-        <a class="social-btn" href="#" title="WhatsApp">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          WhatsApp
-          <span class="sb-platform">Live chat</span>
-        </a>
-        <a class="social-btn" href="#" title="Twitter / X">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.632 5.905-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Follow Us
-          <span class="sb-platform">@b2bhotel</span>
-        </a>
-      </div>
+    <div class="footer-contacts">
+      <div class="footer-contact-item"><span>📞</span> +98 910 219 8262</div>
+      <div class="footer-contact-item"><span>📞</span> +7 655 432 4674</div>
+      <div class="footer-contact-item"><span>📍</span> Moscow, Near Red Square</div>
+      <div class="footer-contact-item"><span>👤</span> Peyman Pasbani</div>
+    </div>
+    <div class="footer-social-row">
+      <a class="fsoc-btn" href="#" title="Telegram">
+        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+      <a class="fsoc-btn" href="#" title="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
     </div>
   </div>
-
   <div class="footer-bottom">
-    <div class="footer-bottom-left">PLATFORM v2.1.0 · SECURE B2B PORTAL</div>
-    <div class="footer-bottom-center">
-      <div class="footer-dot"></div>
-      <div class="footer-dot gold"></div>
-      <div class="footer-dot"></div>
-    </div>
-    <div class="footer-bottom-right">24/7 AGENCY SUPPORT</div>
+    <div class="footer-copy">© 2026 B2B Hotel Network · All rights reserved</div>
+    <div class="footer-dot-row"><div class="fdot"></div><div class="fdot gold"></div><div class="fdot"></div></div>
+    <div class="footer-copy">PLATFORM v2.1.0 · 24/7 SUPPORT</div>
   </div>
 </footer>
+
+<!-- ══ ABOUT PANEL ══ -->
+<div class="panel-overlay" id="panelAbout" onclick="closePanelOnOverlay(event,'panelAbout')">
+  <div class="panel-box">
+    <div class="panel-header">
+      <button class="panel-close" onclick="closePanel('panelAbout')">✕</button>
+      <div class="panel-title">درباره ما</div>
+      <div class="panel-subtitle">شبکه کارگزار هتل B2B · مستقر در مسکو</div>
+    </div>
+    <div class="panel-body">
+      <p class="panel-text">
+        ما در <strong>مسکو</strong> مستقر هستیم و با اتصال مستقیم به سامانه‌های تأمین هتل از جمله <strong>آمادئوس</strong> و سایر شبکه‌های بین‌المللی، امکان رزرو هتل در شهرهای مختلف جهان را فراهم کرده‌ایم.<br><br>
+        خدمات ما به‌صورت ویژه برای <strong>کارگزاران و آژانس‌های مسافرتی</strong> ارائه می‌شود و شامل تضمین نرخ همکاری، دسترسی به ظرفیت‌های واقعی و صدور آنی واچر هتل است.<br><br>
+        هدف ما ارائه <strong>سریع، دقیق و قابل اعتمادترین</strong> راهکارهای رزرو هتل در سطح B2B است. با تیم متخصص و شبکه گسترده تأمین‌کنندگان، بهترین نرخ‌ها و سریع‌ترین تأییدیه‌ها را برای شما فراهم می‌کنیم.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTACT PANEL ══ -->
+<div class="panel-overlay" id="panelContact" onclick="closePanelOnOverlay(event,'panelContact')">
+  <div class="panel-box">
+    <div class="panel-header">
+      <button class="panel-close" onclick="closePanel('panelContact')">✕</button>
+      <div class="panel-title">تماس با ما</div>
+      <div class="panel-subtitle">از طریق کانال‌های زیر با ما در ارتباط باشید</div>
+    </div>
+    <div class="panel-body">
+      <div class="contact-cards">
+        <a class="contact-card" href="https://t.me/b2bhotel" target="_blank">
+          <div class="cc-icon tg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#2AABEE"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="cc-label">تلگرام</div>
+            <div class="cc-value">@b2bhotel</div>
+            <div class="cc-handle">پیام مستقیم در تلگرام</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+        <a class="contact-card" href="https://wa.me/989102198262" target="_blank">
+          <div class="cc-icon wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="cc-label">واتساپ — ایران</div>
+            <div class="cc-value">+98 910 219 8262</div>
+            <div class="cc-handle">پشتیبانی آنلاین</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+        <a class="contact-card" href="https://wa.me/76554324674" target="_blank">
+          <div class="cc-icon wa">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="cc-label">واتساپ — روسیه</div>
+            <div class="cc-value">+7 655 432 4674</div>
+            <div class="cc-handle">دفتر مسکو</div>
+          </div>
+          <div class="cc-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══ BOOKING MODAL ══ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
   <div class="modal" id="modal">
-
-    <!-- Sticky Header -->
     <div class="modal-sticky-header">
       <button class="modal-close" onclick="closeModal()">✕</button>
       <div class="modal-hotel-header">
@@ -684,10 +730,7 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
         </div>
       </div>
     </div>
-
-    <!-- Scrollable Body -->
     <div class="modal-body">
-      <!-- Room type -->
       <div class="modal-section-label" style="margin-top:0">Room Type</div>
       <div class="room-types" id="roomTypes">
         <div class="room-card selected" data-beds="1" data-label="Single" onclick="selectRoom(this)">
@@ -706,8 +749,6 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
           <span class="room-sub">3 beds</span>
         </div>
       </div>
-
-      <!-- Dates -->
       <div class="modal-section-label">Stay Details</div>
       <div class="modal-grid">
         <div class="modal-field">
@@ -719,12 +760,8 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
           <input class="modal-input" type="date" id="mCheckout" onchange="calcSummary()" />
         </div>
       </div>
-
-      <!-- Passengers -->
       <div class="modal-section-label">Passenger Details</div>
       <div class="passenger-list" id="passengerList"></div>
-
-      <!-- Agency -->
       <div class="modal-section-label">Agency Information</div>
       <div class="modal-grid">
         <div class="modal-field full">
@@ -740,44 +777,20 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
           <input class="modal-input" type="tel" id="mPhone" placeholder="+98 …" />
         </div>
       </div>
-
-      <!-- Summary -->
       <div class="modal-summary" id="mSummary">
-        <div class="sum-row">
-          <span class="sum-label">Rate / Night</span>
-          <span class="sum-value" id="sRateNight">—</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-label">Nights</span>
-          <span class="sum-value" id="sNights">—</span>
-        </div>
-        <div class="sum-row">
-          <span class="sum-label">Room Type</span>
-          <span class="sum-value" id="sRoomType">—</span>
-        </div>
+        <div class="sum-row"><span class="sum-label">Rate / Night</span><span class="sum-value" id="sRateNight">—</span></div>
+        <div class="sum-row"><span class="sum-label">Nights</span><span class="sum-value" id="sNights">—</span></div>
+        <div class="sum-row"><span class="sum-label">Room Type</span><span class="sum-value" id="sRoomType">—</span></div>
         <div class="sum-divider"></div>
-        <div class="sum-row sum-total">
-          <span class="sum-label">Gross Total</span>
-          <span class="sum-value" id="sTotal">—</span>
-        </div>
-        <div class="sum-row sum-commission">
-          <span class="sum-label">Agency Commission (7%)</span>
-          <span class="sum-value" id="sCommission">—</span>
-        </div>
+        <div class="sum-row sum-total"><span class="sum-label">Gross Total</span><span class="sum-value" id="sTotal">—</span></div>
+        <div class="sum-row sum-commission"><span class="sum-label">Agency Commission (7%)</span><span class="sum-value" id="sCommission">—</span></div>
         <div class="sum-divider"></div>
-        <div class="sum-row sum-net">
-          <span class="sum-label">Net Payable</span>
-          <span class="sum-value" id="sNet">—</span>
-        </div>
+        <div class="sum-row sum-net"><span class="sum-label">Net Payable</span><span class="sum-value" id="sNet">—</span></div>
         <div class="sum-note" id="sNote"></div>
       </div>
-    </div><!-- /modal-body -->
-
-    <!-- Sticky Footer -->
+    </div>
     <div class="modal-footer">
-      <button class="modal-submit-btn" onclick="submitRequest()">
-        📩 Send Reservation Request
-      </button>
+      <button class="modal-submit-btn" onclick="submitRequest()">📩 Send Reservation Request</button>
     </div>
   </div>
 </div>
@@ -789,13 +802,11 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
       <button class="v-btn secondary" onclick="closeVoucher()">← Back to Dashboard</button>
       <button class="v-btn primary" onclick="window.print()">🖨️ Print Voucher</button>
     </div>
-    <!-- Share / save row -->
     <div class="voucher-share-row" style="margin-bottom:16px">
       <button class="vs-btn save" onclick="saveVoucherImage()">💾 Save to Gallery</button>
       <button class="vs-btn share" onclick="shareVoucher()">📤 Share</button>
       <button class="vs-btn" onclick="copyVoucherText()">📋 Copy Details</button>
     </div>
-
     <div class="voucher-card" id="voucherCard">
       <div class="voucher-header">
         <div class="voucher-header-stripe"></div>
@@ -808,7 +819,6 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
           <div class="v-badge-num" id="vVoucherNum">—</div>
         </div>
       </div>
-
       <div class="voucher-body">
         <div class="v-section-title">Hotel Information</div>
         <div class="v-hotel-block">
@@ -822,27 +832,23 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
             </div>
           </div>
         </div>
-
         <div class="v-section-title">Stay Details</div>
         <div class="v-stay-grid">
           <div class="v-stay-card"><div class="v-stay-label">Check-in</div><div class="v-stay-value" id="vCheckin">—</div></div>
           <div class="v-stay-card"><div class="v-stay-label">Check-out</div><div class="v-stay-value" id="vCheckout">—</div></div>
           <div class="v-stay-card"><div class="v-stay-label">Nights</div><div class="v-stay-value mono" id="vNights">—</div></div>
         </div>
-
         <div class="v-section-title">Passenger List</div>
         <table class="v-pax-table">
           <thead><tr><th>#</th><th>First Name</th><th>Last Name</th></tr></thead>
           <tbody id="vPaxBody"></tbody>
         </table>
-
         <div class="v-section-title">Agency & Booker</div>
         <div class="v-stay-grid" style="grid-template-columns:1fr 1fr 1fr">
           <div class="v-stay-card"><div class="v-stay-label">Agency Name</div><div class="v-stay-value" id="vAgency">—</div></div>
           <div class="v-stay-card"><div class="v-stay-label">Booker</div><div class="v-stay-value" id="vBooker">—</div></div>
           <div class="v-stay-card"><div class="v-stay-label">Contact</div><div class="v-stay-value" id="vPhone">—</div></div>
         </div>
-
         <div class="v-section-title" style="margin-top:22px">Financial Summary</div>
         <div class="v-finance-block">
           <div class="v-finance-row"><span class="v-fl">Rate / Night</span><span class="v-fv" id="vRateNight">—</span></div>
@@ -854,13 +860,11 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
           <div class="v-finance-row net"><span class="v-fl">Net Payable by Agency</span><span class="v-fv" id="vNet">—</span></div>
         </div>
       </div>
-
       <div class="voucher-footer-bar">
         <div class="v-footer-contact">📞 +98 910 219 8262 &nbsp;|&nbsp; +7 655 432 4674 &nbsp;|&nbsp; Moscow, Near Red Square</div>
         <div class="v-barcode" id="vBarcode">|||||  ||  |||  ||||||</div>
       </div>
     </div>
-
     <div class="voucher-actions">
       <button class="v-btn secondary" onclick="closeVoucher()">← Back to Dashboard</button>
       <button class="v-btn primary" onclick="window.print()">🖨️ Print Voucher</button>
@@ -868,7 +872,6 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast">✅ Voucher ready!</div>
 
 <script>
@@ -895,29 +898,73 @@ const DATA = [
   { city:"Yerevan",  name:"Republica Hotel",           stars:4, price:120 },
 ];
 
+const PAGE_SIZE = 15;
 let currentCity="all", sortAsc=false, activeHotel=null;
 let selectedBeds=1, selectedRoomLabel="Single";
 let lastVoucherData=null;
+let currentPage=1;
 
-/* ── TABLE ── */
+/* ── PANEL ── */
+function openPanel(which){
+  closeAllPanels();
+  const id = which==='about' ? 'panelAbout' : 'panelContact';
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePanel(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function closeAllPanels(){ ['panelAbout','panelContact'].forEach(id=>{ document.getElementById(id).classList.remove('open'); }); document.body.style.overflow=''; }
+function closePanelOnOverlay(e,id){ if(e.target===document.getElementById(id)) closePanel(id); }
+/* ── PAGINATION + TABLE ── */
 function render(list){
   const tbody=document.getElementById("tbody");
-  if(!list.length){
+  const total=list.length;
+  const totalPages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  if(currentPage>totalPages) currentPage=totalPages;
+  const start=(currentPage-1)*PAGE_SIZE;
+  const slice=list.slice(start,start+PAGE_SIZE);
+
+  if(!slice.length){
     tbody.innerHTML=`<tr><td colspan="4" style="text-align:center;padding:36px;color:var(--ink-4)">No hotels found.</td></tr>`;
     document.getElementById("tfoot").textContent="0 properties";
     document.getElementById("totalBadge").textContent="0 properties";
+    document.getElementById("pagination").innerHTML="";
     return;
   }
-  tbody.innerHTML=list.map(h=>`
+  tbody.innerHTML=slice.map(h=>`
     <tr onclick='openModal(${JSON.stringify(h).replace(/'/g,"&#39;")})'>
       <td>${h.city}</td>
       <td title="${h.name}">${h.name}</td>
       <td><span class="star-badge"><span class="star-icon">★</span> ${h.stars}</span></td>
       <td><span class="rate-badge">$${h.price} / night</span></td>
     </tr>`).join("");
-  const txt=`Showing ${list.length} propert${list.length===1?"y":"ies"} — click any row to book`;
-  document.getElementById("tfoot").textContent=txt;
-  document.getElementById("totalBadge").textContent=list.length+" properties";
+
+  const showing=`Showing ${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total} properties — click any row to book`;
+  document.getElementById("tfoot").textContent=showing;
+  document.getElementById("totalBadge").textContent=total+" properties";
+
+  // Pagination
+  const pg=document.getElementById("pagination");
+  if(totalPages<=1){ pg.innerHTML=""; return; }
+  let html=`<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?"disabled":""}>← Prev</button>`;
+  for(let i=1;i<=totalPages;i++){
+    if(totalPages>7){
+      if(i>2 && i<totalPages-1 && Math.abs(i-currentPage)>1){
+        if(i===3||i===totalPages-2) html+=`<span class="pg-info">…</span>`;
+        continue;
+      }
+    }
+    html+=`<button class="pg-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html+=`<button class="pg-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?"disabled":""}>Next →</button>`;
+  pg.innerHTML=html;
+}
+
+function goPage(n){
+  const list=filtered();
+  const total=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
+  currentPage=Math.max(1,Math.min(n,total));
+  render(list);
+  document.querySelector('.table-wrapper').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function filtered(){
@@ -925,19 +972,19 @@ function filtered(){
   return DATA.filter(h=>(currentCity==="all"||h.city===currentCity)&&h.name.toLowerCase().includes(q));
 }
 function setCity(city,el){
-  currentCity=city;
+  currentCity=city; currentPage=1;
   document.querySelectorAll(".ctab").forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
   sortAsc=false; document.getElementById("sortIcon").textContent="↑↓";
   render(filtered());
 }
 function sortPrice(){
-  sortAsc=!sortAsc;
+  sortAsc=!sortAsc; currentPage=1;
   document.getElementById("sortIcon").textContent=sortAsc?"↑":"↓";
   render(filtered().sort((a,b)=>sortAsc?a.price-b.price:b.price-a.price));
 }
 document.getElementById("search").addEventListener("input",()=>{
-  sortAsc=false; document.getElementById("sortIcon").textContent="↑↓"; render(filtered());
+  currentPage=1; sortAsc=false; document.getElementById("sortIcon").textContent="↑↓"; render(filtered());
 });
 
 /* ── ROOM SELECT ── */
@@ -949,18 +996,15 @@ function selectRoom(el){
   buildPassengers(selectedBeds);
   calcSummary();
 }
-
 function buildPassengers(n){
   const list=document.getElementById("passengerList");
   list.innerHTML="";
   for(let i=1;i<=n;i++){
     const row=document.createElement("div");
     row.className="passenger-row";
-    row.innerHTML=`
-      <div class="pax-num">${i}</div>
+    row.innerHTML=`<div class="pax-num">${i}</div>
       <input class="modal-input" type="text" id="pax-fn-${i}" placeholder="First name" style="height:36px;font-size:12px" />
-      <input class="modal-input" type="text" id="pax-ln-${i}" placeholder="Last name" style="height:36px;font-size:12px" />
-    `;
+      <input class="modal-input" type="text" id="pax-ln-${i}" placeholder="Last name" style="height:36px;font-size:12px" />`;
     list.appendChild(row);
   }
 }
@@ -971,12 +1015,10 @@ function openModal(hotel){
   document.getElementById("mHotelName").textContent=hotel.name;
   document.getElementById("mCityTag").textContent=hotel.city;
   document.getElementById("mStars").textContent="★ "+hotel.stars;
-
   document.querySelectorAll(".room-card").forEach(c=>c.classList.remove("selected"));
   document.querySelector(".room-card[data-beds='1']").classList.add("selected");
   selectedBeds=1; selectedRoomLabel="Single";
   buildPassengers(1);
-
   const today=new Date();
   const checkout=new Date(today); checkout.setDate(today.getDate()+3);
   document.getElementById("mCheckin").value=fmtDate(today);
@@ -987,17 +1029,10 @@ function openModal(hotel){
   calcSummary();
   document.getElementById("modalOverlay").classList.add("open");
   document.body.style.overflow="hidden";
-  // Scroll modal body to top
   document.querySelector(".modal-body").scrollTop=0;
 }
-
-function closeModal(){
-  document.getElementById("modalOverlay").classList.remove("open");
-  document.body.style.overflow="";
-}
-function closeModalOnOverlay(e){
-  if(e.target===document.getElementById("modalOverlay")) closeModal();
-}
+function closeModal(){ document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow=""; }
+function closeModalOnOverlay(e){ if(e.target===document.getElementById("modalOverlay")) closeModal(); }
 function fmtDate(d){ return d.toISOString().split("T")[0]; }
 function fmtDisplay(s){
   if(!s) return "—";
@@ -1005,24 +1040,16 @@ function fmtDisplay(s){
   const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   return `${d} ${months[parseInt(m)-1]} ${y}`;
 }
-
 function calcSummary(){
   if(!activeHotel) return;
   const ci=document.getElementById("mCheckin").value;
   const co=document.getElementById("mCheckout").value;
   document.getElementById("sRateNight").textContent="$"+activeHotel.price+" / night";
   document.getElementById("sRoomType").textContent=selectedRoomLabel+" ("+selectedBeds+" bed"+(selectedBeds>1?"s":"")+")";
-  if(!ci||!co){
-    ["sNights","sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—");
-    return;
-  }
+  if(!ci||!co){["sNights","sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—"); return;}
   const d1=new Date(ci),d2=new Date(co);
   const nights=Math.round((d2-d1)/86400000);
-  if(nights<=0){
-    document.getElementById("sNights").textContent="Invalid dates";
-    ["sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—");
-    return;
-  }
+  if(nights<=0){ document.getElementById("sNights").textContent="Invalid dates"; ["sTotal","sCommission","sNet"].forEach(id=>document.getElementById(id).textContent="—"); return; }
   const gross=activeHotel.price*nights;
   const commission=gross*0.07;
   const net=gross-commission;
@@ -1043,24 +1070,18 @@ function submitRequest(){
   if(!ci||!co||new Date(co)<=new Date(ci)){ alert("Please enter valid check-in and check-out dates."); return; }
   if(!phone){ alert("Please enter your agency contact number."); return; }
   if(!booker){ alert("Please enter the booker's name."); return; }
-
   const passengers=[];
   for(let i=1;i<=selectedBeds;i++){
     const fn=(document.getElementById("pax-fn-"+i)||{}).value||"";
     const ln=(document.getElementById("pax-ln-"+i)||{}).value||"";
-    passengers.push({fn:fn.trim()||"—", ln:ln.trim()||"—"});
+    passengers.push({fn:fn.trim()||"—",ln:ln.trim()||"—"});
   }
-
   const nights=Math.round((new Date(co)-new Date(ci))/86400000);
   const gross=activeHotel.price*nights;
   const commission=gross*0.07;
   const net=gross-commission;
   const vnum="VCH-"+Date.now().toString(36).toUpperCase().slice(-8);
-
-  // Store for share/copy
-  lastVoucherData={ vnum, hotel:activeHotel, ci, co, nights, gross, commission, net, agency, booker, phone, passengers, roomLabel:selectedRoomLabel, beds:selectedBeds };
-
-  // Fill voucher
+  lastVoucherData={vnum,hotel:activeHotel,ci,co,nights,gross,commission,net,agency,booker,phone,passengers,roomLabel:selectedRoomLabel,beds:selectedBeds};
   document.getElementById("vVoucherNum").textContent=vnum;
   document.getElementById("vHotelName").textContent=activeHotel.name;
   document.getElementById("vCity").textContent=activeHotel.city;
@@ -1078,101 +1099,40 @@ function submitRequest(){
   document.getElementById("vCommission").textContent="$"+commission.toFixed(2);
   document.getElementById("vNet").textContent="$"+net.toFixed(2);
   document.getElementById("vBarcode").textContent="| "+vnum+" |";
-
-  const tbody=document.getElementById("vPaxBody");
-  tbody.innerHTML=passengers.map((p,i)=>`
-    <tr><td><span class="v-pax-num">${i+1}</span></td><td>${p.fn}</td><td>${p.ln}</td></tr>`).join("");
-
+  document.getElementById("vPaxBody").innerHTML=passengers.map((p,i)=>`<tr><td><span class="v-pax-num">${i+1}</span></td><td>${p.fn}</td><td>${p.ln}</td></tr>`).join("");
   closeModal();
   const vp=document.getElementById("voucherPage");
   vp.classList.add("open");
   document.body.style.overflow="hidden";
   vp.scrollTop=0;
-
   showToast("✅ Voucher ready — Reservation #"+vnum);
 }
+function closeVoucher(){ document.getElementById("voucherPage").classList.remove("open"); document.body.style.overflow=""; }
 
-function closeVoucher(){
-  document.getElementById("voucherPage").classList.remove("open");
-  document.body.style.overflow="";
-}
-
-/* ── SHARE / SAVE / COPY ── */
+/* ── SHARE ── */
 function voucherText(){
   if(!lastVoucherData) return "";
   const d=lastVoucherData;
   const pax=d.passengers.map((p,i)=>`  ${i+1}. ${p.fn} ${p.ln}`).join("\n");
-  return `═══════════════════════════
-B2B HOTEL NETWORK — VOUCHER
-${d.vnum}
-═══════════════════════════
-Hotel: ${d.hotel.name}
-City: ${d.hotel.city} | Stars: ★${d.hotel.stars}
-Room: ${d.roomLabel} (${d.beds} bed${d.beds>1?"s":""})
-Check-in:  ${fmtDisplay(d.ci)}
-Check-out: ${fmtDisplay(d.co)}
-Nights: ${d.nights}
-───────────────────────────
-PASSENGERS:
-${pax}
-───────────────────────────
-Agency: ${d.agency||"—"}
-Booker: ${d.booker}
-Contact: ${d.phone}
-───────────────────────────
-Rate/Night:  $${d.hotel.price}
-Gross Total: $${d.gross.toLocaleString()}
-Commission:  $${d.commission.toFixed(2)} (7%)
-Net Payable: $${d.net.toFixed(2)}
-═══════════════════════════
-📞 +98 910 219 8262 | +7 655 432 4674
-Moscow, Near Red Square
-`;
+  return `═══════════════════════════\nB2B HOTEL NETWORK — VOUCHER\n${d.vnum}\n═══════════════════════════\nHotel: ${d.hotel.name}\nCity: ${d.hotel.city} | Stars: ★${d.hotel.stars}\nRoom: ${d.roomLabel} (${d.beds} bed${d.beds>1?"s":""})\nCheck-in:  ${fmtDisplay(d.ci)}\nCheck-out: ${fmtDisplay(d.co)}\nNights: ${d.nights}\n───────────────────────────\nPASSENGERS:\n${pax}\n───────────────────────────\nAgency: ${d.agency||"—"}\nBooker: ${d.booker}\nContact: ${d.phone}\n───────────────────────────\nRate/Night:  $${d.hotel.price}\nGross Total: $${d.gross.toLocaleString()}\nCommission:  $${d.commission.toFixed(2)} (7%)\nNet Payable: $${d.net.toFixed(2)}\n═══════════════════════════\n📞 +98 910 219 8262 | +7 655 432 4674\nMoscow, Near Red Square\n`;
 }
-
 function copyVoucherText(){
-  const txt=voucherText();
-  if(!txt) return;
+  const txt=voucherText(); if(!txt) return;
   navigator.clipboard.writeText(txt).then(()=>showToast("📋 Voucher details copied!")).catch(()=>{
-    // fallback
-    const ta=document.createElement("textarea");
-    ta.value=txt; document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); document.body.removeChild(ta);
-    showToast("📋 Copied!");
+    const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast("📋 Copied!");
   });
 }
-
 function shareVoucher(){
   const txt=voucherText();
-  if(navigator.share){
-    navigator.share({
-      title:"Reservation Voucher — "+document.getElementById("vVoucherNum").textContent,
-      text: txt
-    }).catch(()=>{});
-  } else {
-    copyVoucherText();
-    showToast("📤 Copied for sharing!");
-  }
+  if(navigator.share){ navigator.share({title:"Reservation Voucher — "+document.getElementById("vVoucherNum").textContent,text:txt}).catch(()=>{}); }
+  else { copyVoucherText(); showToast("📤 Copied for sharing!"); }
 }
+function saveVoucherImage(){ showToast("🖨️ Use Print → Save as PDF to save"); setTimeout(()=>window.print(),800); }
+function showToast(msg){ const toast=document.getElementById("toast"); toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),3000); }
 
-function saveVoucherImage(){
-  // Use print dialog targeting only the voucher card — best cross-platform save to PDF/image
-  showToast("🖨️ Use Print → Save as PDF to save");
-  setTimeout(()=>window.print(), 800);
-}
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeModal(); closeVoucher(); closeAllPanels(); } });
 
-function showToast(msg){
-  const toast=document.getElementById("toast");
-  toast.textContent=msg;
-  toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"),3000);
-}
-
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){ closeModal(); closeVoucher(); }
-});
-
-// Init counts
+// Init
 ["Istanbul","Baku","Moscow","Yerevan"].forEach(c=>{
   const n=DATA.filter(h=>h.city===c).length;
   const el=document.getElementById("cnt-"+c);
@@ -1183,3 +1143,5 @@ render(filtered());
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done"
