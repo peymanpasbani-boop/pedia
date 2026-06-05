@@ -67,7 +67,7 @@ body{
     margin-bottom:12px;
 }
 
-/* CITY CARDS */
+/* CITY FILTERS */
 .city-filters{
     display:flex;
     gap:10px;
@@ -75,7 +75,6 @@ body{
     margin-bottom:12px;
 }
 
-/* base card */
 .city{
     padding:10px 14px;
     border-radius:10px;
@@ -84,34 +83,14 @@ body{
     font-weight:500;
     transition:0.2s;
     user-select:none;
-    border:1px solid transparent;
 }
 
-/* ALL */
-.city.all{
-    background:#eef2ff;
-    color:#1e3a8a;
-}
+.city.all{ background:#eef2ff; color:#1e3a8a; }
+.city.istanbul{ background:#fee2e2; color:#991b1b; }
+.city.baku{ background:#dcfce7; color:#166534; }
+.city.moscow{ background:#e0e7ff; color:#1e3a8a; }
+.city.yerevan{ background:#fff7ed; color:#9a3412; }
 
-/* ISTANBUL (red + white vibe) */
-.city.istanbul{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-/* BAKU (blue + green vibe) */
-.city.baku{
-    background:#dcfce7;
-    color:#166534;
-}
-
-/* MOSCOW (red + deep tone) */
-.city.moscow{
-    background:#e0e7ff;
-    color:#1e3a8a;
-}
-
-/* active */
 .city.active{
     border:2px solid #111827;
     transform:scale(1.03);
@@ -138,6 +117,8 @@ button{
     border:none;
     cursor:pointer;
 }
+
+button:hover{ background:#1d4ed8; }
 
 /* TABLE */
 .table-wrapper{
@@ -172,16 +153,76 @@ tbody td{
     border-bottom:1px solid #f1f5f9;
 }
 
-tbody tr:hover{
-    background:#f8fafc;
-}
+tbody tr:hover{ background:#f8fafc; }
 
-.city-col{
-    font-weight:600;
-}
+.city-col{ font-weight:600; }
 
 .stars{ color:#fbbf24; }
+
 .price{ font-weight:600; }
+
+/* FOOTER */
+.footer{
+    margin-top:30px;
+    background:#0b1220;
+    color:#cbd5e1;
+    padding:20px;
+}
+
+.footer-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:20px;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.footer h4{
+    color:white;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.footer a{
+    color:#cbd5e1;
+    text-decoration:none;
+}
+
+.footer a:hover{ color:white; }
+
+.icons{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+}
+
+.icon{
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    background:#111827;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.icon:hover{
+    background:#2563eb;
+    color:white;
+}
+
+.bottom-line{
+    text-align:center;
+    margin-top:15px;
+    font-size:12px;
+    color:#94a3b8;
+}
 </style>
 </head>
 
@@ -203,7 +244,7 @@ tbody tr:hover{
         </div>
 
         <div class="desc">
-            Professional B2B hotel rate platform for Istanbul, Baku, and Moscow. Powered by global hotel APIs and travel industry systems.
+            Professional B2B hotel rate platform for Istanbul, Baku, Moscow, and Yerevan. Powered by global hotel APIs and travel systems.
         </div>
 
     </div>
@@ -214,15 +255,16 @@ tbody tr:hover{
 
 <div class="title">Hotel Rate Dashboard</div>
 
-<!-- CITY FILTER CARDS -->
+<!-- CITY FILTERS -->
 <div class="city-filters">
     <div class="city all active" onclick="setCity('all', this)">All Cities</div>
     <div class="city istanbul" onclick="setCity('Istanbul', this)">Istanbul</div>
     <div class="city baku" onclick="setCity('Baku', this)">Baku</div>
     <div class="city moscow" onclick="setCity('Moscow', this)">Moscow</div>
+    <div class="city yerevan" onclick="setCity('Yerevan', this)">Yerevan</div>
 </div>
 
-<!-- SEARCH -->
+<!-- CONTROLS -->
 <div class="controls">
     <input id="search" placeholder="Search hotel...">
     <button onclick="sortPrice()">Sort Price</button>
@@ -240,11 +282,47 @@ tbody tr:hover{
 <th>Rate</th>
 </tr>
 </thead>
-
 <tbody id="tbody"></tbody>
 </table>
 </div>
 </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+    <div class="footer-inner">
+
+        <div>
+            <h4>Contact</h4>
+            <div>+989102198262</div>
+            <div>+76554324674</div>
+
+            <div class="icons">
+                <div class="icon">W</div>
+                <div class="icon">T</div>
+                <div class="icon">X</div>
+            </div>
+        </div>
+
+        <div>
+            <h4>Address</h4>
+            <div>Moscow, near Red Square</div>
+            <div>First street, alley 1</div>
+        </div>
+
+        <div>
+            <h4>Ownership</h4>
+            <div>Developed & Owned by</div>
+            <div><b>Peyman Pasbani</b></div>
+        </div>
+
+    </div>
+
+    <div class="bottom-line">
+        © 2026 B2B Hotel Network — All rights reserved
+    </div>
 
 </div>
 
@@ -268,12 +346,17 @@ const data = [
 {city:"Moscow",name:"Azimut",stars:4,price:140},
 {city:"Moscow",name:"Metropol",stars:5,price:300},
 {city:"Moscow",name:"Holiday Inn",stars:4,price:160},
+
+{city:"Yerevan",name:"Grand Hotel Yerevan",stars:5,price:160},
+{city:"Yerevan",name:"Radisson Blu Yerevan",stars:5,price:190},
+{city:"Yerevan",name:"Ani Plaza Hotel",stars:4,price:110},
+{city:"Yerevan",name:"Metropol Yerevan",stars:4,price:130},
+{city:"Yerevan",name:"Republica Hotel",stars:4,price:120},
 ];
 
 let currentCity = "all";
 let sorted = false;
 
-/* RENDER */
 function render(list){
     const tbody = document.getElementById("tbody");
     tbody.innerHTML = "";
@@ -290,19 +373,17 @@ function render(list){
     });
 }
 
-/* CITY FILTER */
 function setCity(city, el){
     currentCity = city;
 
     document.querySelectorAll(".city").forEach(c=>{
         c.classList.remove("active");
     });
-    el.classList.add("active");
 
+    el.classList.add("active");
     applyFilters();
 }
 
-/* SEARCH + CITY */
 function applyFilters(){
     let search = document.getElementById("search").value.toLowerCase();
 
@@ -314,7 +395,6 @@ function applyFilters(){
     render(filtered);
 }
 
-/* SORT */
 function sortPrice(){
     let filtered = [...data].filter(h=>{
         return currentCity === "all" || h.city === currentCity;
@@ -328,7 +408,6 @@ function sortPrice(){
     render(filtered);
 }
 
-/* EVENTS */
 document.getElementById("search").addEventListener("input", applyFilters);
 
 render(data);
