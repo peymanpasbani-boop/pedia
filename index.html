@@ -42,13 +42,13 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .header::before { content:''; position:absolute; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 65%); top:-160px; right:-80px; pointer-events:none; }
 .header::after { content:''; position:absolute; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(0,0,0,.08) 0%,transparent 65%); bottom:-100px; left:5%; pointer-events:none; }
 .header-inner { max-width:1400px; margin:auto; position:relative; z-index:1; display:flex; flex-direction:column; gap:16px; }
-.top-bar { display:flex; justify-content:flex-end; align-items:center; padding:20px 0 0; }
+.top-bar { display:flex; justify-content:center; align-items:center; padding:16px 0 0; }
 .logo { display:flex; align-items:center; gap:11px; }
 .logo-mark { width:38px; height:38px; background:var(--white); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 4px 14px rgba(0,0,0,.2); }
 .logo-text { font-size:18px; font-weight:800; color:var(--white); letter-spacing:-.02em; }
 .logo-text span { color:rgba(255,255,255,.7); font-weight:400; }
-.nav { display:flex; gap:4px; }
-.nav a { color:rgba(255,255,255,.8); text-decoration:none; font-size:14px; font-weight:600; padding:7px 14px; border-radius:var(--r-sm); border:1px solid transparent; transition:all .15s; cursor:pointer; font-family:'Vazirmatn',sans-serif; letter-spacing:0; }
+.nav { display:flex; gap:4px; justify-content:center; width:100%; }
+.nav a { color:rgba(255,255,255,.85); text-decoration:none; font-size:15px; font-weight:600; padding:8px 22px; border-radius:var(--r-sm); border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.08); transition:all .15s; cursor:pointer; font-family:'Vazirmatn',sans-serif; letter-spacing:0; backdrop-filter:blur(4px); }
 .nav a:hover { background:rgba(255,255,255,.15); color:var(--white); border-color:rgba(255,255,255,.2); }
 
 /* ── HERO TAGLINE ── */
@@ -542,7 +542,7 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 /* ── HERO CHIPS INSIDE BOX ── */
 .hero-chips-inside {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 14px;
   direction: rtl;
@@ -584,7 +584,7 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 
 /* ── FOOTER PHONE BOX ── */
 .footer-phone-box {
-  background: linear-gradient(160deg, var(--red-800) 0%, var(--red-700) 60%, #8a1212 100%);
+  background: linear-gradient(160deg, var(--red-600) 0%, var(--red-500) 60%, var(--red-600) 100%);
   border: none;
   border-radius: 18px;
   padding: 20px 24px;
@@ -592,7 +592,8 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
   flex-direction: column;
   gap: 11px;
   box-shadow: 0 8px 32px rgba(160,20,20,.3), 0 2px 8px rgba(0,0,0,.12);
-  min-width: 240px;
+  min-width: 200px;
+  max-width: 280px;
   position: relative;
   overflow: hidden;
 }
@@ -641,13 +642,14 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 }
 a.fpb-num:hover { color: var(--gold-300); }
 .fpb-loc {
+  font-family: 'Vazirmatn', sans-serif;
   font-size: 11px;
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.7);
   display: flex;
   align-items: center;
   gap: 5px;
   padding-top: 4px;
-  border-top: 1px solid rgba(255,255,255,.12);
+  border-top: 1px solid rgba(255,255,255,.15);
 }
 .fpb-founder {
   display: flex;
@@ -668,16 +670,18 @@ a.fpb-num:hover { color: var(--gold-300); }
 }
 .fpb-founder-info {}
 .fpb-founder-name {
+  font-family: 'Vazirmatn', sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: -.01em;
+  letter-spacing: 0;
 }
 .fpb-founder-role {
+  font-family: 'Vazirmatn', sans-serif;
   font-size: 9px;
-  font-weight: 600;
-  color: rgba(255,255,255,.5);
-  letter-spacing: .1em;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .08em;
   text-transform: uppercase;
   margin-top: 1px;
 }
@@ -822,11 +826,11 @@ a.fpb-num:hover { color: var(--gold-300); }
   background: linear-gradient(90deg, var(--red-700), var(--gold-400), #25D366, var(--gold-400), var(--red-700));
 }
 .chat-box-inner {
-  padding: 26px 32px 28px;
+  padding: 16px 28px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   direction: rtl;
   text-align: center;
 }
@@ -837,7 +841,7 @@ a.fpb-num:hover { color: var(--gold-300); }
   background: #edfff5;
   border: 1px solid #b0e8c8;
   border-radius: 20px;
-  padding: 5px 14px;
+  padding: 4px 12px;
   direction: rtl;
 }
 .chat-online-dot {
@@ -860,21 +864,21 @@ a.fpb-num:hover { color: var(--gold-300); }
 .chat-box-text-block { direction: rtl; text-align: center; }
 .chat-box-title {
   font-family: 'Vazirmatn', sans-serif;
-  font-size: 19px; font-weight: 800;
+  font-size: 16px; font-weight: 800;
   color: var(--ink);
   direction: rtl;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
 }
 .chat-box-sub {
   font-family: 'Vazirmatn', sans-serif;
-  font-size: 13px; font-weight: 400;
+  font-size: 12px; font-weight: 400;
   color: var(--ink-3);
   direction: rtl;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 .chat-box-btn {
-  height: 52px;
-  padding: 0 36px;
+  height: 44px;
+  padding: 0 30px;
   background: linear-gradient(135deg, #1a9950, #25D366);
   color: #fff; border: none; border-radius: 14px;
   font-family: 'Vazirmatn', sans-serif;
@@ -936,13 +940,9 @@ a.fpb-num:hover { color: var(--gold-300); }
 
     <div class="hero-box">
       <div class="hero-chips-inside">
-        <span class="hero-chip-item">🤝 نرخ‌های همکاری</span>
-        <span class="hero-chip-sep">·</span>
-        <span class="hero-chip-item">⚡ تأیید سریع</span>
-        <span class="hero-chip-sep">·</span>
-        <span class="hero-chip-item">🔗 اتصال مستقیم</span>
-        <span class="hero-chip-sep">·</span>
-        <span class="hero-chip-item">🛎 پشتیبانی اختصاصی</span>
+        <span class="hero-chip-item">💰 نرخ تضمینی</span>
+        <span class="hero-chip-item">⚡ واچر آنی</span>
+        <span class="hero-chip-item">🛎 پشتیبانی سریع</span>
       </div>
       <div class="fa-tagline">
         رزرو تخصصی هتل برای آژانس‌های گردشگری؛ با اتصال مستقیم به تأمین‌کنندگان در <strong>مسکو</strong>، <strong>باکو</strong> و <strong>ایروان</strong>؛
