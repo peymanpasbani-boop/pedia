@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B2B Hotel Board</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -28,7 +28,6 @@ body{
     margin:auto;
 }
 
-/* top bar */
 .top-bar{
     display:flex;
     justify-content:space-between;
@@ -46,7 +45,6 @@ body{
     font-weight:700;
 }
 
-/* nav */
 .nav a{
     color:#475569;
     margin-left:14px;
@@ -55,7 +53,6 @@ body{
     font-weight:500;
     padding:6px 10px;
     border-radius:8px;
-    transition:0.2s;
 }
 
 .nav a:hover{
@@ -63,7 +60,6 @@ body{
     color:#1e3a8a;
 }
 
-/* desc */
 .desc{
     margin-top:10px;
     font-size:12.5px;
@@ -77,12 +73,11 @@ body{
     background: linear-gradient(135deg, #ffffff, #f1f5ff);
     border:1px solid #e5e7eb;
     border-radius:14px;
-    box-shadow: 0 6px 18px rgba(15,23,42,0.05);
 }
 
 .persian-box p{
     margin:0;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family:'Vazirmatn', sans-serif;
     font-size:14px;
     color:#0f172a;
     line-height:1.8;
@@ -101,11 +96,10 @@ body{
     font-weight:600;
 }
 
-/* cities */
+/* CITY FILTERS */
 .city-filters{
     display:flex;
     gap:8px;
-    flex-wrap:nowrap;
     overflow-x:auto;
     margin:10px 0;
 }
@@ -115,6 +109,7 @@ body{
     border-radius:8px;
     cursor:pointer;
     font-size:12.5px;
+    white-space:nowrap;
 }
 
 .city.all{ background:#eef2ff; color:#1e3a8a; }
@@ -127,7 +122,7 @@ body{
     border:1px solid #111827;
 }
 
-/* controls */
+/* CONTROLS */
 .controls{
     display:flex;
     gap:8px;
@@ -139,6 +134,7 @@ input,button{
     border-radius:8px;
     border:1px solid #e5e7eb;
     padding:0 12px;
+    font-size:13px;
 }
 
 input{ flex:1; }
@@ -147,17 +143,66 @@ button{
     background:#2563eb;
     color:white;
     border:none;
+    cursor:pointer;
 }
 
-/* table */
+/* ===== TABLE FIXED ===== */
 .table-wrapper{
     background:white;
-    border-radius:12px;
+    border-radius:14px;
     overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    box-shadow:0 6px 18px rgba(15,23,42,0.06);
 }
 
-/* footer */
+table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:13px;
+    font-family:'Inter', sans-serif;
+}
+
+thead th{
+    background:#f8fafc;
+    padding:12px 14px;
+    text-align:left;
+    font-weight:600;
+    font-size:12px;
+    color:#475569;
+    border-bottom:1px solid #e5e7eb;
+}
+
+tbody td{
+    padding:12px 14px;
+    border-bottom:1px solid #f1f5f9;
+    color:#0f172a;
+    font-weight:500;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+tbody td:first-child{
+    font-weight:600;
+}
+
+tbody td:nth-child(2){
+    max-width:320px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.stars{
+    color:#fbbf24;
+}
+
+.price{
+    font-weight:700;
+}
+
+/* ===== FOOTER ===== */
 .footer{
     margin-top:30px;
     background: linear-gradient(135deg, #f8fafc, #eef2ff);
@@ -178,7 +223,6 @@ button{
     border:1px solid #e5e7eb;
     border-radius:14px;
     padding:16px;
-    box-shadow: 0 6px 18px rgba(15,23,42,0.05);
 }
 
 .footer h4{
@@ -216,13 +260,12 @@ button{
         </div>
 
         <div class="desc">
-            Professional B2B hotel rate dashboard for major cities.
+            Professional B2B hotel rate dashboard
         </div>
 
-        <!-- PERSIAN BOX -->
         <div class="persian-box">
             <p>
-                این یک داشبورد حرفه‌ای برای نمایش و مدیریت نرخ هتل‌ها به صورت B2B است که برای استفاده سریع، دقیق و مدرن طراحی شده است.
+                این یک داشبورد حرفه‌ای برای مدیریت و نمایش نرخ هتل‌ها به صورت B2B است که با طراحی مدرن، ساده و کاربردی برای استفاده سریع و دقیق ساخته شده است.
             </p>
         </div>
 
