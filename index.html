@@ -26,6 +26,10 @@
   --blue-lt:#eef2ff;
   --blue-bd:#c7d2fe;
 
+  --amber:     #d97706;
+  --amber-lt:  #fffbeb;
+  --amber-bd:  #fde68a;
+
   --shadow-sm: 0 2px 8px rgba(15,23,42,.05);
   --shadow-md: 0 6px 20px rgba(15,23,42,.07);
   --shadow-lg: 0 8px 28px rgba(15,23,42,.09);
@@ -45,6 +49,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* HEADER */
 .header {
   background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f0f9ff 100%);
   padding: 16px 20px 20px;
@@ -114,15 +119,9 @@ body {
 }
 
 .hcity:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
-.hcity .hc-flag { font-size: 22px; line-height: 1; }
-.hcity .hc-name { font-size: 12px; font-weight: 600; letter-spacing: .01em; }
-.hcity .hc-count {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 400;
-  opacity: .7;
-}
+.hcity .hc-flag  { font-size: 22px; line-height: 1; }
+.hcity .hc-name  { font-size: 12px; font-weight: 600; letter-spacing: .01em; }
+.hcity .hc-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 400; opacity: .7; }
 
 .hcity.all      { background: rgba(255,255,255,.75); color: #1e3a8a; border-color: var(--blue-bd); }
 .hcity.istanbul { background: var(--ist-bg); color: var(--ist); }
@@ -154,6 +153,7 @@ body {
   text-align: center;
 }
 
+/* MAIN */
 .container {
   width: 100%;
   max-width: 1400px;
@@ -207,13 +207,14 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: background .15s, transform .1s;
   white-space: nowrap;
+  transition: background .15s, transform .1s;
 }
 
 .sort-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
 .sort-btn:active { transform: translateY(0); }
 
+/* TABLE */
 .table-wrapper {
   width: 100%;
   background: var(--white);
@@ -231,17 +232,15 @@ table {
   font-size: 13px;
 }
 
-/* FIX: ستون Rate/Night عرض بیشتر و td چهارم overflow مرتب شد */
-thead th:nth-child(1), tbody td:nth-child(1) { width: 16%; }
-thead th:nth-child(2), tbody td:nth-child(2) { width: 42%; }
+thead th:nth-child(1), tbody td:nth-child(1) { width: 14%; }
+thead th:nth-child(2), tbody td:nth-child(2) { width: 48%; }
 thead th:nth-child(3), tbody td:nth-child(3) { width: 16%; }
-thead th:nth-child(4), tbody td:nth-child(4) { width: 26%; }
+thead th:nth-child(4), tbody td:nth-child(4) { width: 22%; }
 
 thead th {
   background: #f8fafc;
   padding: 12px 16px;
   text-align: left;
-  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: var(--ink-2);
@@ -252,7 +251,6 @@ thead th {
 tbody td {
   padding: 13px 16px;
   border-bottom: 1px solid var(--border-lt);
-  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--ink);
@@ -264,20 +262,37 @@ tbody tr:hover { background: #f8fafc; }
 
 tbody td:nth-child(1) { font-weight: 600; }
 
+/* hotel name: ellipsis for long names */
 tbody td:nth-child(2) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 0; /* triggers ellipsis inside table-layout:fixed */
 }
 
-/* FIX: ستون چهارم overflow مرتب و badge داخلش جا بگیره */
-tbody td:nth-child(4) {
-  overflow: visible;
+/* STAR BADGE — amber, minimal */
+.star-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--amber-lt);
+  color: var(--amber);
+  border: 1px solid var(--amber-bd);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: .02em;
 }
 
-.stars { color: #fbbf24; font-size: 11px; letter-spacing: 0px; white-space: nowrap; }
+.star-badge .star-icon {
+  font-size: 11px;
+  line-height: 1;
+}
 
-/* FIX: width ثابت حذف شد، inline-flex با padding کافی جایگزین شد */
+/* RATE BADGE — blue */
 .rate-badge {
   display: inline-flex;
   align-items: center;
@@ -304,6 +319,7 @@ tbody td:nth-child(4) {
   letter-spacing: .03em;
 }
 
+/* PAGE FOOTER */
 .footer {
   margin-top: 36px;
   background: linear-gradient(135deg, #f8fafc, #eef2ff);
@@ -347,7 +363,6 @@ tbody td:nth-child(4) {
 @media (max-width: 768px) {
   .footer-inner { grid-template-columns: 1fr; }
   .persian-box p { font-size: 13px; }
-  thead th:nth-child(2), tbody td:nth-child(2) { max-width: 120px; }
 }
 </style>
 </head>
@@ -355,7 +370,6 @@ tbody td:nth-child(4) {
 
 <div class="header">
   <div class="header-inner">
-
     <div class="top-bar">
       <div class="logo">B2B Hotel Network</div>
       <div class="nav">
@@ -398,12 +412,10 @@ tbody td:nth-child(4) {
         ساده و کاربردی برای استفاده سریع و دقیق ساخته شده است.
       </p>
     </div>
-
   </div>
 </div>
 
 <div class="container">
-
   <div class="title">Hotel Rate Dashboard</div>
 
   <div class="controls">
@@ -427,7 +439,6 @@ tbody td:nth-child(4) {
     </table>
     <div class="table-footer" id="tfoot"></div>
   </div>
-
 </div>
 
 <div class="footer">
@@ -487,8 +498,8 @@ function render(list) {
   tbody.innerHTML = list.map(h => `
     <tr>
       <td>${h.city}</td>
-      <td>${h.name}</td>
-      <td><span class="stars">${"⭐".repeat(h.stars)}</span></td>
+      <td title="${h.name}">${h.name}</td>
+      <td><span class="star-badge"><span class="star-icon">★</span>${h.stars}★</span></td>
       <td><span class="rate-badge">$${h.price}</span></td>
     </tr>`).join("");
   document.getElementById("tfoot").textContent =
