@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/bookira.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fa" dir="ltr">
 <head>
@@ -180,6 +181,84 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 .pg-btn:disabled { opacity: .35; cursor: not-allowed; }
 .pg-info { font-size: 11px; color: var(--ink-4); font-family: 'IBM Plex Mono', monospace; padding: 0 6px; }
 
+/* ══ BOOKING STEPS ══ */
+.booking-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0 24px;
+}
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s, box-shadow .2s;
+}
+.step-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.step-card:nth-child(1)::before { background: linear-gradient(90deg, var(--red-600), var(--red-400)); }
+.step-card:nth-child(2)::before { background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); }
+.step-card:nth-child(3)::before { background: linear-gradient(90deg, #2e7d32, #4caf50); }
+.step-num {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.step-card:nth-child(1) .step-num { background: linear-gradient(135deg, var(--red-700), var(--red-500)); box-shadow: 0 3px 10px rgba(211,35,35,.3); }
+.step-card:nth-child(2) .step-num { background: linear-gradient(135deg, var(--gold-600), var(--gold-400)); box-shadow: 0 3px 10px rgba(192,134,10,.3); }
+.step-card:nth-child(3) .step-num { background: linear-gradient(135deg, #2e7d32, #4caf50); box-shadow: 0 3px 10px rgba(46,125,50,.3); }
+.step-icon-wrap {
+  width: 62px; height: 62px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+.step-card:nth-child(1) .step-icon-wrap { background: var(--red-50); border: 1px solid #ffd0d0; }
+.step-card:nth-child(2) .step-icon-wrap { background: var(--gold-100); border: 1px solid #f0d080; }
+.step-card:nth-child(3) .step-icon-wrap { background: #f0fff4; border: 1px solid #b0e8c8; }
+.step-title {
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 14px; font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 6px;
+  direction: rtl;
+}
+.step-sub {
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 11.5px; font-weight: 400;
+  color: var(--ink-3);
+  line-height: 1.7;
+  direction: rtl;
+}
+.step-connector {
+  display: none;
+}
+@media (min-width: 640px) {
+  .booking-steps { position: relative; }
+}
+
 /* ══ FOOTER — Modern European Light Design ══ */
 .footer-new {
   margin-top: 56px;
@@ -209,7 +288,7 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
   margin: auto;
   padding: 48px 40px 36px;
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 0 40px;
   position: relative;
   z-index: 1;
@@ -325,27 +404,17 @@ tbody td:nth-child(2) { white-space:nowrap; overflow:hidden; text-overflow:ellip
 }
 a.fn2-ci-num:hover { color: var(--red-600); }
 
-/* Quick links */
-.fn2-links { display: flex; flex-direction: column; gap: 2px; }
-.fn2-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink-2);
-  text-decoration: none;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--border-lt);
+/* Address */
+.fn2-address {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  transition: color .15s;
-  cursor: pointer;
+  gap: 6px;
   font-family: 'Vazirmatn', sans-serif;
+  font-size: 11px;
+  color: var(--ink-4);
   direction: rtl;
+  margin-top: 4px;
 }
-.fn2-link:last-child { border-bottom: none; }
-.fn2-link:hover { color: var(--red-600); }
-.fn2-link-arrow { font-size: 11px; color: var(--ink-4); transition: transform .15s; }
-.fn2-link:hover .fn2-link-arrow { transform: translateX(-3px); color: var(--red-400); }
 
 /* Founder card */
 .fn2-founder-card {
@@ -397,18 +466,6 @@ a.fn2-ci-num:hover { color: var(--red-600); }
   border-radius: 20px;
   padding: 3px 10px;
   letter-spacing: .03em;
-}
-
-/* Address */
-.fn2-address {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Vazirmatn', sans-serif;
-  font-size: 11px;
-  color: var(--ink-4);
-  direction: rtl;
-  margin-top: 4px;
 }
 
 /* Bottom bar */
@@ -468,6 +525,7 @@ a.fn2-ci-num:hover { color: var(--red-600); }
   .footer-inner-new { grid-template-columns: 1fr; padding: 32px 24px 24px; }
   .fn2-bottom-inner { padding: 12px 24px; }
   .fn2-desc { max-width: 100%; }
+  .booking-steps { grid-template-columns: 1fr; }
 }
 
 /* ══ OVERLAY PANELS ══ */
@@ -604,7 +662,7 @@ a.fn2-ci-num:hover { color: var(--red-600); }
 .modal-hotel-header { display:flex; align-items:flex-start; gap:14px; }
 .modal-hotel-icon { width:42px; height:42px; border-radius:11px; flex-shrink:0; background:linear-gradient(135deg,var(--red-700),var(--red-500)); display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 4px 12px rgba(211,35,35,.28); }
 .modal-hotel-name { font-size:15px; font-weight:800; color:var(--ink); letter-spacing:-.02em; margin-bottom:5px; }
-.modal-hotel-meta { display:flex; align-items:center; gap:8px; }
+.modal-hotel-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
 .modal-city-tag { font-size:11px; font-weight:600; color:var(--red-700); background:var(--red-100); border:1px solid #ffd0d0; padding:2px 8px; border-radius:20px; }
 .modal-stars { font-size:11px; font-weight:700; color:var(--gold-500); background:var(--gold-100); border:1px solid #f0d080; padding:2px 8px; border-radius:20px; font-family:'IBM Plex Mono',monospace; }
 .modal-section-label { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--red-600); margin-bottom:10px; margin-top:16px; display:flex; align-items:center; gap:8px; }
@@ -642,6 +700,99 @@ a.fn2-ci-num:hover { color: var(--red-600); }
 .sum-note { font-size:9.5px; color:rgba(255,255,255,.25); text-align:right; margin-top:8px; font-family:'IBM Plex Mono',monospace; }
 .modal-submit-btn { width:100%; height:46px; border-radius:var(--r-sm); border:none; background:linear-gradient(135deg,var(--red-700),var(--red-500)); color:var(--white); font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(211,35,35,.35); transition:all .2s; }
 .modal-submit-btn:hover { background:linear-gradient(135deg,var(--red-800),var(--red-600)); box-shadow:0 6px 22px rgba(211,35,35,.45); transform:translateY(-1px); }
+
+/* ══ HOTEL PHOTOS ACCORDION ══ */
+.hotel-photos-accordion {
+  margin-top: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: #fafafa;
+}
+.hotel-photos-toggle {
+  width: 100%;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+  letter-spacing: -.01em;
+  transition: background .15s;
+  gap: 8px;
+}
+.hotel-photos-toggle:hover { background: var(--red-50); color: var(--red-700); }
+.hotel-photos-toggle-left { display: flex; align-items: center; gap: 8px; }
+.hotel-photos-toggle-icon { font-size: 16px; }
+.hotel-photos-arrow {
+  font-size: 12px;
+  color: var(--ink-4);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+  display: inline-block;
+}
+.hotel-photos-accordion.open .hotel-photos-arrow { transform: rotate(180deg); }
+.hotel-photos-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1);
+}
+.hotel-photos-accordion.open .hotel-photos-body { max-height: 500px; }
+.hotel-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+}
+.hotel-photo-item {
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--border);
+  position: relative;
+  cursor: pointer;
+}
+.hotel-photo-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .3s;
+  display: block;
+}
+.hotel-photo-item:hover img { transform: scale(1.06); }
+.hotel-photo-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.15);
+  opacity: 0; transition: opacity .2s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.hotel-photo-item:hover .hotel-photo-overlay { opacity: 1; }
+.hotel-address-bar {
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--border-lt);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  direction: rtl;
+  background: #fff;
+}
+.hotel-address-bar a {
+  color: var(--red-600);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  margin-right: auto;
+  white-space: nowrap;
+}
+.hotel-address-bar a:hover { text-decoration: underline; }
 
 /* ══ VOUCHER PAGE ══ */
 #voucherPage { display:none; position:fixed; inset:0; z-index:2000; background:#f5f0e8; overflow-y:auto; }
@@ -849,7 +1000,7 @@ a.fn2-ci-num:hover { color: var(--red-600); }
 .info-card-body { flex:1; }
 .info-card-title { font-family:'Vazirmatn',sans-serif; font-size:14px; font-weight:800; color:var(--ink); margin-bottom:3px; }
 .info-card-sub { font-family:'Vazirmatn',sans-serif; font-size:11px; font-weight:400; color:var(--ink-3); line-height:1.5; }
-.info-card-arrow { color:var(--red-400); font-size:18px; font-weight:300; transition:transform .15s; }
+.info-card-arrow { color:var(--red-400); font-size:18px; font-weight:300; transition:transform .15px; }
 .info-card:hover .info-card-arrow { transform:translateX(-3px); }
 
 /* ── HERO WAVE ── */
@@ -886,6 +1037,7 @@ a.fn2-ci-num:hover { color: var(--red-600); }
   .v-stay-grid { grid-template-columns:1fr 1fr; }
   .voucher-footer-bar { flex-direction:column; }
   .info-cards-row { grid-template-columns:1fr; }
+  .hotel-photos-grid { grid-template-columns: repeat(2,1fr); }
 }
 @media print {
   body * { visibility:hidden; }
@@ -899,9 +1051,6 @@ a.fn2-ci-num:hover { color: var(--red-600); }
 
 <div class="header">
   <div class="header-inner">
-    <!-- NAV LINKS REMOVED as requested -->
-
-    <!-- Hero title -->
     <div class="hero-tagline-block" style="padding-top:20px;">
       <div class="hero-wave-bg">
         <svg class="hero-wave-svg" viewBox="0 0 900 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -1007,6 +1156,28 @@ a.fn2-ci-num:hover { color: var(--red-600); }
   </div>
   <div class="pagination" id="pagination"></div>
 
+  <!-- ══ BOOKING STEPS ══ -->
+  <div class="booking-steps">
+    <div class="step-card">
+      <div class="step-num">۱</div>
+      <div class="step-icon-wrap">🔍</div>
+      <div class="step-title">بررسی هتل</div>
+      <div class="step-sub">هتل مورد نظر را از جدول انتخاب کنید و نرخ شبانه را بررسی نمایید</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">۲</div>
+      <div class="step-icon-wrap">📋</div>
+      <div class="step-title">ارسال اطلاعات</div>
+      <div class="step-sub">فرم رزرو را تکمیل کنید و اطلاعات مسافران را برای ما ارسال نمایید</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">۳</div>
+      <div class="step-icon-wrap">🎫</div>
+      <div class="step-title">دریافت واچر</div>
+      <div class="step-sub">واچر رسمی هتل را دریافت کنید و مسافر را با خیال راحت اعزام نمایید</div>
+    </div>
+  </div>
+
   <!-- ONLINE CHAT BOX -->
   <div class="chat-box-wrap">
     <div class="chat-box">
@@ -1031,7 +1202,7 @@ a.fn2-ci-num:hover { color: var(--red-600); }
   </div>
 </div>
 
-<!-- ══ NEW FOOTER — Modern European Light ══ -->
+<!-- ══ NEW FOOTER ══ -->
 <footer class="footer-new">
   <div class="footer-inner-new">
 
@@ -1078,36 +1249,9 @@ a.fn2-ci-num:hover { color: var(--red-600); }
       </div>
     </div>
 
-    <!-- Quick Links column -->
-    <div class="fn2-col">
-      <div class="fn2-col-title">دسترسی سریع</div>
-      <div class="fn2-links">
-        <span class="fn2-link" onclick="openPanel('about')">
-          درباره ما
-          <span class="fn2-link-arrow">←</span>
-        </span>
-        <span class="fn2-link" onclick="openPanel('contact')">
-          تماس با ما
-          <span class="fn2-link-arrow">←</span>
-        </span>
-        <span class="fn2-link" onclick="setCity('Baku', document.querySelector('.ctab:nth-child(2)'))">
-          هتل‌های باکو
-          <span class="fn2-link-arrow">←</span>
-        </span>
-        <span class="fn2-link" onclick="setCity('Moscow', document.querySelector('.ctab:nth-child(3)'))">
-          هتل‌های مسکو
-          <span class="fn2-link-arrow">←</span>
-        </span>
-        <span class="fn2-link" onclick="setCity('Yerevan', document.querySelector('.ctab:nth-child(4)'))">
-          هتل‌های ایروان
-          <span class="fn2-link-arrow">←</span>
-        </span>
-      </div>
-    </div>
-
     <!-- Founder column -->
     <div class="fn2-col">
-      <div class="fn2-col-title">بنیان‌گذار</div>
+      <div class="fn2-col-title">Founder</div>
       <div class="fn2-founder-card">
         <div class="fn2-founder-ava">PP</div>
         <div>
@@ -1210,11 +1354,29 @@ a.fn2-ci-num:hover { color: var(--red-600); }
       <button class="modal-close" onclick="closeModal()">✕</button>
       <div class="modal-hotel-header">
         <div class="modal-hotel-icon">🏨</div>
-        <div>
+        <div style="flex:1; min-width:0;">
           <div class="modal-hotel-name" id="mHotelName">Hotel Name</div>
           <div class="modal-hotel-meta">
             <span class="modal-city-tag" id="mCityTag">City</span>
             <span class="modal-stars" id="mStars">★ 5</span>
+          </div>
+        </div>
+      </div>
+      <!-- Hotel Photos Accordion -->
+      <div class="hotel-photos-accordion" id="hotelPhotosAccordion" style="margin-top:12px;">
+        <button class="hotel-photos-toggle" onclick="toggleHotelPhotos()">
+          <div class="hotel-photos-toggle-left">
+            <span class="hotel-photos-toggle-icon">🖼️</span>
+            <span>تصاویر و موقعیت هتل</span>
+          </div>
+          <span class="hotel-photos-arrow">▼</span>
+        </button>
+        <div class="hotel-photos-body">
+          <div class="hotel-photos-grid" id="hotelPhotosGrid"></div>
+          <div class="hotel-address-bar" id="hotelAddressBar">
+            <span>📍</span>
+            <span id="hotelAddressText">—</span>
+            <a id="hotelMapLink" href="#" target="_blank">نقشه ←</a>
           </div>
         </div>
       </div>
@@ -1398,22 +1560,83 @@ a.fn2-ci-num:hover { color: var(--red-600); }
 <div class="toast" id="toast">✅ Voucher ready!</div>
 
 <script>
+// ── HOTEL DATA with photos and addresses ──
 const DATA = [
-  { city:"Baku",     name:"Fairmont Baku",             stars:5, price:200 },
-  { city:"Baku",     name:"JW Marriott Baku",          stars:5, price:230 },
-  { city:"Baku",     name:"Holiday Inn Baku",          stars:4, price:130 },
-  { city:"Baku",     name:"Hilton Baku",               stars:5, price:210 },
-  { city:"Baku",     name:"Park Inn by Radisson",      stars:4, price:120 },
-  { city:"Moscow",   name:"Radisson Royal Moscow",     stars:5, price:250 },
-  { city:"Moscow",   name:"The Ritz-Carlton Moscow",   stars:5, price:400 },
-  { city:"Moscow",   name:"Azimut Hotel",              stars:4, price:140 },
-  { city:"Moscow",   name:"Hotel Metropol",            stars:5, price:300 },
-  { city:"Moscow",   name:"Holiday Inn Moscow",        stars:4, price:160 },
-  { city:"Yerevan",  name:"Grand Hotel Yerevan",       stars:5, price:160 },
-  { city:"Yerevan",  name:"Radisson Blu Yerevan",      stars:5, price:190 },
-  { city:"Yerevan",  name:"Ani Plaza Hotel",           stars:4, price:110 },
-  { city:"Yerevan",  name:"Metropol Yerevan",          stars:4, price:130 },
-  { city:"Yerevan",  name:"Republica Hotel",           stars:4, price:120 },
+  { city:"Baku", name:"Fairmont Baku", stars:5, price:200,
+    address:"1 Neftchilar Avenue, Baku, Azerbaijan",
+    mapQuery:"Fairmont Baku Azerbaijan",
+    photos:["https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80","https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80","https://images.unsplash.com/photo-1444201983204-c43cbd584d93?w=400&q=80","https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80","https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80","https://images.unsplash.com/photo-1455587734955-081b22074882?w=400&q=80"]
+  },
+  { city:"Baku", name:"JW Marriott Baku", stars:5, price:230,
+    address:"4 Neftchilar Avenue, Baku, Azerbaijan",
+    mapQuery:"JW Marriott Baku",
+    photos:["https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80","https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=400&q=80","https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80","https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80","https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400&q=80","https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=400&q=80"]
+  },
+  { city:"Baku", name:"Holiday Inn Baku", stars:4, price:130,
+    address:"5 Uzeyir Hajibeyov Street, Baku, Azerbaijan",
+    mapQuery:"Holiday Inn Baku Azerbaijan",
+    photos:["https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400&q=80","https://images.unsplash.com/photo-1564501049559-0a2bfed00aea?w=400&q=80","https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400&q=80","https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80","https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80","https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80"]
+  },
+  { city:"Baku", name:"Hilton Baku", stars:5, price:210,
+    address:"1 Azadliq Square, Baku, Azerbaijan",
+    mapQuery:"Hilton Baku Azerbaijan",
+    photos:["https://images.unsplash.com/photo-1549294413-26f195200c16?w=400&q=80","https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=400&q=80","https://images.unsplash.com/photo-1551016894-f63cec44c35e?w=400&q=80","https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80","https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80","https://images.unsplash.com/photo-1519449556851-5720b33024e7?w=400&q=80"]
+  },
+  { city:"Baku", name:"Park Inn by Radisson", stars:4, price:120,
+    address:"1 Neftchilar Avenue, Baku, Azerbaijan",
+    mapQuery:"Park Inn Radisson Baku",
+    photos:["https://images.unsplash.com/photo-1526888935184-a82d2a4b7e67?w=400&q=80","https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80","https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400&q=80","https://images.unsplash.com/photo-1600011689032-8b628b8a8747?w=400&q=80","https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400&q=80","https://images.unsplash.com/photo-1587985064135-0366536eab42?w=400&q=80"]
+  },
+  { city:"Moscow", name:"Radisson Royal Moscow", stars:5, price:250,
+    address:"2/1 Kutuzovsky Prospekt, Moscow, Russia",
+    mapQuery:"Radisson Royal Hotel Moscow",
+    photos:["https://images.unsplash.com/photo-1601625012820-bb3d2c85c27d?w=400&q=80","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80","https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80","https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400&q=80","https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80","https://images.unsplash.com/photo-1444201983204-c43cbd584d93?w=400&q=80"]
+  },
+  { city:"Moscow", name:"The Ritz-Carlton Moscow", stars:5, price:400,
+    address:"3 Tverskaya Street, Moscow, Russia",
+    mapQuery:"Ritz Carlton Moscow Russia",
+    photos:["https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80","https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80","https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80","https://images.unsplash.com/photo-1455587734955-081b22074882?w=400&q=80","https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80","https://images.unsplash.com/photo-1519449556851-5720b33024e7?w=400&q=80"]
+  },
+  { city:"Moscow", name:"Azimut Hotel", stars:4, price:140,
+    address:"5 Smolenskaya Square, Moscow, Russia",
+    mapQuery:"Azimut Hotel Moscow",
+    photos:["https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80","https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80","https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80","https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400&q=80","https://images.unsplash.com/photo-1564501049559-0a2bfed00aea?w=400&q=80","https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400&q=80"]
+  },
+  { city:"Moscow", name:"Hotel Metropol", stars:5, price:300,
+    address:"2 Teatralny Proezd, Moscow, Russia",
+    mapQuery:"Hotel Metropol Moscow Russia",
+    photos:["https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=400&q=80","https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80","https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80","https://images.unsplash.com/photo-1549294413-26f195200c16?w=400&q=80","https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=400&q=80","https://images.unsplash.com/photo-1551016894-f63cec44c35e?w=400&q=80"]
+  },
+  { city:"Moscow", name:"Holiday Inn Moscow", stars:4, price:160,
+    address:"10 Lesnaya Street, Moscow, Russia",
+    mapQuery:"Holiday Inn Moscow Russia",
+    photos:["https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80","https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80","https://images.unsplash.com/photo-1526888935184-a82d2a4b7e67?w=400&q=80","https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80","https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400&q=80","https://images.unsplash.com/photo-1600011689032-8b628b8a8747?w=400&q=80"]
+  },
+  { city:"Yerevan", name:"Grand Hotel Yerevan", stars:5, price:160,
+    address:"14 Abovyan Street, Yerevan, Armenia",
+    mapQuery:"Grand Hotel Yerevan Armenia",
+    photos:["https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80","https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80","https://images.unsplash.com/photo-1601625012820-bb3d2c85c27d?w=400&q=80","https://images.unsplash.com/photo-1587985064135-0366536eab42?w=400&q=80","https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400&q=80"]
+  },
+  { city:"Yerevan", name:"Radisson Blu Yerevan", stars:5, price:190,
+    address:"1 Amiryan Street, Yerevan, Armenia",
+    mapQuery:"Radisson Blu Yerevan Armenia",
+    photos:["https://images.unsplash.com/photo-1444201983204-c43cbd584d93?w=400&q=80","https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80","https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80","https://images.unsplash.com/photo-1455587734955-081b22074882?w=400&q=80","https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80","https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=400&q=80"]
+  },
+  { city:"Yerevan", name:"Ani Plaza Hotel", stars:4, price:110,
+    address:"19 Sayat Nova Avenue, Yerevan, Armenia",
+    mapQuery:"Ani Plaza Hotel Yerevan Armenia",
+    photos:["https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80","https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80","https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400&q=80","https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=400&q=80","https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400&q=80","https://images.unsplash.com/photo-1564501049559-0a2bfed00aea?w=400&q=80"]
+  },
+  { city:"Yerevan", name:"Metropol Yerevan", stars:4, price:130,
+    address:"5 Mashtots Avenue, Yerevan, Armenia",
+    mapQuery:"Metropol Hotel Yerevan Armenia",
+    photos:["https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400&q=80","https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80","https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80","https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80","https://images.unsplash.com/photo-1549294413-26f195200c16?w=400&q=80","https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=400&q=80"]
+  },
+  { city:"Yerevan", name:"Republica Hotel", stars:4, price:120,
+    address:"7 Buzand Street, Yerevan, Armenia",
+    mapQuery:"Republica Hotel Yerevan Armenia",
+    photos:["https://images.unsplash.com/photo-1551016894-f63cec44c35e?w=400&q=80","https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80","https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80","https://images.unsplash.com/photo-1519449556851-5720b33024e7?w=400&q=80","https://images.unsplash.com/photo-1526888935184-a82d2a4b7e67?w=400&q=80","https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80"]
+  },
 ];
 
 const PAGE_SIZE = 15;
@@ -1432,6 +1655,32 @@ function openPanel(which){
 function closePanel(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
 function closeAllPanels(){ ['panelAbout','panelContact'].forEach(id=>{ document.getElementById(id).classList.remove('open'); }); document.body.style.overflow=''; }
 function closePanelOnOverlay(e,id){ if(e.target===document.getElementById(id)) closePanel(id); }
+
+/* ── HOTEL PHOTOS ACCORDION ── */
+function toggleHotelPhotos(){
+  const acc = document.getElementById('hotelPhotosAccordion');
+  acc.classList.toggle('open');
+}
+
+function buildHotelPhotos(hotel){
+  const grid = document.getElementById('hotelPhotosGrid');
+  const addrText = document.getElementById('hotelAddressText');
+  const mapLink = document.getElementById('hotelMapLink');
+  const acc = document.getElementById('hotelPhotosAccordion');
+
+  // reset
+  acc.classList.remove('open');
+
+  addrText.textContent = hotel.address || '—';
+  mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(hotel.mapQuery || hotel.name);
+
+  grid.innerHTML = (hotel.photos || []).map((src, i) => `
+    <div class="hotel-photo-item">
+      <img src="${src}" alt="Photo ${i+1}" loading="lazy" onerror="this.parentElement.style.display='none'" />
+      <div class="hotel-photo-overlay">🔍</div>
+    </div>
+  `).join('');
+}
 
 /* ── PAGINATION + TABLE ── */
 function render(list){
@@ -1536,11 +1785,16 @@ function openModal(hotel){
   document.getElementById("mAgency").value="";
   document.getElementById("mBooker").value="";
   calcSummary();
+  buildHotelPhotos(hotel);
   document.getElementById("modalOverlay").classList.add("open");
   document.body.style.overflow="hidden";
   document.querySelector(".modal-body").scrollTop=0;
 }
-function closeModal(){ document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow=""; }
+function closeModal(){
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow="";
+  document.getElementById('hotelPhotosAccordion').classList.remove('open');
+}
 function closeModalOnOverlay(e){ if(e.target===document.getElementById("modalOverlay")) closeModal(); }
 function fmtDate(d){ return d.toISOString().split("T")[0]; }
 function fmtDisplay(s){
@@ -1550,15 +1804,11 @@ function fmtDisplay(s){
   return `${d} ${months[parseInt(m)-1]} ${y}`;
 }
 
-/* ── TRIPLE ROOM PRICING FIX ──
-   Single: price as-is (1 bed)
-   Double: price as-is (2 beds)
-   Triple: (price / 2) * 3  — because price is the 2-bed rate, so per-bed = price/2, triple = per-bed * 3
-*/
+/* ── TRIPLE ROOM PRICING ── */
 function getRoomRate(hotel, beds) {
-  if(beds === 1) return hotel.price;       // Single: listed price
-  if(beds === 2) return hotel.price;       // Double: listed price
-  if(beds === 3) return (hotel.price / 2) * 3; // Triple: per-bed × 3
+  if(beds === 1) return hotel.price;
+  if(beds === 2) return hotel.price;
+  if(beds === 3) return Math.round((hotel.price / 2) * 3);
   return hotel.price;
 }
 
@@ -1632,24 +1882,57 @@ function submitRequest(){
   showToast("✅ واچر آماده است — رزرو #"+vnum);
   setTimeout(()=>{ showWAConfirm(); }, 600);
 }
+
 function showWAConfirm(){ document.getElementById("waConfirmOverlay").classList.add("open"); }
 function closeWAConfirm(){ document.getElementById("waConfirmOverlay").classList.remove("open"); }
+
 function sendToWA(){
-  const txt=voucherText();
-  const waUrl="https://wa.me/989102198261?text="+encodeURIComponent(txt);
-  window.open(waUrl,"_blank");
+  if(!lastVoucherData){ closeWAConfirm(); return; }
+  const txt = voucherText();
+  // Use wa.me with encoded text — opens WhatsApp with the message pre-filled
+  const waUrl = "https://wa.me/989102198261?text=" + encodeURIComponent(txt);
+  window.open(waUrl, "_blank", "noopener,noreferrer");
   closeWAConfirm();
   showToast("📲 در حال اتصال به واتساپ...");
 }
+
 function closeVoucher(){ document.getElementById("voucherPage").classList.remove("open"); document.body.style.overflow=""; }
 
-/* ── SHARE ── */
+/* ── VOUCHER TEXT ── */
 function voucherText(){
   if(!lastVoucherData) return "";
   const d=lastVoucherData;
   const pax=d.passengers.map((p,i)=>`  ${i+1}. ${p.fn} ${p.ln}`).join("\n");
-  return `═══════════════════════════\nBOOKIRA — RESERVATION VOUCHER\n${d.vnum}\n═══════════════════════════\n⚠️ رزرو قطعی و صدور واچر نهایی منوط به تأیید این پیام توسط تیم Bookira می‌باشد.\n═══════════════════════════\nHotel: ${d.hotel.name}\nCity: ${d.hotel.city} | Stars: ★${d.hotel.stars}\nRoom: ${d.roomLabel} (${d.beds} bed${d.beds>1?"s":""})\nCheck-in:  ${fmtDisplay(d.ci)}\nCheck-out: ${fmtDisplay(d.co)}\nNights: ${d.nights}\n───────────────────────────\nPASSENGERS:\n${pax}\n───────────────────────────\nAgency: ${d.agency||"—"}\nBooker: ${d.booker}\nContact: ${d.phone}\n───────────────────────────\nRate/Night:  $${d.roomRate}\nGross Total: $${d.gross.toLocaleString()}\nCommission:  $${d.commission.toFixed(2)} (7%)\nNet Payable: $${d.net.toFixed(2)}\n═══════════════════════════\n📞 +98 910 219 8262 | +7 655 432 4674\nMoscow, Near Red Square\n`;
+  return `═══════════════════════════
+BOOKIRA — RESERVATION VOUCHER
+${d.vnum}
+═══════════════════════════
+⚠️ رزرو قطعی و صدور واچر نهایی منوط به تأیید این پیام توسط تیم Bookira می‌باشد.
+═══════════════════════════
+Hotel: ${d.hotel.name}
+City: ${d.hotel.city} | Stars: ★${d.hotel.stars}
+Room: ${d.roomLabel} (${d.beds} bed${d.beds>1?"s":""})
+Check-in:  ${fmtDisplay(d.ci)}
+Check-out: ${fmtDisplay(d.co)}
+Nights: ${d.nights}
+───────────────────────────
+PASSENGERS:
+${pax}
+───────────────────────────
+Agency: ${d.agency||"—"}
+Booker: ${d.booker}
+Contact: ${d.phone}
+───────────────────────────
+Rate/Night:  $${d.roomRate}
+Gross Total: $${d.gross.toLocaleString()}
+Commission:  $${d.commission.toFixed(2)} (7%)
+Net Payable: $${d.net.toFixed(2)}
+═══════════════════════════
+📞 +98 910 219 8262 | +7 655 432 4674
+Moscow, Near Red Square
+`;
 }
+
 function copyVoucherText(){
   const txt=voucherText(); if(!txt) return;
   navigator.clipboard.writeText(txt).then(()=>showToast("📋 Voucher details copied!")).catch(()=>{
@@ -1659,14 +1942,14 @@ function copyVoucherText(){
 function shareVoucher(){
   const txt=voucherText();
   const waUrl="https://wa.me/989102198261?text="+encodeURIComponent(txt);
-  window.open(waUrl,"_blank");
+  window.open(waUrl,"_blank","noopener,noreferrer");
 }
 function saveVoucherImage(){ showToast("🖨️ Use Print → Save as PDF to save"); setTimeout(()=>window.print(),800); }
 function showToast(msg){ const toast=document.getElementById("toast"); toast.textContent=msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),3000); }
 
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ closeModal(); closeVoucher(); closeAllPanels(); closeWAConfirm(); } });
 
-// Init
+// Init counts
 ["Baku","Moscow","Yerevan"].forEach(c=>{
   const n=DATA.filter(h=>h.city===c).length;
   const el=document.getElementById("cnt-"+c);
@@ -1677,3 +1960,5 @@ render(filtered());
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done: $(wc -c < /mnt/user-data/outputs/bookira.html) bytes"
