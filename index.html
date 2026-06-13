@@ -35,9 +35,24 @@ body { background:#FDFCFE; color:var(--ink); font-family:var(--f); -webkit-font-
 .nav-logo { width:32px; height:32px; background:linear-gradient(135deg,#C8BCEC,#B89ED8); border-radius:10px; display:flex; align-items:center; justify-content:center; }
 .nav-name { font-size:18px; font-weight:800; color:var(--ink); letter-spacing:-.03em; }
 .nav-name em { font-style:normal; font-weight:300; opacity:.45; }
-.nav-right { display:flex; align-items:center; gap:12px; }
+.nav-right { display:flex; align-items:center; gap:10px; }
 
-/* ── Cart Icon Button ── */
+/* ── Nav Icon Buttons ── */
+.nav-icon-btn {
+  position:relative;
+  width:42px; height:42px;
+  background:var(--mist);
+  border:1.5px solid rgba(180,160,220,.2);
+  border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:transform .2s, background .2s, box-shadow .2s;
+  flex-shrink:0;
+}
+.nav-icon-btn:hover { background:var(--lavender); box-shadow:0 4px 16px rgba(139,107,174,.15); transform:translateY(-1px); }
+.nav-icon-btn:active { transform:scale(.95); }
+.nav-icon-btn svg { width:18px; height:18px; }
+
 .cart-btn {
   position:relative;
   width:42px; height:42px;
@@ -77,6 +92,173 @@ body { background:#FDFCFE; color:var(--ink); font-family:var(--f); -webkit-font-
 
 .nav-pill { background:linear-gradient(135deg,#C0B0E0,#A892CC); color:white; font-size:11px; font-weight:700; letter-spacing:.05em; padding:8px 22px; border:none; border-radius:100px; cursor:pointer; font-family:var(--f); transition:opacity .2s,transform .2s; box-shadow:0 4px 16px rgba(168,146,204,.3); }
 .nav-pill:hover { opacity:.85; transform:translateY(-1px); }
+
+/* ═══ TRACKING PANEL ═══ */
+.tracking-overlay {
+  position:fixed; inset:0; z-index:940;
+  background:rgba(60,40,100,.22);
+  backdrop-filter:blur(12px);
+  opacity:0; pointer-events:none;
+  transition:opacity .35s;
+}
+.tracking-overlay.on { opacity:1; pointer-events:auto; }
+
+.tracking-drawer {
+  position:fixed;
+  top:0; right:0; bottom:0;
+  z-index:950;
+  width:min(400px, 100vw);
+  background:#FDFCFE;
+  box-shadow:20px 0 80px rgba(80,50,140,.16);
+  border-left:1px solid rgba(180,160,220,.15);
+  transform:translateX(100%);
+  transition:transform .5s cubic-bezier(.77,0,.18,1);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+}
+.tracking-drawer.open { transform:translateX(0); }
+
+.tracking-header {
+  padding:22px 24px 18px;
+  border-bottom:1px solid rgba(140,110,180,.1);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-shrink:0;
+  background:linear-gradient(180deg,#FDFCFE,#FAF8FD);
+}
+.tracking-title-wrap { display:flex; align-items:center; gap:10px; }
+.tracking-title { font-size:17px; font-weight:800; color:var(--ink); letter-spacing:-.03em; }
+.tracking-close {
+  width:34px; height:34px;
+  background:var(--mist);
+  border:1px solid rgba(140,110,180,.12);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .2s; border:none;
+}
+.tracking-close:hover { background:var(--lavender); }
+
+.tracking-body { flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:16px; }
+
+/* Search box */
+.tracking-search-box {
+  background:white;
+  border:1.5px solid rgba(140,110,180,.12);
+  border-radius:20px;
+  padding:18px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.tracking-search-label { font-size:12px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px; }
+.tracking-search-label svg { width:15px; height:15px; opacity:.5; }
+.tracking-search-row { display:flex; gap:8px; }
+.tracking-inp {
+  flex:1;
+  background:var(--mist);
+  border:1.5px solid rgba(180,160,220,.2);
+  border-radius:12px;
+  padding:10px 14px;
+  font-size:13px; font-weight:400; color:var(--ink); font-family:var(--f);
+  outline:none; direction:ltr; text-align:center; letter-spacing:.08em;
+  transition:border-color .2s, background .2s;
+}
+.tracking-inp:focus { border-color:var(--accent); background:white; }
+.tracking-inp::placeholder { color:var(--slate); opacity:.5; letter-spacing:0; direction:rtl; text-align:right; font-size:11px; }
+.tracking-search-btn {
+  background:linear-gradient(135deg,#8B6BAE,#A892CC);
+  border:none; border-radius:12px;
+  padding:10px 18px;
+  font-size:12px; font-weight:700; font-family:var(--f);
+  color:white; cursor:pointer; white-space:nowrap;
+  transition:opacity .2s, transform .2s;
+}
+.tracking-search-btn:hover { opacity:.85; transform:translateY(-1px); }
+
+/* Result */
+.tracking-result { display:none; flex-direction:column; gap:14px; animation:fadeSlide .3s ease; }
+.tracking-result.show { display:flex; }
+
+.tr-order-card {
+  background:white;
+  border:1.5px solid rgba(140,110,180,.1);
+  border-radius:20px;
+  padding:18px;
+}
+.tr-order-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.tr-order-num { font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.08em; }
+.tr-status-pill {
+  font-size:10px; font-weight:700; padding:4px 12px; border-radius:100px;
+}
+.tr-status-pill.shipped { background:rgba(78,205,128,.12); color:#1a8a4a; border:1px solid rgba(78,205,128,.25); }
+.tr-status-pill.processing { background:rgba(255,180,50,.1); color:#a06010; border:1px solid rgba(255,180,50,.25); }
+.tr-status-pill.delivered { background:rgba(139,107,174,.1); color:var(--accent); border:1px solid rgba(139,107,174,.25); }
+
+.tr-info-row { display:flex; flex-direction:column; gap:8px; padding-bottom:14px; border-bottom:1px solid rgba(140,110,180,.08); }
+.tr-info-item { display:flex; align-items:center; justify-content:space-between; }
+.tr-info-label { font-size:11px; color:var(--slate); font-weight:300; }
+.tr-info-val { font-size:12px; font-weight:700; color:var(--ink); direction:ltr; }
+.tr-info-val.postal { background:var(--mist); padding:4px 10px; border-radius:8px; font-size:11px; letter-spacing:.04em; color:var(--accent); }
+
+/* Timeline */
+.tr-timeline { display:flex; flex-direction:column; gap:0; }
+.tr-step { display:flex; gap:12px; position:relative; }
+.tr-step:not(:last-child) .tr-step-line {
+  position:absolute;
+  right:15px; top:28px; bottom:0;
+  width:2px;
+  background:rgba(140,110,180,.1);
+}
+.tr-step-dot {
+  width:30px; height:30px; flex-shrink:0;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; z-index:1;
+  margin-top:2px;
+}
+.tr-step-dot.done { background:linear-gradient(135deg,#4ade80,#22c55e); box-shadow:0 4px 12px rgba(34,197,94,.25); }
+.tr-step-dot.active { background:linear-gradient(135deg,#8B6BAE,#A892CC); box-shadow:0 4px 12px rgba(139,107,174,.3); animation:pulsedot 2s ease-in-out infinite; }
+.tr-step-dot.pending { background:rgba(140,110,180,.08); border:2px solid rgba(140,110,180,.15); }
+.tr-step-dot svg { width:13px; height:13px; }
+@keyframes pulsedot { 0%,100%{box-shadow:0 4px 12px rgba(139,107,174,.3);} 50%{box-shadow:0 4px 20px rgba(139,107,174,.5);} }
+.tr-step-content { padding:4px 0 18px; flex:1; }
+.tr-step-title { font-size:12.5px; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.tr-step-title.pending-text { color:var(--slate); font-weight:400; }
+.tr-step-date { font-size:10.5px; color:var(--slate); font-weight:300; }
+
+.tr-postal-track {
+  background:linear-gradient(135deg,#F0EAF8,#EDE7F6);
+  border:1.5px solid rgba(139,107,174,.15);
+  border-radius:16px; padding:14px 16px;
+  display:flex; align-items:center; gap:12px;
+}
+.tr-postal-icon { width:38px; height:38px; background:white; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 2px 8px rgba(139,107,174,.15); }
+.tr-postal-icon svg { width:18px; height:18px; }
+.tr-postal-label { font-size:10px; font-weight:700; color:var(--slate); margin-bottom:2px; }
+.tr-postal-num { font-size:14px; font-weight:900; color:var(--accent); letter-spacing:.04em; direction:ltr; }
+.tr-postal-copy {
+  margin-right:auto; flex-shrink:0;
+  width:32px; height:32px; background:white; border:1px solid rgba(139,107,174,.2); border-radius:10px;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s;
+}
+.tr-postal-copy:hover { background:var(--lavender); }
+.tr-postal-copy svg { width:14px; height:14px; }
+
+.tr-not-found {
+  text-align:center; padding:32px 16px;
+  display:none; flex-direction:column; align-items:center; gap:12px;
+}
+.tr-not-found.show { display:flex; }
+.tr-nf-icon { width:56px; height:56px; background:rgba(220,60,60,.06); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.tr-nf-icon svg { width:24px; height:24px; }
+.tr-nf-title { font-size:14px; font-weight:700; color:var(--ink); }
+.tr-nf-sub { font-size:12px; color:var(--slate); font-weight:300; line-height:1.8; }
+
+.tr-hint {
+  text-align:center; padding:32px 16px;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.tr-hint-icon { width:60px; height:60px; background:linear-gradient(135deg,#F0EAF8,#E8E0F4); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:.6; }
+.tr-hint-icon svg { width:26px; height:26px; }
+.tr-hint-text { font-size:13px; font-weight:700; color:var(--ink); }
+.tr-hint-sub { font-size:11px; color:var(--slate); line-height:1.9; font-weight:300; }
 
 /* ═══ CART DRAWER ═══ */
 .cart-overlay {
@@ -123,7 +305,7 @@ body { background:#FDFCFE; color:var(--ink); font-family:var(--f); -webkit-font-
   border:1px solid rgba(140,110,180,.12);
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:background .2s;
+  cursor:pointer; transition:background .2s; border:none;
 }
 .cart-close:hover { background:var(--lavender); }
 
@@ -256,7 +438,7 @@ body { background:#FDFCFE; color:var(--ink); font-family:var(--f); -webkit-font-
   width:36px; height:36px;
   background:var(--mist); border:1px solid rgba(140,110,180,.12);
   border-radius:50%; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:background .2s; flex-shrink:0;
+  cursor:pointer; transition:background .2s; flex-shrink:0; border:none;
 }
 .co-back:hover { background:var(--lavender); }
 .co-back svg { width:14px; height:14px; }
@@ -436,6 +618,10 @@ body { background:#FDFCFE; color:var(--ink); font-family:var(--f); -webkit-font-
   color:white; cursor:pointer;
   box-shadow:0 6px 20px rgba(139,107,174,.35);
 }
+.co-track-hint {
+  margin-top:16px; font-size:11px; color:var(--slate); line-height:1.9;
+}
+.co-track-hint strong { color:var(--accent); cursor:pointer; }
 
 /* ═══ HERO ═══ */
 .hero {
@@ -781,6 +967,7 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
   .bd-inner{padding:20px 18px 40px;}
   .nav{padding:0 16px;}
   .cart-drawer{width:100vw;}
+  .tracking-drawer{width:100vw;}
   .co-grid-2{grid-template-columns:1fr;}
   .freeze-teaser{padding:12px 18px;}
   .freeze-pill-price{display:none;}
@@ -797,6 +984,14 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
     <span class="nav-name">پِ<em>دیا</em></span>
   </a>
   <div class="nav-right">
+    <!-- Track Order Button -->
+    <button class="nav-icon-btn" onclick="openTracking()" aria-label="پیگیری سفارش" title="پیگیری سفارش">
+      <svg viewBox="0 0 20 20" fill="none">
+        <path d="M3 5h14M3 10h8M3 15h5" stroke="rgba(80,60,110,.6)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="15" cy="13.5" r="3.5" stroke="rgba(139,107,174,.8)" stroke-width="1.4"/>
+        <path d="M17.5 16l1.5 1.5" stroke="rgba(139,107,174,.8)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </button>
     <!-- Cart Button -->
     <button class="cart-btn" onclick="openCart()" aria-label="سبد خرید">
       <svg viewBox="0 0 24 24" fill="none">
@@ -809,6 +1004,86 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
     <button class="nav-pill">شروع کن</button>
   </div>
 </nav>
+
+<!-- ═══ TRACKING DRAWER ═══ -->
+<div class="tracking-overlay" id="trackingOverlay" onclick="closeTracking()"></div>
+<div class="tracking-drawer" id="trackingDrawer">
+  <div class="tracking-header">
+    <div class="tracking-title-wrap">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="11" rx="2.5" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><path d="M2 7.5h14" stroke="rgba(139,107,174,.3)" stroke-width="1.1"/><circle cx="13" cy="12" r="2.5" fill="rgba(139,107,174,.15)" stroke="rgba(139,107,174,.6)" stroke-width="1.1"/><path d="M14.8 13.8l1.2 1.2" stroke="rgba(139,107,174,.6)" stroke-width="1.1" stroke-linecap="round"/></svg>
+      <div class="tracking-title">پیگیری سفارش</div>
+    </div>
+    <button class="tracking-close" onclick="closeTracking()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="rgba(80,60,110,.5)" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="tracking-body">
+    <!-- Search -->
+    <div class="tracking-search-box">
+      <div class="tracking-search-label">
+        <svg viewBox="0 0 15 15" fill="none"><rect x="1.5" y="1.5" width="12" height="12" rx="2" stroke="rgba(139,107,174,.5)" stroke-width="1.2"/><path d="M4.5 5h6M4.5 7.5h4M4.5 10h3" stroke="rgba(139,107,174,.4)" stroke-width="1.1" stroke-linecap="round"/></svg>
+        کد سفارش یا شماره مرسوله را وارد کنید
+      </div>
+      <div class="tracking-search-row">
+        <input class="tracking-inp" id="trackingInput" type="text" placeholder="مثال: PD123456 یا کد پستی مرسوله" maxlength="20">
+        <button class="tracking-search-btn" onclick="doTrack()">جستجو</button>
+      </div>
+    </div>
+
+    <!-- Hint (default state) -->
+    <div class="tr-hint" id="trHint">
+      <div class="tr-hint-icon">
+        <svg viewBox="0 0 26 26" fill="none"><path d="M5 10l8-6 8 6v9a2 2 0 01-2 2H7a2 2 0 01-2-2v-9z" stroke="rgba(139,107,174,.5)" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 21v-6h6v6" stroke="rgba(139,107,174,.4)" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="tr-hint-text">سفارشت رو پیگیری کن</div>
+      <div class="tr-hint-sub">پس از ثبت سفارش، کد پیگیری<br>از طریق پیامک برات ارسال می‌شه 💜</div>
+    </div>
+
+    <!-- Not found -->
+    <div class="tr-not-found" id="trNotFound">
+      <div class="tr-nf-icon">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="rgba(220,60,60,.4)" stroke-width="1.4"/><path d="M9 9l6 6M15 9l-6 6" stroke="rgba(220,60,60,.5)" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </div>
+      <div class="tr-nf-title">سفارشی پیدا نشد</div>
+      <div class="tr-nf-sub">کد پیگیری رو دقیق وارد کن<br>یا با پشتیبانی تماس بگیر</div>
+    </div>
+
+    <!-- Result -->
+    <div class="tracking-result" id="trResult">
+      <div class="tr-order-card">
+        <div class="tr-order-head">
+          <div class="tr-order-num" id="trOrderNum">PD123456</div>
+          <div class="tr-status-pill shipped" id="trStatusPill">در حال ارسال</div>
+        </div>
+        <div class="tr-info-row" id="trInfoRow"></div>
+      </div>
+
+      <!-- Postal tracking -->
+      <div class="tr-postal-track">
+        <div class="tr-postal-icon">
+          <svg viewBox="0 0 18 18" fill="none"><path d="M2 9h10M9 5l4 4-4 4" stroke="rgba(139,107,174,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="9" r="1.5" fill="rgba(139,107,174,.5)"/></svg>
+        </div>
+        <div>
+          <div class="tr-postal-label">شماره مرسوله پستی</div>
+          <div class="tr-postal-num" id="trPostalNum">—</div>
+        </div>
+        <button class="tr-postal-copy" onclick="copyPostal()" title="کپی شماره مرسوله">
+          <svg viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="rgba(139,107,174,.6)" stroke-width="1.2"/><path d="M2 10V3a1 1 0 011-1h7" stroke="rgba(139,107,174,.4)" stroke-width="1.1" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Timeline -->
+      <div class="tr-order-card">
+        <div style="font-size:11px;font-weight:800;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="rgba(139,107,174,.5)" stroke-width="1.2"/><path d="M7 4.5v3l2 1" stroke="rgba(139,107,174,.6)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          وضعیت سفارش
+        </div>
+        <div class="tr-timeline" id="trTimeline"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══ CART DRAWER ═══ -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
@@ -823,9 +1098,7 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
     </button>
   </div>
 
-  <div class="cart-body" id="cartBody">
-    <!-- items rendered here -->
-  </div>
+  <div class="cart-body" id="cartBody"></div>
 
   <div class="cart-footer" id="cartFooter" style="display:none">
     <div class="cart-summary" id="cartSummary"></div>
@@ -847,128 +1120,75 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
   </div>
 
   <div class="co-inner">
-    <!-- Steps -->
     <div class="co-steps" id="coSteps">
-      <div class="co-step active" data-step="1">
-        <div class="co-step-circle">۱</div>
-        <div class="co-step-label">آدرس</div>
-      </div>
-      <div class="co-step" data-step="2">
-        <div class="co-step-circle">۲</div>
-        <div class="co-step-label">مرور سفارش</div>
-      </div>
-      <div class="co-step" data-step="3">
-        <div class="co-step-circle">۳</div>
-        <div class="co-step-label">پرداخت</div>
-      </div>
+      <div class="co-step active" data-step="1"><div class="co-step-circle">۱</div><div class="co-step-label">آدرس</div></div>
+      <div class="co-step" data-step="2"><div class="co-step-circle">۲</div><div class="co-step-label">مرور سفارش</div></div>
+      <div class="co-step" data-step="3"><div class="co-step-circle">۳</div><div class="co-step-label">پرداخت</div></div>
     </div>
 
-    <!-- Step 1: Address -->
+    <!-- Step 1 -->
     <div class="co-panel active" id="coPanel1">
       <div class="co-section">
-        <div class="co-section-title">
-          <svg viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><circle cx="8" cy="7" r="1.5" fill="rgba(139,107,174,.5)"/></svg>
-          اطلاعات تحویل
-        </div>
+        <div class="co-section-title"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><circle cx="8" cy="7" r="1.5" fill="rgba(139,107,174,.5)"/></svg>اطلاعات تحویل</div>
         <div class="co-grid-2">
           <div class="co-field"><label>نام</label><input type="text" placeholder="مثلاً: سارا" id="cf-fname"></div>
           <div class="co-field"><label>نام خانوادگی</label><input type="text" placeholder="مثلاً: احمدی" id="cf-lname"></div>
         </div>
         <div class="co-field"><label>شماره موبایل</label><input type="tel" placeholder="۰۹۱۲..." id="cf-phone" dir="ltr"></div>
         <div class="co-field"><label>استان</label>
-          <select id="cf-province">
-            <option value="">انتخاب کنید...</option>
-            <option>تهران</option><option>اصفهان</option><option>فارس</option>
-            <option>خراسان رضوی</option><option>البرز</option><option>آذربایجان شرقی</option>
-            <option>مازندران</option><option>گیلان</option><option>خوزستان</option><option>سایر</option>
-          </select>
+          <select id="cf-province"><option value="">انتخاب کنید...</option><option>تهران</option><option>اصفهان</option><option>فارس</option><option>خراسان رضوی</option><option>البرز</option><option>آذربایجان شرقی</option><option>مازندران</option><option>گیلان</option><option>خوزستان</option><option>سایر</option></select>
         </div>
         <div class="co-field"><label>شهر</label><input type="text" placeholder="مثلاً: تهران" id="cf-city"></div>
         <div class="co-field"><label>آدرس کامل</label><textarea rows="3" placeholder="خیابان، کوچه، پلاک، واحد..." id="cf-address" style="resize:none"></textarea></div>
         <div class="co-field"><label>کد پستی</label><input type="text" placeholder="۱۰ رقم" id="cf-postal" dir="ltr"></div>
       </div>
-      <button class="co-btn" onclick="goStep(2)">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        ادامه — مرور سفارش
-      </button>
+      <button class="co-btn" onclick="goStep(2)"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ادامه — مرور سفارش</button>
     </div>
 
-    <!-- Step 2: Order Review -->
+    <!-- Step 2 -->
     <div class="co-panel" id="coPanel2">
       <div class="co-section">
-        <div class="co-section-title">
-          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><path d="M5 7h6M5 9.5h4" stroke="rgba(139,107,174,.5)" stroke-width="1.1" stroke-linecap="round"/></svg>
-          محصولات سفارش
-        </div>
+        <div class="co-section-title"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><path d="M5 7h6M5 9.5h4" stroke="rgba(139,107,174,.5)" stroke-width="1.1" stroke-linecap="round"/></svg>محصولات سفارش</div>
         <div class="co-review-items" id="coReviewItems"></div>
       </div>
       <div class="co-section">
-        <div class="co-section-title">
-          <svg viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/></svg>
-          آدرس تحویل
-        </div>
+        <div class="co-section-title"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/></svg>آدرس تحویل</div>
         <div style="font-size:13px;font-weight:300;color:var(--slate);line-height:1.9;" id="coAddressPreview"></div>
       </div>
       <div class="co-price-summary" id="coPriceSummary"></div>
-      <button class="co-btn" onclick="goStep(3)">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        ادامه — انتخاب پرداخت
-      </button>
+      <button class="co-btn" onclick="goStep(3)"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ادامه — انتخاب پرداخت</button>
     </div>
 
-    <!-- Step 3: Payment -->
+    <!-- Step 3 -->
     <div class="co-panel" id="coPanel3">
       <div class="co-section">
-        <div class="co-section-title">
-          <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="9" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><path d="M1 7h14" stroke="rgba(139,107,174,.4)" stroke-width="1.1"/></svg>
-          روش پرداخت
-        </div>
+        <div class="co-section-title"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="9" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.3"/><path d="M1 7h14" stroke="rgba(139,107,174,.4)" stroke-width="1.1"/></svg>روش پرداخت</div>
         <div class="pay-methods">
-          <div class="pay-method selected" onclick="selectPay(this)" data-method="online">
-            <div class="pay-method-icon">
-              <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2.5" stroke="rgba(139,107,174,.7)" stroke-width="1.4"/><path d="M2 8h16" stroke="rgba(139,107,174,.4)" stroke-width="1.2"/><rect x="4" y="11" width="4" height="2" rx="1" fill="rgba(139,107,174,.4)"/></svg>
-            </div>
-            <div>
-              <div class="pay-method-name">پرداخت آنلاین</div>
-              <div class="pay-method-sub">درگاه امن بانکی — لحظه‌ای</div>
-            </div>
+          <div class="pay-method selected" onclick="selectPay(this)">
+            <div class="pay-method-icon"><svg viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2.5" stroke="rgba(139,107,174,.7)" stroke-width="1.4"/><path d="M2 8h16" stroke="rgba(139,107,174,.4)" stroke-width="1.2"/><rect x="4" y="11" width="4" height="2" rx="1" fill="rgba(139,107,174,.4)"/></svg></div>
+            <div><div class="pay-method-name">پرداخت آنلاین</div><div class="pay-method-sub">درگاه امن بانکی — لحظه‌ای</div></div>
             <div class="pay-radio"></div>
           </div>
-          <div class="pay-method" onclick="selectPay(this)" data-method="cod">
-            <div class="pay-method-icon">
-              <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="6" width="14" height="9" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.4"/><path d="M7 10h6M10 8v4" stroke="rgba(139,107,174,.5)" stroke-width="1.2" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="pay-method-name">پرداخت در محل</div>
-              <div class="pay-method-sub">هنگام تحویل مرسوله</div>
-            </div>
+          <div class="pay-method" onclick="selectPay(this)">
+            <div class="pay-method-icon"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="6" width="14" height="9" rx="2" stroke="rgba(139,107,174,.6)" stroke-width="1.4"/><path d="M7 10h6M10 8v4" stroke="rgba(139,107,174,.5)" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div><div class="pay-method-name">پرداخت در محل</div><div class="pay-method-sub">هنگام تحویل مرسوله</div></div>
             <div class="pay-radio"></div>
           </div>
-          <div class="pay-method" onclick="selectPay(this)" data-method="wallet">
-            <div class="pay-method-icon">
-              <svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14v10H3z" stroke="rgba(139,107,174,.6)" stroke-width="1.4" stroke-linejoin="round"/><circle cx="14" cy="11" r="1.5" fill="rgba(139,107,174,.5)"/></svg>
-            </div>
-            <div>
-              <div class="pay-method-name">کیف پول پدیا</div>
-              <div class="pay-method-sub">سریع‌ترین روش — بدون رمز</div>
-            </div>
+          <div class="pay-method" onclick="selectPay(this)">
+            <div class="pay-method-icon"><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14v10H3z" stroke="rgba(139,107,174,.6)" stroke-width="1.4" stroke-linejoin="round"/><circle cx="14" cy="11" r="1.5" fill="rgba(139,107,174,.5)"/></svg></div>
+            <div><div class="pay-method-name">کیف پول پدیا</div><div class="pay-method-sub">سریع‌ترین روش — بدون رمز</div></div>
             <div class="pay-radio"></div>
           </div>
         </div>
       </div>
       <div class="co-price-summary" id="coPriceSummary2"></div>
-      <button class="co-btn" onclick="submitOrder()">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M13 5l-6 6-3-3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        ثبت و پرداخت سفارش
-      </button>
+      <button class="co-btn" onclick="submitOrder()"><svg viewBox="0 0 16 16" fill="none"><path d="M13 5l-6 6-3-3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>ثبت و پرداخت سفارش</button>
     </div>
 
     <!-- Step 4: Success -->
     <div class="co-panel" id="coPanel4">
       <div class="co-success">
-        <div class="co-success-icon">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M8 20l8 8 16-16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="co-success-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M8 20l8 8 16-16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="co-success-title">سفارشت ثبت شد! 💜</div>
         <div class="co-success-sub">پدیا سفارشت رو با محبت آماده می‌کنه و در کمترین زمان محرمانه تحویلت می‌ده.</div>
         <div class="co-order-code" id="coOrderCode">
@@ -980,6 +1200,11 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
           <strong style="color:var(--accent)">زمان تحویل: ۲ تا ۴ روز کاری</strong>
         </div>
         <button class="co-success-btn" onclick="closeCheckout();clearCart()">برگشت به فروشگاه</button>
+        <div class="co-track-hint">
+          می‌تونی سفارشت رو با کلیک روی آیکون
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="none" style="vertical-align:middle;margin:0 2px"><path d="M3 5h14M3 10h8M3 15h5" stroke="rgba(139,107,174,.8)" stroke-width="1.6" stroke-linecap="round"/><circle cx="15" cy="13.5" r="3.5" stroke="rgba(139,107,174,.8)" stroke-width="1.4"/></svg>
+          در هدر <strong onclick="closeCheckout();clearCart();setTimeout(openTracking,300)">پیگیری کنی</strong>
+        </div>
       </div>
     </div>
   </div>
@@ -1045,26 +1270,11 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
 
   <div class="mood-wrap">
     <div class="mood-tabs">
-      <button class="mood-tab active" data-mood="night" onclick="switchMood('night')">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M11 7.5A5 5 0 1 1 6 2.5a4 4 0 0 0 5 5z" fill="rgba(100,70,160,.5)"/></svg>
-        شب آروم
-      </button>
-      <button class="mood-tab" data-mood="sport" onclick="switchMood('sport')">
-        <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="rgba(60,140,90,.6)" stroke-width="1.2"/><path d="M7 4.5v5M4.5 7h5" stroke="rgba(60,140,90,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
-        فعال و ورزشی
-      </button>
-      <button class="mood-tab" data-mood="sensitive" onclick="switchMood('sensitive')">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M7 12S3 9 3 5.5a4 4 0 0 1 8 0C11 9 7 12 7 12z" stroke="rgba(180,80,120,.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>
-        پوست حساس
-      </button>
-      <button class="mood-tab" data-mood="heavy" onclick="switchMood('heavy')">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M7 2v8M5 8l2 2 2-2" stroke="rgba(60,100,180,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 11h8" stroke="rgba(60,100,180,.3)" stroke-width="1" stroke-linecap="round"/></svg>
-        روزهای سنگین
-      </button>
-      <button class="mood-tab" data-mood="travel" onclick="switchMood('travel')">
-        <svg viewBox="0 0 14 14" fill="none"><rect x="3" y="5" width="8" height="6" rx="1.5" stroke="rgba(160,110,40,.5)" stroke-width="1.2"/><path d="M5 5V4a2 2 0 0 1 4 0v1" stroke="rgba(160,110,40,.4)" stroke-width="1.1" stroke-linecap="round"/></svg>
-        همیشه در سفر
-      </button>
+      <button class="mood-tab active" data-mood="night" onclick="switchMood('night')"><svg viewBox="0 0 14 14" fill="none"><path d="M11 7.5A5 5 0 1 1 6 2.5a4 4 0 0 0 5 5z" fill="rgba(100,70,160,.5)"/></svg>شب آروم</button>
+      <button class="mood-tab" data-mood="sport" onclick="switchMood('sport')"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="rgba(60,140,90,.6)" stroke-width="1.2"/><path d="M7 4.5v5M4.5 7h5" stroke="rgba(60,140,90,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>فعال و ورزشی</button>
+      <button class="mood-tab" data-mood="sensitive" onclick="switchMood('sensitive')"><svg viewBox="0 0 14 14" fill="none"><path d="M7 12S3 9 3 5.5a4 4 0 0 1 8 0C11 9 7 12 7 12z" stroke="rgba(180,80,120,.5)" stroke-width="1.2" stroke-linejoin="round"/></svg>پوست حساس</button>
+      <button class="mood-tab" data-mood="heavy" onclick="switchMood('heavy')"><svg viewBox="0 0 14 14" fill="none"><path d="M7 2v8M5 8l2 2 2-2" stroke="rgba(60,100,180,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 11h8" stroke="rgba(60,100,180,.3)" stroke-width="1" stroke-linecap="round"/></svg>روزهای سنگین</button>
+      <button class="mood-tab" data-mood="travel" onclick="switchMood('travel')"><svg viewBox="0 0 14 14" fill="none"><rect x="3" y="5" width="8" height="6" rx="1.5" stroke="rgba(160,110,40,.5)" stroke-width="1.2"/><path d="M5 5V4a2 2 0 0 1 4 0v1" stroke="rgba(160,110,40,.4)" stroke-width="1.1" stroke-linecap="round"/></svg>همیشه در سفر</button>
     </div>
     <div class="mood-panel" id="moodPanel" data-mood="night">
       <div class="mood-panel-inner" id="moodPanelInner"></div>
@@ -1195,26 +1405,19 @@ footer { background:linear-gradient(135deg,#F0EAF8 0%,#EAF2F0 100%); padding:48p
 /* ═══════════════════════════════
    CART STATE
 ═══════════════════════════════ */
-let cart = []; // {id, name, brand, price, priceNum, color, svg, qty}
+let cart = [];
 
-function toFarsiNum(n) {
-  return n.toLocaleString('fa-IR');
-}
+function toFa(n) { return n.toLocaleString('fa-IR'); }
 
 function parsePriceNum(str) {
-  // e.g. "۴۵,۰۰۰" -> 45000
-  const en = str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/,/g, '');
-  return parseInt(en) || 0;
+  return parseInt(str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/,/g,'')) || 0;
 }
 
-function addToCart(id, name, brand, price, color, svg) {
+function addToCart(id, name, brand, price, color, svgContent) {
   const priceNum = parsePriceNum(price);
   const existing = cart.find(i => i.id === id);
-  if (existing) {
-    existing.qty++;
-  } else {
-    cart.push({ id, name, brand, price, priceNum, color, svg, qty: 1 });
-  }
+  if (existing) { existing.qty++; }
+  else { cart.push({ id, name, brand, price, priceNum, color, svg: svgContent, qty: 1 }); }
   updateCartUI();
   bumpCartBtn();
   showToast(name);
@@ -1224,11 +1427,7 @@ function removeFromCart(id) {
   const el = document.querySelector(`[data-cart-id="${id}"]`);
   if (el) {
     el.classList.add('removing');
-    setTimeout(() => {
-      cart = cart.filter(i => i.id !== id);
-      renderCartItems();
-      updateCartSummary();
-    }, 280);
+    setTimeout(() => { cart = cart.filter(i => i.id !== id); renderCartItems(); updateCartSummary(); }, 280);
   }
 }
 
@@ -1237,54 +1436,29 @@ function changeQty(id, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) { removeFromCart(id); return; }
-  renderCartItems();
-  updateCartSummary();
+  renderCartItems(); updateCartSummary();
 }
 
-function clearCart() {
-  cart = [];
-  updateCartUI();
-}
-
-function cartTotal() {
-  return cart.reduce((s, i) => s + i.priceNum * i.qty, 0);
-}
-
-function cartItemCount() {
-  return cart.reduce((s, i) => s + i.qty, 0);
-}
+function clearCart() { cart = []; updateCartUI(); }
+function cartTotal() { return cart.reduce((s,i) => s + i.priceNum * i.qty, 0); }
+function cartItemCount() { return cart.reduce((s,i) => s + i.qty, 0); }
 
 function updateCartUI() {
   const count = cartItemCount();
   const badge = document.getElementById('cartBadge');
-  badge.textContent = toFarsiNum(count);
+  badge.textContent = toFa(count);
   badge.classList.toggle('show', count > 0);
-  document.getElementById('cartCountPill').textContent = toFarsiNum(count) + ' محصول';
-  renderCartItems();
-  updateCartSummary();
+  document.getElementById('cartCountPill').textContent = toFa(count) + ' محصول';
+  renderCartItems(); updateCartSummary();
 }
 
 function renderCartItems() {
   const body = document.getElementById('cartBody');
   const footer = document.getElementById('cartFooter');
-
   if (cart.length === 0) {
-    body.innerHTML = `
-      <div class="cart-empty">
-        <div class="cart-empty-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M6 2L3 6v20a2 2 0 002 2h22a2 2 0 002-2V6l-3-4z" stroke="rgba(139,107,174,.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="3" y1="6" x2="27" y2="6" stroke="rgba(139,107,174,.4)" stroke-width="1.5"/>
-            <path d="M21 12a5 5 0 01-10 0" stroke="rgba(139,107,174,.4)" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="cart-empty-text">سبدت خالیه</div>
-        <div class="cart-empty-sub">یه محصول دلخواه انتخاب کن<br>و اینجا بیاش 💜</div>
-      </div>`;
-    footer.style.display = 'none';
-    return;
+    body.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M6 2L3 6v20a2 2 0 002 2h22a2 2 0 002-2V6l-3-4z" stroke="rgba(139,107,174,.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="27" y2="6" stroke="rgba(139,107,174,.4)" stroke-width="1.5"/><path d="M21 12a5 5 0 01-10 0" stroke="rgba(139,107,174,.4)" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="cart-empty-text">سبدت خالیه</div><div class="cart-empty-sub">یه محصول دلخواه انتخاب کن<br>و اینجا بیاش 💜</div></div>`;
+    footer.style.display = 'none'; return;
   }
-
   body.innerHTML = cart.map(item => `
     <div class="cart-item" data-cart-id="${item.id}">
       <div class="ci-thumb" style="background:${item.color}">
@@ -1294,41 +1468,34 @@ function renderCartItems() {
         <div class="ci-name">${item.name}</div>
         <div class="ci-brand">${item.brand}</div>
         <div class="ci-controls">
-          <button class="ci-qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
-          <div class="ci-qty">${toFarsiNum(item.qty)}</div>
-          <button class="ci-qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+          <button class="ci-qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
+          <div class="ci-qty">${toFa(item.qty)}</div>
+          <button class="ci-qty-btn" onclick="changeQty('${item.id}',1)">+</button>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-        <div class="ci-price">${toFarsiNum(item.priceNum * item.qty)} ت</div>
+        <div class="ci-price">${toFa(item.priceNum * item.qty)} ت</div>
         <button class="ci-remove" onclick="removeFromCart('${item.id}')">
           <svg viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1l-9 9" stroke="rgba(220,60,60,.5)" stroke-width="1.3" stroke-linecap="round"/></svg>
         </button>
       </div>
     </div>`).join('');
-
   footer.style.display = 'block';
 }
 
 function updateCartSummary() {
   const total = cartTotal();
   const shipping = total > 200000 ? 0 : 25000;
-  const finalTotal = total + shipping;
-
-  const html = `
-    <div class="cs-row"><span class="cs-label">جمع محصولات</span><span class="cs-val">${toFarsiNum(total)} ت</span></div>
-    <div class="cs-row"><span class="cs-label">هزینه ارسال</span><span class="cs-val">${shipping === 0 ? 'رایگان 🎉' : toFarsiNum(shipping) + ' ت'}</span></div>
+  document.getElementById('cartSummary').innerHTML = `
+    <div class="cs-row"><span class="cs-label">جمع محصولات</span><span class="cs-val">${toFa(total)} ت</span></div>
+    <div class="cs-row"><span class="cs-label">هزینه ارسال</span><span class="cs-val">${shipping===0?'رایگان 🎉':toFa(shipping)+' ت'}</span></div>
     <div class="cs-divider"></div>
-    <div class="cs-row"><span class="cs-total-label">مبلغ قابل پرداخت</span><span class="cs-total-val">${toFarsiNum(finalTotal)} ت</span></div>`;
-
-  document.getElementById('cartSummary').innerHTML = html;
+    <div class="cs-row"><span class="cs-total-label">مبلغ قابل پرداخت</span><span class="cs-total-val">${toFa(total+shipping)} ت</span></div>`;
 }
 
 function bumpCartBtn() {
   const btn = document.querySelector('.cart-btn');
-  btn.classList.remove('bump');
-  void btn.offsetWidth;
-  btn.classList.add('bump');
+  btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
 }
 
 let toastTimer;
@@ -1340,7 +1507,6 @@ function showToast(name) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-/* Cart open/close */
 function openCart() {
   document.getElementById('cartOverlay').classList.add('on');
   document.getElementById('cartDrawer').classList.add('open');
@@ -1351,6 +1517,119 @@ function closeCart() {
   document.getElementById('cartDrawer').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+/* ═══════════════════════════════
+   TRACKING
+═══════════════════════════════ */
+function openTracking() {
+  document.getElementById('trackingOverlay').classList.add('on');
+  document.getElementById('trackingDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeTracking() {
+  document.getElementById('trackingOverlay').classList.remove('on');
+  document.getElementById('trackingDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Mock order database
+const mockOrders = {
+  'PD100001': { status:'delivered', postal:'3711982800001', name:'نایت پرو ۸ ساعته', date:'۱۴۰۳/۰۶/۱۲', deliverDate:'۱۴۰۳/۰۶/۱۵' },
+  'PD100002': { status:'shipped',   postal:'3711982800042', name:'ارگانیک کاتن پد',  date:'۱۴۰۳/۰۶/۱۸', deliverDate:'۱۴۰۳/۰۶/۲۱' },
+  'PD100003': { status:'processing',postal:'—',             name:'تراول کیت',       date:'۱۴۰۳/۰۶/۲۰', deliverDate:'۱۴۰۳/۰۶/۲۳' },
+};
+
+const statusMeta = {
+  processing: { label:'در حال پردازش', cls:'processing', steps:[
+    { title:'سفارش دریافت شد',     date:'۱۴۰۳/۰۶/۲۰ ساعت ۱۰:۳۰', done:true },
+    { title:'در حال آماده‌سازی',   date:'۱۴۰۳/۰۶/۲۰ ساعت ۱۴:۰۰', active:true },
+    { title:'ارسال به اداره پست',  date:'انتظار', pending:true },
+    { title:'تحویل به مشتری',      date:'انتظار', pending:true },
+  ]},
+  shipped: { label:'در حال ارسال', cls:'shipped', steps:[
+    { title:'سفارش دریافت شد',    date:'۱۴۰۳/۰۶/۱۸ ساعت ۰۹:۱۵', done:true },
+    { title:'آماده‌سازی و بسته‌بندی', date:'۱۴۰۳/۰۶/۱۸ ساعت ۱۳:۰۰', done:true },
+    { title:'ارسال به اداره پست', date:'۱۴۰۳/۰۶/۱۹ ساعت ۱۱:۰۰', active:true },
+    { title:'تحویل به مشتری',     date:'پیش‌بینی: ۱۴۰۳/۰۶/۲۱', pending:true },
+  ]},
+  delivered: { label:'تحویل داده شد', cls:'delivered', steps:[
+    { title:'سفارش دریافت شد',    date:'۱۴۰۳/۰۶/۱۲ ساعت ۱۰:۰۰', done:true },
+    { title:'آماده‌سازی و بسته‌بندی', date:'۱۴۰۳/۰۶/۱۲ ساعت ۱۵:۳۰', done:true },
+    { title:'ارسال به اداره پست', date:'۱۴۰۳/۰۶/۱۳ ساعت ۱۰:۰۰', done:true },
+    { title:'تحویل به مشتری ✓',  date:'۱۴۰۳/۰۶/۱۵ ساعت ۱۴:۲۰', done:true },
+  ]},
+};
+
+let currentPostal = '';
+
+function doTrack() {
+  const raw = document.getElementById('trackingInput').value.trim().toUpperCase();
+  const hint = document.getElementById('trHint');
+  const notFound = document.getElementById('trNotFound');
+  const result = document.getElementById('trResult');
+
+  hint.style.display = 'none';
+  notFound.classList.remove('show');
+  result.classList.remove('show');
+
+  if (!raw) { hint.style.display = ''; return; }
+
+  // Check mock orders or generate from code
+  let order = mockOrders[raw];
+  if (!order) {
+    // If it looks like a valid PD code, generate mock data
+    if (/^PD\d{5,8}$/.test(raw)) {
+      const statuses = ['processing','shipped','delivered'];
+      const st = statuses[raw.charCodeAt(2) % 3];
+      order = { status: st, postal: '371198280' + (raw.slice(2) % 9999).toString().padStart(4,'0'), name:'محصول پدیا', date:'۱۴۰۳/۰۶/۱۵', deliverDate:'۱۴۰۳/۰۶/۱۸' };
+    } else {
+      notFound.classList.add('show'); return;
+    }
+  }
+
+  const meta = statusMeta[order.status];
+  currentPostal = order.postal;
+
+  document.getElementById('trOrderNum').textContent = raw;
+  const pill = document.getElementById('trStatusPill');
+  pill.textContent = meta.label;
+  pill.className = 'tr-status-pill ' + meta.cls;
+
+  document.getElementById('trInfoRow').innerHTML = `
+    <div class="tr-info-item"><span class="tr-info-label">نام محصول</span><span class="tr-info-val">${order.name}</span></div>
+    <div class="tr-info-item"><span class="tr-info-label">تاریخ سفارش</span><span class="tr-info-val">${order.date}</span></div>
+    <div class="tr-info-item"><span class="tr-info-label">تاریخ تحویل</span><span class="tr-info-val">${order.deliverDate}</span></div>`;
+
+  document.getElementById('trPostalNum').textContent = order.postal;
+
+  const checkSvg = `<svg viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const activeSvg = `<svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="2.5" fill="white"/></svg>`;
+  const pendingSvg = `<svg viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="2" stroke="rgba(140,110,180,.3)" stroke-width="1.2"/></svg>`;
+
+  document.getElementById('trTimeline').innerHTML = meta.steps.map((step, i) => `
+    <div class="tr-step">
+      <div class="tr-step-line"></div>
+      <div class="tr-step-dot ${step.done?'done':step.active?'active':'pending'}">
+        ${step.done ? checkSvg : step.active ? activeSvg : pendingSvg}
+      </div>
+      <div class="tr-step-content">
+        <div class="tr-step-title ${step.pending?'pending-text':''}">${step.title}</div>
+        <div class="tr-step-date">${step.date}</div>
+      </div>
+    </div>`).join('');
+
+  result.classList.add('show');
+}
+
+function copyPostal() {
+  if (!currentPostal || currentPostal === '—') return;
+  navigator.clipboard.writeText(currentPostal).catch(() => {});
+  showToast('شماره مرسوله کپی شد');
+}
+
+document.getElementById('trackingInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doTrack();
+});
 
 /* ═══════════════════════════════
    CHECKOUT
@@ -1364,7 +1643,6 @@ function openCheckout() {
   document.getElementById('checkoutOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeCheckout() {
   document.getElementById('checkoutOverlay').classList.remove('open');
   document.body.style.overflow = '';
@@ -1372,59 +1650,41 @@ function closeCheckout() {
 
 function goStep(step, init) {
   currentStep = step;
-  // update step circles
   document.querySelectorAll('.co-step').forEach(s => {
     const n = parseInt(s.dataset.step);
-    s.classList.remove('active', 'done');
+    s.classList.remove('active','done');
     if (n < step) s.classList.add('done');
     if (n === step) s.classList.add('active');
   });
-  // update step circles icons for done
   document.querySelectorAll('.co-step.done .co-step-circle').forEach(c => {
     c.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   });
-  // panels
   document.querySelectorAll('.co-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById(`coPanel${step}`);
   if (panel) panel.classList.add('active');
-
-  // update nav title
-  const titles = {1:'اطلاعات تحویل', 2:'مرور سفارش', 3:'پرداخت', 4:'سفارش ثبت شد'};
+  const titles = {1:'اطلاعات تحویل',2:'مرور سفارش',3:'پرداخت',4:'سفارش ثبت شد'};
   document.getElementById('coNavTitle').textContent = titles[step] || 'تکمیل سفارش';
-
   if (step === 2) renderOrderReview();
   if (step === 3) renderPaymentSummary();
-
-  // scroll checkout to top
-  document.getElementById('checkoutOverlay').scrollTo(0, 0);
+  document.getElementById('checkoutOverlay').scrollTo(0,0);
 }
 
 function renderOrderReview() {
   const total = cartTotal();
   const shipping = total > 200000 ? 0 : 25000;
-  const finalTotal = total + shipping;
-
   document.getElementById('coReviewItems').innerHTML = cart.map(item => `
     <div class="cri">
-      <div class="cri-thumb" style="background:${item.color}">
-        <svg viewBox="0 0 20 20" fill="none">${item.svg}</svg>
-      </div>
-      <div>
-        <div class="cri-name">${item.name}</div>
-        <div class="cri-sub">${item.brand} · ×${toFarsiNum(item.qty)}</div>
-      </div>
-      <div class="cri-price">${toFarsiNum(item.priceNum * item.qty)} ت</div>
+      <div class="cri-thumb" style="background:${item.color}"><svg viewBox="0 0 20 20" fill="none">${item.svg}</svg></div>
+      <div><div class="cri-name">${item.name}</div><div class="cri-sub">${item.brand} · ×${toFa(item.qty)}</div></div>
+      <div class="cri-price">${toFa(item.priceNum*item.qty)} ت</div>
     </div>`).join('');
-
   const fname = document.getElementById('cf-fname').value || '—';
   const lname = document.getElementById('cf-lname').value || '';
   const city = document.getElementById('cf-city').value || '—';
   const province = document.getElementById('cf-province').value || '';
   const address = document.getElementById('cf-address').value || '—';
-  document.getElementById('coAddressPreview').innerHTML =
-    `${fname} ${lname}<br>${province} - ${city}<br>${address}`;
-
-  renderSummaryBlock('coPriceSummary', total, shipping, finalTotal);
+  document.getElementById('coAddressPreview').innerHTML = `${fname} ${lname}<br>${province} - ${city}<br>${address}`;
+  renderSummaryBlock('coPriceSummary', total, total > 200000 ? 0 : 25000, total + (total > 200000 ? 0 : 25000));
 }
 
 function renderPaymentSummary() {
@@ -1435,10 +1695,10 @@ function renderPaymentSummary() {
 
 function renderSummaryBlock(id, total, shipping, finalTotal) {
   document.getElementById(id).innerHTML = `
-    <div class="cps-row"><span class="cps-label">جمع محصولات</span><span class="cps-val">${toFarsiNum(total)} ت</span></div>
-    <div class="cps-row"><span class="cps-label">هزینه ارسال</span><span class="cps-val">${shipping === 0 ? 'رایگان 🎉' : toFarsiNum(shipping) + ' ت'}</span></div>
+    <div class="cps-row"><span class="cps-label">جمع محصولات</span><span class="cps-val">${toFa(total)} ت</span></div>
+    <div class="cps-row"><span class="cps-label">هزینه ارسال</span><span class="cps-val">${shipping===0?'رایگان 🎉':toFa(shipping)+' ت'}</span></div>
     <div class="cps-divider"></div>
-    <div class="cps-row"><span class="cps-total-label">مبلغ نهایی</span><span class="cps-total-val">${toFarsiNum(finalTotal)} ت</span></div>`;
+    <div class="cps-row"><span class="cps-total-label">مبلغ نهایی</span><span class="cps-total-val">${toFa(finalTotal)} ت</span></div>`;
 }
 
 function selectPay(el) {
@@ -1447,17 +1707,35 @@ function selectPay(el) {
 }
 
 function submitOrder() {
-  // Generate order number
-  const orderNum = 'PD' + Math.floor(100000 + Math.random() * 900000);
+  const orderNum = 'PD' + Math.floor(100000 + Math.random()*900000);
   document.getElementById('coOrderNum').textContent = orderNum;
+  // Store in mock DB for tracking
+  mockOrders[orderNum] = {
+    status:'processing',
+    postal:'—',
+    name: cart.length ? cart[0].name + (cart.length > 1 ? ` و ${cart.length-1} محصول دیگر` : '') : 'محصول پدیا',
+    date: new Date().toLocaleDateString('fa-IR'),
+    deliverDate: '۲ تا ۴ روز کاری',
+  };
   goStep(4);
-  // hide steps on success
   document.getElementById('coSteps').style.display = 'none';
 }
 
 /* ═══════════════════════════════
-   MOOD DATA
+   MOOD DATA + PRODUCT STORE
 ═══════════════════════════════ */
+// All products stored as JS objects — no SVG in onclick attributes
+const productStore = {};
+
+function registerProduct(id, name, brand, price, color, svgContent) {
+  productStore[id] = { name, brand, price, color, svg: svgContent };
+}
+
+function addByKey(id) {
+  const p = productStore[id];
+  if (p) addToCart(id, p.name, p.brand, p.price, p.color, p.svg);
+}
+
 const moods = {
   night: {
     eyebrow:'آرامش شبانه', title:'شب آرومی بخوابم',
@@ -1469,15 +1747,14 @@ const moods = {
     ],
     cta:'انتخاب محصول شب',
     products:[
-      {n:'نایت پرو ۸ ساعته',b:'بالشتک بلند',p:'۴۵,۰۰۰',best:true,svg:'<path d="M14 10A6 6 0 1 1 8 4a5 5 0 0 0 6 6z" fill="rgba(140,110,180,.5)"/>'},
-      {n:'الترا تین شبانه',b:'فوق‌نازک',p:'۳۸,۰۰۰',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(140,110,180,.4)"/>'},
-      {n:'شورت پریود شب',b:'پارچه',p:'۲۲۰,۰۰۰',svg:'<path d="M5 7h10l-1.5 8H6.5L5 7z" stroke="rgba(140,110,180,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
-      {n:'پد جانبی شب',b:'محافظ',p:'۵۲,۰۰۰',svg:'<rect x="3" y="9" width="14" height="4" rx="2" fill="rgba(140,110,180,.38)"/>'},
+      {id:'mn0',n:'نایت پرو ۸ ساعته',b:'بالشتک بلند',p:'۴۵,۰۰۰',best:true,color:'#EDE5FF',svg:'<path d="M14 10A6 6 0 1 1 8 4a5 5 0 0 0 6 6z" fill="rgba(140,110,180,.5)"/>'},
+      {id:'mn1',n:'الترا تین شبانه',b:'فوق‌نازک',p:'۳۸,۰۰۰',color:'#EDE5FF',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(140,110,180,.4)"/>'},
+      {id:'mn2',n:'شورت پریود شب',b:'پارچه',p:'۲۲۰,۰۰۰',color:'#EDE5FF',svg:'<path d="M5 7h10l-1.5 8H6.5L5 7z" stroke="rgba(140,110,180,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
+      {id:'mn3',n:'پد جانبی شب',b:'محافظ',p:'۵۲,۰۰۰',color:'#EDE5FF',svg:'<rect x="3" y="9" width="14" height="4" rx="2" fill="rgba(140,110,180,.38)"/>'},
     ],
     empathy:{icon:'🌙',quote:'می‌دونیم اون لحظه‌ای که چراغ رو خاموش می‌کنی، یه نگرانی کوچیک توی دلته.',desc:'خواب آروم حق توئه. ما اینجاییم.'},
     footer:'💜 همه محصولات شبانه با <strong>تست ۸ ساعته</strong> تأیید شدن.',
-    bg:'linear-gradient(145deg,#EDE5FF,#F5F0FF,#FAF7FF)',
-    bgColor:'#EDE5FF',
+    bg:'linear-gradient(145deg,#EDE5FF,#F5F0FF,#FAF7FF)', bgColor:'#EDE5FF',
   },
   sport: {
     eyebrow:'ورزش و تحرک', title:'فعالم و می‌دوم',
@@ -1489,15 +1766,14 @@ const moods = {
     ],
     cta:'محصولات ورزشی',
     products:[
-      {n:'اسپورت اولترا',b:'ورزشی',p:'۴۸,۰۰۰',best:true,svg:'<circle cx="10" cy="10" r="7" stroke="rgba(60,140,90,.5)" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="rgba(60,140,90,.5)" stroke-width="1.4" stroke-linecap="round"/>'},
-      {n:'یوگا پد',b:'انعطاف‌پذیر',p:'۴۲,۰۰۰',svg:'<path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="rgba(60,140,90,.5)" stroke-width="1.5" stroke-linecap="round"/>'},
-      {n:'تامپون ورزشی',b:'برای شنا',p:'۳۵,۰۰۰',svg:'<path d="M10 4v12M7 13l3 3 3-3" stroke="rgba(60,140,90,.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
-      {n:'شورت اسپورت',b:'پارچه ورزشی',p:'۲۴۵,۰۰۰',svg:'<path d="M5 6h10l-1 9H6L5 6z" stroke="rgba(60,140,90,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
+      {id:'ms0',n:'اسپورت اولترا',b:'ورزشی',p:'۴۸,۰۰۰',best:true,color:'#D4F0DF',svg:'<circle cx="10" cy="10" r="7" stroke="rgba(40,120,80,.5)" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="rgba(40,120,80,.5)" stroke-width="1.4" stroke-linecap="round"/>'},
+      {id:'ms1',n:'یوگا پد',b:'انعطاف‌پذیر',p:'۴۲,۰۰۰',color:'#D4F0DF',svg:'<path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="rgba(40,120,80,.5)" stroke-width="1.5" stroke-linecap="round"/>'},
+      {id:'ms2',n:'تامپون ورزشی',b:'برای شنا',p:'۳۵,۰۰۰',color:'#D4F0DF',svg:'<path d="M10 4v12M7 13l3 3 3-3" stroke="rgba(40,120,80,.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
+      {id:'ms3',n:'شورت اسپورت',b:'پارچه ورزشی',p:'۲۴۵,۰۰۰',color:'#D4F0DF',svg:'<path d="M5 6h10l-1 9H6L5 6z" stroke="rgba(40,120,80,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
     ],
     empathy:{icon:'🏃‍♀️',quote:'تو حق داری بدوی، بپری، شنا کنی.',desc:'ما مطمئن می‌شیم محصولت به اندازه تو قوی باشه.'},
     footer:'🌿 محصولات ورزشی با <strong>تکنولوژی ضد حرکت</strong> طراحی شدن.',
-    bg:'linear-gradient(145deg,#D4F0DF,#E8F8EE,#F4FCF7)',
-    bgColor:'#D4F0DF',
+    bg:'linear-gradient(145deg,#D4F0DF,#E8F8EE,#F4FCF7)', bgColor:'#D4F0DF',
   },
   sensitive: {
     eyebrow:'پوست حساس', title:'پوستم حساسه',
@@ -1509,15 +1785,14 @@ const moods = {
     ],
     cta:'محصولات ملایم',
     products:[
-      {n:'ارگانیک کاتن پد',b:'پنبه طبیعی',p:'۵۸,۰۰۰',best:true,svg:'<circle cx="10" cy="10" r="6" stroke="rgba(180,80,120,.5)" stroke-width="1.5"/><path d="M8 10l1.5 1.5 3-3" stroke="rgba(180,80,120,.5)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'},
-      {n:'بامبو لایت',b:'فیبر بامبو',p:'۵۴,۰۰۰',svg:'<path d="M10 16v-6M10 10c0-3 2-5 2-5s-2-1-4 0S6 8 8 10" stroke="rgba(180,80,120,.5)" stroke-width="1.4" stroke-linecap="round"/>'},
-      {n:'هایپوآلرژنیک',b:'فاقد عطر',p:'۴۹,۰۰۰',svg:'<rect x="4" y="8" width="12" height="5" rx="2.5" fill="rgba(180,80,120,.3)"/>'},
-      {n:'کاپ سیلیکونی',b:'بدون تماس',p:'۱۸۵,۰۰۰',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(180,80,120,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
+      {id:'mse0',n:'ارگانیک کاتن پد',b:'پنبه طبیعی',p:'۵۸,۰۰۰',best:true,color:'#FFE0EC',svg:'<circle cx="10" cy="10" r="6" stroke="rgba(160,64,112,.55)" stroke-width="1.5"/><path d="M8 10l1.5 1.5 3-3" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'},
+      {id:'mse1',n:'بامبو لایت',b:'فیبر بامبو',p:'۵۴,۰۰۰',color:'#FFE0EC',svg:'<path d="M10 16v-6M10 10c0-3 2-5 2-5s-2-1-4 0S6 8 8 10" stroke="rgba(160,64,112,.5)" stroke-width="1.4" stroke-linecap="round"/>'},
+      {id:'mse2',n:'هایپوآلرژنیک',b:'فاقد عطر',p:'۴۹,۰۰۰',color:'#FFE0EC',svg:'<rect x="4" y="8" width="12" height="5" rx="2.5" fill="rgba(180,80,120,.3)"/>'},
+      {id:'mse3',n:'کاپ سیلیکونی',b:'بدون تماس',p:'۱۸۵,۰۰۰',color:'#FFE0EC',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(160,64,112,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
     ],
     empathy:{icon:'🌸',quote:'پوست حساس یعنی جسمت داره بهت می‌گه نیاز به مراقبت داره.',desc:'محصولات ما طراحی شدن تا پوستت فقط آرامش حس کنه.'},
     footer:'🌿 تمام محصولات حساس <strong>فاقد عطر، رنگ مصنوعی و مواد شیمیایی</strong> هستن.',
-    bg:'linear-gradient(145deg,#FFE0EC,#FFEEF5,#FFF5FA)',
-    bgColor:'#FFE0EC',
+    bg:'linear-gradient(145deg,#FFE0EC,#FFEEF5,#FFF5FA)', bgColor:'#FFE0EC',
   },
   heavy: {
     eyebrow:'جریان سنگین', title:'روزهای سنگین دارم',
@@ -1529,15 +1804,14 @@ const moods = {
     ],
     cta:'محصولات روزهای سنگین',
     products:[
-      {n:'ماکسی پلاس پرو',b:'ظرفیت بالا',p:'۶۲,۰۰۰',best:true,svg:'<path d="M10 3v13M6.5 12l3.5 4 3.5-4" stroke="rgba(80,120,200,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
-      {n:'اولترا ماکسی شب',b:'ترکیبی',p:'۵۵,۰۰۰',svg:'<rect x="3" y="8" width="14" height="5" rx="2.5" fill="rgba(80,120,200,.35)"/>'},
-      {n:'شورت پریود هوی',b:'پارچه',p:'۲۶۰,۰۰۰',svg:'<path d="M5 7h10l-1 9H6L5 7z" stroke="rgba(80,120,200,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
-      {n:'دیسک پریود',b:'درونی',p:'۱۹۵,۰۰۰',svg:'<ellipse cx="10" cy="10" rx="7" ry="4" stroke="rgba(80,120,200,.5)" stroke-width="1.5"/>'},
+      {id:'mh0',n:'ماکسی پلاس پرو',b:'ظرفیت بالا',p:'۶۲,۰۰۰',best:true,color:'#D6E8FF',svg:'<path d="M10 3v13M6.5 12l3.5 4 3.5-4" stroke="rgba(48,96,176,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
+      {id:'mh1',n:'اولترا ماکسی شب',b:'ترکیبی',p:'۵۵,۰۰۰',color:'#D6E8FF',svg:'<rect x="3" y="8" width="14" height="5" rx="2.5" fill="rgba(80,120,200,.35)"/>'},
+      {id:'mh2',n:'شورت پریود هوی',b:'پارچه',p:'۲۶۰,۰۰۰',color:'#D6E8FF',svg:'<path d="M5 7h10l-1 9H6L5 7z" stroke="rgba(80,120,200,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
+      {id:'mh3',n:'دیسک پریود',b:'درونی',p:'۱۹۵,۰۰۰',color:'#D6E8FF',svg:'<ellipse cx="10" cy="10" rx="7" ry="4" stroke="rgba(80,120,200,.5)" stroke-width="1.5"/>'},
     ],
     empathy:{icon:'💙',quote:'اون روزایی که جسم و روحت هر دو سنگینن.',desc:'این استرس اضافه لازم نیست تحملش کنی.'},
     footer:'💙 محصولات سنگین با <strong>۳ برابر ظرفیت معمولی</strong> طراحی شدن.',
-    bg:'linear-gradient(145deg,#D6E8FF,#E8F2FF,#F4F8FF)',
-    bgColor:'#D6E8FF',
+    bg:'linear-gradient(145deg,#D6E8FF,#E8F2FF,#F4F8FF)', bgColor:'#D6E8FF',
   },
   travel: {
     eyebrow:'سفر و جاده', title:'همیشه در راهم',
@@ -1549,17 +1823,21 @@ const moods = {
     ],
     cta:'محصولات سفر',
     products:[
-      {n:'تراول کیت',b:'بسته سفر',p:'۱۲۵,۰۰۰',best:true,svg:'<rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(160,110,40,.5)" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(160,110,40,.4)" stroke-width="1.2" stroke-linecap="round"/>'},
-      {n:'مینی پد اینویزیبل',b:'فشرده',p:'۳۲,۰۰۰',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(160,110,40,.38)"/>'},
-      {n:'کاپ سیلیکونی',b:'قابل استفاده مجدد',p:'۱۸۵,۰۰۰',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(160,110,40,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
-      {n:'دستمال گسسته',b:'بی‌صدا',p:'۴۵,۰۰۰',svg:'<rect x="3" y="7" width="14" height="7" rx="2" stroke="rgba(160,110,40,.5)" stroke-width="1.4"/>'},
+      {id:'mt0',n:'تراول کیت',b:'بسته سفر',p:'۱۲۵,۰۰۰',best:true,color:'#FFF0D0',svg:'<rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(154,104,32,.55)" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(154,104,32,.45)" stroke-width="1.2" stroke-linecap="round"/>'},
+      {id:'mt1',n:'مینی پد اینویزیبل',b:'فشرده',p:'۳۲,۰۰۰',color:'#FFF0D0',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(154,104,32,.38)"/>'},
+      {id:'mt2',n:'کاپ سیلیکونی',b:'قابل استفاده مجدد',p:'۱۸۵,۰۰۰',color:'#FFF0D0',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(154,104,32,.5)" stroke-width="1.4" stroke-linejoin="round"/>'},
+      {id:'mt3',n:'دستمال گسسته',b:'بی‌صدا',p:'۴۵,۰۰۰',color:'#FFF0D0',svg:'<rect x="3" y="7" width="14" height="7" rx="2" stroke="rgba(154,104,32,.5)" stroke-width="1.4"/>'},
     ],
     empathy:{icon:'✈️',quote:'چمدونت بسته‌ست، قلبت هیجان‌زده‌ست.',desc:'با پدیا دیگه نیازی نیست نگران پریود توی سفر باشی.'},
     footer:'🧳 کیت سفر پدیا <strong>توی هر کیف دستی جا می‌شه</strong>.',
-    bg:'linear-gradient(145deg,#FFF0D0,#FFF8E8,#FFFDF5)',
-    bgColor:'#FFF0D0',
+    bg:'linear-gradient(145deg,#FFF0D0,#FFF8E8,#FFFDF5)', bgColor:'#FFF0D0',
   }
 };
+
+// Register all mood products
+Object.values(moods).forEach(m => {
+  m.products.forEach(p => registerProduct(p.id, p.n, p.b, p.p, p.color, p.svg));
+});
 
 /* ─── MOOD PANEL ─── */
 let currentMood = 'night';
@@ -1575,11 +1853,7 @@ function renderPanel(mood) {
     </div>
     <div class="mp-quote">${d.quote}</div>
     <div class="mp-features">
-      ${d.features.map(f=>`
-        <div class="mp-feature">
-          <div class="mp-feature-icon">${f.icon}</div>
-          <div><div class="mp-feature-title">${f.title}</div><div class="mp-feature-desc">${f.desc}</div></div>
-        </div>`).join('')}
+      ${d.features.map(f=>`<div class="mp-feature"><div class="mp-feature-icon">${f.icon}</div><div><div class="mp-feature-title">${f.title}</div><div class="mp-feature-desc">${f.desc}</div></div></div>`).join('')}
     </div>
     <button class="mp-cta" onclick="openPanel('${mood}')">
       ${d.cta}
@@ -1599,18 +1873,18 @@ function openPanel(type) {
   document.getElementById('epCtx').textContent = d.eyebrow;
   document.getElementById('epTitle').textContent = d.title;
   document.getElementById('epSub').textContent = d.cta;
-  document.getElementById('epGrid').innerHTML = d.products.map((p,i)=>`
+  document.getElementById('epGrid').innerHTML = d.products.map(p => `
     <div class="epc">
       <div class="epc-vis" style="background:${d.bg}">
         <svg viewBox="0 0 20 20" fill="none">${p.svg}</svg>
-        ${p.best?'<div class="epc-best">بهترین</div>':''}
+        ${p.best ? '<div class="epc-best">بهترین</div>' : ''}
       </div>
       <div class="epc-body">
         <div class="epc-name">${p.n}</div>
         <div class="epc-brand">${p.b}</div>
         <div class="epc-foot">
           <div class="epc-price">${p.p} ت</div>
-          <button class="epc-add" onclick="addToCart('mood-${type}-${i}','${p.n}','${p.b}','${p.p}','${d.bgColor}','${p.svg.replace(/'/g,"\\'")}')" title="افزودن به سبد">+</button>
+          <button class="epc-add" onclick="addByKey('${p.id}')">+</button>
         </div>
       </div>
     </div>`).join('');
@@ -1620,216 +1894,282 @@ function openPanel(type) {
   document.getElementById('epFooter').innerHTML = d.footer;
   document.getElementById('overlay').classList.add('on');
   document.getElementById('expPanel').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
-function closePanel(){
+function closePanel() {
   document.getElementById('overlay').classList.remove('on');
   document.getElementById('expPanel').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
-const ep=document.getElementById('expPanel');
-let sy=0;
-ep.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;});
-ep.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sy>90)closePanel();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePanel();closeBrandDrawer();}});
+
+const ep = document.getElementById('expPanel');
+let sy = 0;
+ep.addEventListener('touchstart', e => { sy = e.touches[0].clientY; });
+ep.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - sy > 90) closePanel(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePanel(); closeBrandDrawer(); closeTracking(); } });
 
 /* ─── FREEZE ─── */
-let freezeOpen=false, selectedMonths=6;
-function toggleFreeze(){freezeOpen=!freezeOpen;document.getElementById('freezeBanner').classList.toggle('open',freezeOpen);calcUpdate();}
-function selectPlan(btn){document.querySelectorAll('.fp-plan-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedMonths=parseInt(btn.dataset.months);calcUpdate();}
-function fa(n){return n.toLocaleString('fa-IR');}
-function calcUpdate(){
-  const price=parseInt(document.getElementById('priceRange').value);
-  const months=selectedMonths;
-  const range=document.getElementById('priceRange');
-  range.style.setProperty('--pct',((price-50000)/(300000-50000))*100+'%');
-  const laterMonths=months-1;
-  const prepay=Math.round(price*0.30*laterMonths);
-  const monthlyAfter=Math.round(price*0.70);
-  const totalPaid=price+prepay+(monthlyAfter*laterMonths);
-  const futurePrice=Math.round(price*(1+0.40*months/12));
-  const saving=(price+futurePrice*laterMonths)-totalPaid;
-  document.getElementById('priceVal').textContent=fa(price);
-  document.getElementById('rToday').textContent=fa(price)+' ت';
-  document.getElementById('rPrepay').textContent=fa(prepay)+' ت';
-  document.getElementById('rMonthly').textContent=fa(monthlyAfter)+' ت / ماه';
-  document.getElementById('rFuture').textContent=fa(futurePrice)+' ت';
-  document.getElementById('rTotal').textContent=fa(totalPaid)+' ت';
-  document.getElementById('rSaving').textContent='+'+fa(saving)+' ت';
+let freezeOpen = false, selectedMonths = 6;
+function toggleFreeze() { freezeOpen = !freezeOpen; document.getElementById('freezeBanner').classList.toggle('open', freezeOpen); calcUpdate(); }
+function selectPlan(btn) { document.querySelectorAll('.fp-plan-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedMonths = parseInt(btn.dataset.months); calcUpdate(); }
+function calcUpdate() {
+  const price = parseInt(document.getElementById('priceRange').value);
+  const months = selectedMonths;
+  const range = document.getElementById('priceRange');
+  range.style.setProperty('--pct', ((price-50000)/(300000-50000))*100+'%');
+  const laterMonths = months - 1;
+  const prepay = Math.round(price * 0.30 * laterMonths);
+  const monthlyAfter = Math.round(price * 0.70);
+  const totalPaid = price + prepay + (monthlyAfter * laterMonths);
+  const futurePrice = Math.round(price * (1 + 0.40 * months / 12));
+  const saving = (price + futurePrice * laterMonths) - totalPaid;
+  document.getElementById('priceVal').textContent = toFa(price);
+  document.getElementById('rToday').textContent = toFa(price) + ' ت';
+  document.getElementById('rPrepay').textContent = toFa(prepay) + ' ت';
+  document.getElementById('rMonthly').textContent = toFa(monthlyAfter) + ' ت / ماه';
+  document.getElementById('rFuture').textContent = toFa(futurePrice) + ' ت';
+  document.getElementById('rTotal').textContent = toFa(totalPaid) + ' ت';
+  document.getElementById('rSaving').textContent = '+' + toFa(saving) + ' ت';
 }
 calcUpdate();
 
 /* ─── CHAT ─── */
-const replies=['خوشحالم که اینجایی 💜','می‌فهمم دقیقاً چی می‌گی','هیچ سوالی اشتباه نیست — بپرس','کنارتم قدم به قدم','خوشحال می‌شم بیشتر توضیح بدی'];
-let ri=0;
-const bAv=`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2" fill="white"/><circle cx="5" cy="5" r="4" stroke="white" stroke-width=".8" opacity=".5"/></svg>`;
-function sendMsg(){
-  const inp=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs'),txt=inp.value.trim();
-  if(!txt)return;
-  msgs.innerHTML+=`<div class="msg me"><div class="mav usr">👤</div><div class="bbl me">${txt}</div></div>`;
-  inp.value='';msgs.scrollTop=9999;
-  setTimeout(()=>{
-    msgs.innerHTML+=`<div class="msg" id="typ"><div class="mav bot">${bAv}</div><div class="typing"><span></span><span></span><span></span></div></div>`;
-    msgs.scrollTop=9999;
-    setTimeout(()=>{document.getElementById('typ')?.remove();msgs.innerHTML+=`<div class="msg"><div class="mav bot">${bAv}</div><div class="bbl bot">${replies[ri++%replies.length]}</div></div>`;msgs.scrollTop=9999;},1400);
-  },400);
+const replies = ['خوشحالم که اینجایی 💜','می‌فهمم دقیقاً چی می‌گی','هیچ سوالی اشتباه نیست — بپرس','کنارتم قدم به قدم','خوشحال می‌شم بیشتر توضیح بدی'];
+let ri = 0;
+const bAv = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2" fill="white"/><circle cx="5" cy="5" r="4" stroke="white" stroke-width=".8" opacity=".5"/></svg>`;
+function sendMsg() {
+  const inp = document.getElementById('chatInput'), msgs = document.getElementById('chatMsgs'), txt = inp.value.trim();
+  if (!txt) return;
+  msgs.innerHTML += `<div class="msg me"><div class="mav usr">👤</div><div class="bbl me">${txt}</div></div>`;
+  inp.value = ''; msgs.scrollTop = 9999;
+  setTimeout(() => {
+    msgs.innerHTML += `<div class="msg" id="typ"><div class="mav bot">${bAv}</div><div class="typing"><span></span><span></span><span></span></div></div>`;
+    msgs.scrollTop = 9999;
+    setTimeout(() => { document.getElementById('typ')?.remove(); msgs.innerHTML += `<div class="msg"><div class="mav bot">${bAv}</div><div class="bbl bot">${replies[ri++ % replies.length]}</div></div>`; msgs.scrollTop = 9999; }, 1400);
+  }, 400);
 }
-document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
 
 /* ─── BRANDS DATA ─── */
 const brands = [
-  {id:'naty',name:'ناتی',tagline:'ارگانیک اروپایی',desc:'برند اروپایی با پنبه ارگانیک صددرصد طبیعی — انتخاب مادران آگاه',color:'#E8F7EE',accent:'#2D8652',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#D4F0DF"/><path d="M20 32c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="#2D8652" stroke-width="2.5" stroke-linecap="round"/><path d="M26 38c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#2D8652" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="32" cy="44" r="3" fill="#2D8652" opacity=".7"/></svg>`,products:[{n:'نایت اورگانیک',sub:'شبانه',p:'۵۸,۰۰۰',best:true,color:'#D4F0DF',acnt:'#2D8652'},{n:'دیلی ارگانیک',sub:'روزانه',p:'۴۲,۰۰۰',color:'#E8F7EE',acnt:'#2D8652'},{n:'اولترا تین',sub:'فوق‌نازک',p:'۳۸,۰۰۰',color:'#F0FBF4',acnt:'#2D8652'},{n:'پنتی لاینر',sub:'محافظ روزانه',p:'۲۸,۰۰۰',color:'#EAF8F0',acnt:'#2D8652'}],footer:'🌿 ناتی دارای گواهینامه <strong>EU Ecolabel</strong> و بدون کلر است.'},
-  {id:'always',name:'آلویز',tagline:'رهبر جهانی',desc:'محبوب‌ترین برند دنیا با بیش از ۶۰ سال تجربه و تکنولوژی پیشرفته',color:'#E8F0FF',accent:'#2B5FCC',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#DCE8FF"/><path d="M18 38l14-20 14 20" stroke="#2B5FCC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 38l8-11 8 11" stroke="#2B5FCC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/></svg>`,products:[{n:'اینفینیتی پلاس',sub:'جذب بالا',p:'۶۵,۰۰۰',best:true,color:'#DCE8FF',acnt:'#2B5FCC'},{n:'آلترا تین',sub:'فوق‌نازک',p:'۴۸,۰۰۰',color:'#E8F0FF',acnt:'#2B5FCC'},{n:'نایت ماکسی',sub:'شبانه',p:'۵۲,۰۰۰',color:'#EEF4FF',acnt:'#2B5FCC'},{n:'دیسکریت',sub:'روزانه',p:'۳۵,۰۰۰',color:'#F2F6FF',acnt:'#2B5FCC'}],footer:'💙 آلویز در <strong>۱۸۰ کشور</strong> به فروش می‌رسد.'},
-  {id:'libresse',name:'لیبرس',tagline:'سوئدی اصیل',desc:'برند سوئدی با رویکرد جسورانه — برای زنانی که از بدنشان خجالت نمی‌کشن',color:'#FFF0E8',accent:'#CC4B20',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFE0D0"/><rect x="18" y="24" width="28" height="16" rx="8" fill="#CC4B20" opacity=".75"/><rect x="22" y="28" width="20" height="8" rx="4" fill="white" opacity=".6"/></svg>`,products:[{n:'بادی‌فرم نایت',sub:'شبانه',p:'۵۵,۰۰۰',best:true,color:'#FFE0D0',acnt:'#CC4B20'},{n:'سنسیتیو',sub:'پوست حساس',p:'۵۰,۰۰۰',color:'#FFF0E8',acnt:'#CC4B20'},{n:'اینویزیبل',sub:'نامرئی',p:'۴۲,۰۰۰',color:'#FFF5F0',acnt:'#CC4B20'},{n:'اکتیو',sub:'ورزشی',p:'۴۸,۰۰۰',color:'#FFF8F5',acnt:'#CC4B20'}],footer:'❤️ لیبرس برنده جایزه <strong>بهترین برند بهداشت زنان</strong> اروپا است.'},
-  {id:'whisper',name:'ویسپر',tagline:'ژاپنی باکیفیت',desc:'از ژاپن، با تکنولوژی نانو — نازک‌ترین و باکیفیت‌ترین بافت در بازار',color:'#FFF0F8',accent:'#B03070',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFD6EC"/><path d="M32 18C24 18 18 24 18 32s6 14 14 14 14-6 14-14-6-14-14-14z" stroke="#B03070" stroke-width="2.2"/><path d="M26 32c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#B03070" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="32" cy="38" r="2.5" fill="#B03070"/></svg>`,products:[{n:'ناچورال پلاس',sub:'طبیعی',p:'۶۰,۰۰۰',best:true,color:'#FFD6EC',acnt:'#B03070'},{n:'دریم‌کلین',sub:'فوق‌نازک',p:'۵۲,۰۰۰',color:'#FFF0F8',acnt:'#B03070'},{n:'سافت‌گارد نایت',sub:'شبانه',p:'۵۸,۰۰۰',color:'#FFF5FA',acnt:'#B03070'},{n:'اکتیو',sub:'ورزشی',p:'۴۵,۰۰۰',color:'#FFFAFC',acnt:'#B03070'}],footer:'🌸 تکنولوژی <strong>Nano Soft</strong> ویسپر، تجربه‌ای متفاوت.'},
-  {id:'kotex',name:'کوتکس',tagline:'پیشرو در نوآوری',desc:'اولین برندی که به زنان احترام گذاشت — از ۱۹۲۰ تا امروز',color:'#F0F0FF',accent:'#5040B0',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#DDD8F8"/><rect x="20" y="26" width="24" height="12" rx="6" fill="#5040B0" opacity=".7"/><path d="M26 32h12" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M32 26v12" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg>`,products:[{n:'یو پروتکت',sub:'محافظت کامل',p:'۵۴,۰۰۰',best:true,color:'#DDD8F8',acnt:'#5040B0'},{n:'ملودی',sub:'روزانه',p:'۴۰,۰۰۰',color:'#EEECff',acnt:'#5040B0'},{n:'آنیون',sub:'آنتی‌باکتریال',p:'۶۲,۰۰۰',color:'#F4F2FF',acnt:'#5040B0'},{n:'پنتی‌لاینر',sub:'محافظ روزانه',p:'۲۵,۰۰۰',color:'#F8F7FF',acnt:'#5040B0'}],footer:'💜 کوتکس اولین برند دارای <strong>گواهی FDA</strong> بود.'},
-  {id:'organyc',name:'ارگانیک',tagline:'صددرصد ارگانیک',desc:'ایتالیایی، گواهی‌دار، پنبه خالص — برای کسانی که هیچ سازشی نمی‌کنن',color:'#EEFAF2',accent:'#1A7A40',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#C8EDD8"/><path d="M32 18s-8 5-8 12c0 4.4 3.6 8 8 8s8-3.6 8-8c0-7-8-12-8-12z" fill="#1A7A40" opacity=".6"/><path d="M24 38s-2 4 8 6 8-6 8-6" stroke="#1A7A40" stroke-width="1.8" stroke-linecap="round" opacity=".5"/></svg>`,products:[{n:'اورگانیک ماکسی',sub:'ماکسی',p:'۷۲,۰۰۰',best:true,color:'#C8EDD8',acnt:'#1A7A40'},{n:'اورگانیک نایت',sub:'شبانه',p:'۶۸,۰۰۰',color:'#DAEEE6',acnt:'#1A7A40'},{n:'اورگانیک نرمال',sub:'معمولی',p:'۵۸,۰۰۰',color:'#EAF5EE',acnt:'#1A7A40'},{n:'تامپون ارگانیک',sub:'درونی',p:'۴۸,۰۰۰',color:'#F2F9F5',acnt:'#1A7A40'}],footer:'🍃 ارگانیک دارای گواهینامه <strong>GOTS</strong> است.'},
-  {id:'saba',name:'صبا',tagline:'ایرانی معتمد',desc:'برند ایرانی با ۳۰ سال سابقه — قابل اعتماد، در دسترس، کنار توست',color:'#FFF0F4',accent:'#C03060',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFCCD8"/><path d="M20 36l12-16 12 16" stroke="#C03060" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 36l6-8 6 8" stroke="#C03060" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/><circle cx="32" cy="38" r="2.5" fill="#C03060"/></svg>`,products:[{n:'صبا شب',sub:'شبانه',p:'۳۸,۰۰۰',best:true,color:'#FFCCD8',acnt:'#C03060'},{n:'صبا روز',sub:'روزانه',p:'۲۸,۰۰۰',color:'#FFE0E8',acnt:'#C03060'},{n:'صبا نازک',sub:'فوق‌نازک',p:'۳۲,۰۰۰',color:'#FFEEF2',acnt:'#C03060'},{n:'صبا ماکسی',sub:'ماکسی',p:'۴۲,۰۰۰',color:'#FFF5F8',acnt:'#C03060'}],footer:'🇮🇷 صبا در <strong>۳۰۰۰ داروخانه</strong> سراسر ایران موجود است.'},
-  {id:'molped',name:'مولپد',tagline:'ترکی مقرون‌به‌صرفه',desc:'کیفیت اروپایی با قیمت منطقی — ترکی که به قلب بازار ایران راه پیدا کرد',color:'#F8F0FF',accent:'#7040B0',svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#E8D8FF"/><path d="M18 32a14 14 0 0 1 28 0" stroke="#7040B0" stroke-width="2.5" stroke-linecap="round"/><path d="M22 38a10 10 0 0 1 20 0" stroke="#7040B0" stroke-width="2" stroke-linecap="round" opacity=".6"/><path d="M26 44a6 6 0 0 1 12 0" stroke="#7040B0" stroke-width="1.8" stroke-linecap="round" opacity=".4"/></svg>`,products:[{n:'مولپد نایت',sub:'شبانه',p:'۳۵,۰۰۰',best:true,color:'#E8D8FF',acnt:'#7040B0'},{n:'سافت فیل',sub:'نرم',p:'۲۸,۰۰۰',color:'#F0E8FF',acnt:'#7040B0'},{n:'اولترا اینویزیبل',sub:'نامرئی',p:'۳۲,۰۰۰',color:'#F6F0FF',acnt:'#7040B0'},{n:'کتون',sub:'پنبه‌ای',p:'۳۰,۰۰۰',color:'#FAF5FF',acnt:'#7040B0'}],footer:'💡 مولپد بهترین <strong>رابطه کیفیت به قیمت</strong> را دارد.'},
+  {id:'naty',name:'ناتی',tagline:'ارگانیک اروپایی',desc:'برند اروپایی با پنبه ارگانیک صددرصد طبیعی — انتخاب مادران آگاه',color:'#E8F7EE',accent:'#2D8652',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#D4F0DF"/><path d="M20 32c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="#2D8652" stroke-width="2.5" stroke-linecap="round"/><path d="M26 38c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#2D8652" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="32" cy="44" r="3" fill="#2D8652" opacity=".7"/></svg>`,
+   products:[
+    {id:'bn0',n:'نایت اورگانیک',sub:'شبانه',p:'۵۸,۰۰۰',best:true,color:'#D4F0DF',acnt:'#2D8652'},
+    {id:'bn1',n:'دیلی ارگانیک',sub:'روزانه',p:'۴۲,۰۰۰',color:'#E8F7EE',acnt:'#2D8652'},
+    {id:'bn2',n:'اولترا تین',sub:'فوق‌نازک',p:'۳۸,۰۰۰',color:'#F0FBF4',acnt:'#2D8652'},
+    {id:'bn3',n:'پنتی لاینر',sub:'محافظ روزانه',p:'۲۸,۰۰۰',color:'#EAF8F0',acnt:'#2D8652'},
+   ],footer:'🌿 ناتی دارای گواهینامه <strong>EU Ecolabel</strong> و بدون کلر است.'},
+  {id:'always',name:'آلویز',tagline:'رهبر جهانی',desc:'محبوب‌ترین برند دنیا با بیش از ۶۰ سال تجربه و تکنولوژی پیشرفته',color:'#E8F0FF',accent:'#2B5FCC',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#DCE8FF"/><path d="M18 38l14-20 14 20" stroke="#2B5FCC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 38l8-11 8 11" stroke="#2B5FCC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/></svg>`,
+   products:[
+    {id:'ba0',n:'اینفینیتی پلاس',sub:'جذب بالا',p:'۶۵,۰۰۰',best:true,color:'#DCE8FF',acnt:'#2B5FCC'},
+    {id:'ba1',n:'آلترا تین',sub:'فوق‌نازک',p:'۴۸,۰۰۰',color:'#E8F0FF',acnt:'#2B5FCC'},
+    {id:'ba2',n:'نایت ماکسی',sub:'شبانه',p:'۵۲,۰۰۰',color:'#EEF4FF',acnt:'#2B5FCC'},
+    {id:'ba3',n:'دیسکریت',sub:'روزانه',p:'۳۵,۰۰۰',color:'#F2F6FF',acnt:'#2B5FCC'},
+   ],footer:'💙 آلویز در <strong>۱۸۰ کشور</strong> به فروش می‌رسد.'},
+  {id:'libresse',name:'لیبرس',tagline:'سوئدی اصیل',desc:'برند سوئدی با رویکرد جسورانه — برای زنانی که از بدنشان خجالت نمی‌کشن',color:'#FFF0E8',accent:'#CC4B20',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFE0D0"/><rect x="18" y="24" width="28" height="16" rx="8" fill="#CC4B20" opacity=".75"/><rect x="22" y="28" width="20" height="8" rx="4" fill="white" opacity=".6"/></svg>`,
+   products:[
+    {id:'bl0',n:'بادی‌فرم نایت',sub:'شبانه',p:'۵۵,۰۰۰',best:true,color:'#FFE0D0',acnt:'#CC4B20'},
+    {id:'bl1',n:'سنسیتیو',sub:'پوست حساس',p:'۵۰,۰۰۰',color:'#FFF0E8',acnt:'#CC4B20'},
+    {id:'bl2',n:'اینویزیبل',sub:'نامرئی',p:'۴۲,۰۰۰',color:'#FFF5F0',acnt:'#CC4B20'},
+    {id:'bl3',n:'اکتیو',sub:'ورزشی',p:'۴۸,۰۰۰',color:'#FFF8F5',acnt:'#CC4B20'},
+   ],footer:'❤️ لیبرس برنده جایزه <strong>بهترین برند بهداشت زنان</strong> اروپا است.'},
+  {id:'whisper',name:'ویسپر',tagline:'ژاپنی باکیفیت',desc:'از ژاپن، با تکنولوژی نانو — نازک‌ترین و باکیفیت‌ترین بافت در بازار',color:'#FFF0F8',accent:'#B03070',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFD6EC"/><path d="M32 18C24 18 18 24 18 32s6 14 14 14 14-6 14-14-6-14-14-14z" stroke="#B03070" stroke-width="2.2"/><path d="M26 32c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#B03070" stroke-width="2" stroke-linecap="round" opacity=".7"/><circle cx="32" cy="38" r="2.5" fill="#B03070"/></svg>`,
+   products:[
+    {id:'bw0',n:'ناچورال پلاس',sub:'طبیعی',p:'۶۰,۰۰۰',best:true,color:'#FFD6EC',acnt:'#B03070'},
+    {id:'bw1',n:'دریم‌کلین',sub:'فوق‌نازک',p:'۵۲,۰۰۰',color:'#FFF0F8',acnt:'#B03070'},
+    {id:'bw2',n:'سافت‌گارد نایت',sub:'شبانه',p:'۵۸,۰۰۰',color:'#FFF5FA',acnt:'#B03070'},
+    {id:'bw3',n:'اکتیو',sub:'ورزشی',p:'۴۵,۰۰۰',color:'#FFFAFC',acnt:'#B03070'},
+   ],footer:'🌸 تکنولوژی <strong>Nano Soft</strong> ویسپر، تجربه‌ای متفاوت.'},
+  {id:'kotex',name:'کوتکس',tagline:'پیشرو در نوآوری',desc:'اولین برندی که به زنان احترام گذاشت — از ۱۹۲۰ تا امروز',color:'#F0F0FF',accent:'#5040B0',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#DDD8F8"/><rect x="20" y="26" width="24" height="12" rx="6" fill="#5040B0" opacity=".7"/><path d="M26 32h12" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M32 26v12" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".5"/></svg>`,
+   products:[
+    {id:'bk0',n:'یو پروتکت',sub:'محافظت کامل',p:'۵۴,۰۰۰',best:true,color:'#DDD8F8',acnt:'#5040B0'},
+    {id:'bk1',n:'ملودی',sub:'روزانه',p:'۴۰,۰۰۰',color:'#EEECff',acnt:'#5040B0'},
+    {id:'bk2',n:'آنیون',sub:'آنتی‌باکتریال',p:'۶۲,۰۰۰',color:'#F4F2FF',acnt:'#5040B0'},
+    {id:'bk3',n:'پنتی‌لاینر',sub:'محافظ روزانه',p:'۲۵,۰۰۰',color:'#F8F7FF',acnt:'#5040B0'},
+   ],footer:'💜 کوتکس اولین برند دارای <strong>گواهی FDA</strong> بود.'},
+  {id:'organyc',name:'ارگانیک',tagline:'صددرصد ارگانیک',desc:'ایتالیایی، گواهی‌دار، پنبه خالص — برای کسانی که هیچ سازشی نمی‌کنن',color:'#EEFAF2',accent:'#1A7A40',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#C8EDD8"/><path d="M32 18s-8 5-8 12c0 4.4 3.6 8 8 8s8-3.6 8-8c0-7-8-12-8-12z" fill="#1A7A40" opacity=".6"/><path d="M24 38s-2 4 8 6 8-6 8-6" stroke="#1A7A40" stroke-width="1.8" stroke-linecap="round" opacity=".5"/></svg>`,
+   products:[
+    {id:'bo0',n:'اورگانیک ماکسی',sub:'ماکسی',p:'۷۲,۰۰۰',best:true,color:'#C8EDD8',acnt:'#1A7A40'},
+    {id:'bo1',n:'اورگانیک نایت',sub:'شبانه',p:'۶۸,۰۰۰',color:'#DAEEE6',acnt:'#1A7A40'},
+    {id:'bo2',n:'اورگانیک نرمال',sub:'معمولی',p:'۵۸,۰۰۰',color:'#EAF5EE',acnt:'#1A7A40'},
+    {id:'bo3',n:'تامپون ارگانیک',sub:'درونی',p:'۴۸,۰۰۰',color:'#F2F9F5',acnt:'#1A7A40'},
+   ],footer:'🍃 ارگانیک دارای گواهینامه <strong>GOTS</strong> است.'},
+  {id:'saba',name:'صبا',tagline:'ایرانی معتمد',desc:'برند ایرانی با ۳۰ سال سابقه — قابل اعتماد، در دسترس، کنار توست',color:'#FFF0F4',accent:'#C03060',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#FFCCD8"/><path d="M20 36l12-16 12 16" stroke="#C03060" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 36l6-8 6 8" stroke="#C03060" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/><circle cx="32" cy="38" r="2.5" fill="#C03060"/></svg>`,
+   products:[
+    {id:'bs0',n:'صبا شب',sub:'شبانه',p:'۳۸,۰۰۰',best:true,color:'#FFCCD8',acnt:'#C03060'},
+    {id:'bs1',n:'صبا روز',sub:'روزانه',p:'۲۸,۰۰۰',color:'#FFE0E8',acnt:'#C03060'},
+    {id:'bs2',n:'صبا نازک',sub:'فوق‌نازک',p:'۳۲,۰۰۰',color:'#FFEEF2',acnt:'#C03060'},
+    {id:'bs3',n:'صبا ماکسی',sub:'ماکسی',p:'۴۲,۰۰۰',color:'#FFF5F8',acnt:'#C03060'},
+   ],footer:'🇮🇷 صبا در <strong>۳۰۰۰ داروخانه</strong> سراسر ایران موجود است.'},
+  {id:'molped',name:'مولپد',tagline:'ترکی مقرون‌به‌صرفه',desc:'کیفیت اروپایی با قیمت منطقی — ترکی که به قلب بازار ایران راه پیدا کرد',color:'#F8F0FF',accent:'#7040B0',
+   svg:`<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#E8D8FF"/><path d="M18 32a14 14 0 0 1 28 0" stroke="#7040B0" stroke-width="2.5" stroke-linecap="round"/><path d="M22 38a10 10 0 0 1 20 0" stroke="#7040B0" stroke-width="2" stroke-linecap="round" opacity=".6"/><path d="M26 44a6 6 0 0 1 12 0" stroke="#7040B0" stroke-width="1.8" stroke-linecap="round" opacity=".4"/></svg>`,
+   products:[
+    {id:'bm0',n:'مولپد نایت',sub:'شبانه',p:'۳۵,۰۰۰',best:true,color:'#E8D8FF',acnt:'#7040B0'},
+    {id:'bm1',n:'سافت فیل',sub:'نرم',p:'۲۸,۰۰۰',color:'#F0E8FF',acnt:'#7040B0'},
+    {id:'bm2',n:'اولترا اینویزیبل',sub:'نامرئی',p:'۳۲,۰۰۰',color:'#F6F0FF',acnt:'#7040B0'},
+    {id:'bm3',n:'کتون',sub:'پنبه‌ای',p:'۳۰,۰۰۰',color:'#FAF5FF',acnt:'#7040B0'},
+   ],footer:'💡 مولپد بهترین <strong>رابطه کیفیت به قیمت</strong> را دارد.'},
 ];
 
+// Register brand products
+brands.forEach(b => {
+  b.products.forEach(p => registerProduct(p.id, p.n, b.name + ' · ' + p.sub, p.p, p.color,
+    `<rect x='4' y='9' width='16' height='7' rx='3.5' fill='${p.acnt}' opacity='.3'/><rect x='6' y='11' width='12' height='3' rx='1.5' fill='${p.acnt}' opacity='.5'/>`));
+});
+
 /* ─── CAROUSEL ─── */
-const VISIBLE=5;
-let brandOffset=0;
-function buildCarousel(){
-  const track=document.getElementById('brandsTrack');
-  const dots=document.getElementById('brandsDots');
-  track.innerHTML=brands.map((b,i)=>`
+const VISIBLE = 5;
+let brandOffset = 0;
+function buildCarousel() {
+  const track = document.getElementById('brandsTrack');
+  const dots = document.getElementById('brandsDots');
+  track.innerHTML = brands.map((b,i) => `
     <div class="brand-card" data-idx="${i}" onclick="openBrandDrawer(${i})">
       <div class="brand-circle">${b.svg}</div>
       <div class="brand-name">${b.name}</div>
     </div>`).join('');
-  const pages=Math.ceil(brands.length/VISIBLE);
-  dots.innerHTML=Array.from({length:pages},(_,i)=>
+  const pages = Math.ceil(brands.length / VISIBLE);
+  dots.innerHTML = Array.from({length:pages},(_,i) =>
     `<div class="bdot${i===0?' active':''}" onclick="goToPage(${i})"></div>`).join('');
 }
-function getCardWidth(){
-  const card=document.querySelector('.brand-card');
-  if(!card)return 124;
-  return card.offsetWidth+20;
+function getCardWidth() {
+  const card = document.querySelector('.brand-card');
+  return card ? card.offsetWidth + 20 : 124;
 }
-function slideBrands(dir){
-  const maxOffset=brands.length-VISIBLE;
-  brandOffset=Math.max(0,Math.min(brandOffset+dir*VISIBLE,maxOffset));
+function slideBrands(dir) {
+  const maxOffset = brands.length - VISIBLE;
+  brandOffset = Math.max(0, Math.min(brandOffset + dir * VISIBLE, maxOffset));
   applySlide();
 }
-function goToPage(page){brandOffset=page*VISIBLE;applySlide();}
-function applySlide(){
-  const track=document.getElementById('brandsTrack');
-  const cw=getCardWidth();
-  track.style.transform=`translateX(${brandOffset*cw}px)`;
-  const page=Math.floor(brandOffset/VISIBLE);
-  document.querySelectorAll('.bdot').forEach((d,i)=>d.classList.toggle('active',i===page));
+function goToPage(page) { brandOffset = page * VISIBLE; applySlide(); }
+function applySlide() {
+  const track = document.getElementById('brandsTrack');
+  track.style.transform = `translateX(${brandOffset * getCardWidth()}px)`;
+  const page = Math.floor(brandOffset / VISIBLE);
+  document.querySelectorAll('.bdot').forEach((d,i) => d.classList.toggle('active', i === page));
 }
 
 /* ─── PRODUCTS SLIDER ─── */
-const psProducts=[
-  {n:'نایت پرو ۸ ساعته',b:'پنبه ارگانیک · بالشتک بلند',p:'۴۵,۰۰۰',best:true,c1:'#EDE5FF',c2:'#8B6BAE',svg:'<path d="M14 10A6 6 0 1 1 8 4a5 5 0 0 0 6 6z" fill="rgba(139,107,174,.55)"/>'},
-  {n:'اسپورت اولترا',b:'ضد حرکت · ورزشی',p:'۴۸,۰۰۰',c1:'#D4F0DF',c2:'#287850',svg:'<circle cx="10" cy="10" r="7" stroke="rgba(40,120,80,.55)" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="rgba(40,120,80,.55)" stroke-width="1.4" stroke-linecap="round"/>'},
-  {n:'ارگانیک کاتن پد',b:'پوست حساس · بدون عطر',p:'۵۸,۰۰۰',best:true,c1:'#FFE0EC',c2:'#A04070',svg:'<circle cx="10" cy="10" r="6" stroke="rgba(160,64,112,.55)" stroke-width="1.5"/><path d="M8 10l1.5 1.5 3-3" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'},
-  {n:'ماکسی پلاس پرو',b:'روزهای سنگین · ظرفیت بالا',p:'۶۲,۰۰۰',c1:'#D6E8FF',c2:'#3060B0',svg:'<path d="M10 3v13M6.5 12l3.5 4 3.5-4" stroke="rgba(48,96,176,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
-  {n:'تراول کیت',b:'مخصوص سفر · فشرده',p:'۱۲۵,۰۰۰',best:true,c1:'#FFF0D0',c2:'#9A6820',svg:'<rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(154,104,32,.55)" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(154,104,32,.45)" stroke-width="1.2" stroke-linecap="round"/>'},
-  {n:'کاپ سیلیکونی',b:'قابل استفاده مجدد',p:'۱۸۵,۰۰۰',c1:'#FFE0EC',c2:'#A04070',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linejoin="round"/>'},
-  {n:'شورت پریود شب',b:'پارچه‌ای · ضدنشت',p:'۲۲۰,۰۰۰',c1:'#EDE5FF',c2:'#8B6BAE',svg:'<path d="M5 7h10l-1.5 8H6.5L5 7z" stroke="rgba(139,107,174,.55)" stroke-width="1.4" stroke-linejoin="round"/>'},
-  {n:'دیسک پریود',b:'درونی · ۱۲ ساعته',p:'۱۹۵,۰۰۰',c1:'#D6E8FF',c2:'#3060B0',svg:'<ellipse cx="10" cy="10" rx="7" ry="4" stroke="rgba(48,96,176,.55)" stroke-width="1.5"/>'},
-  {n:'یوگا پد',b:'انعطاف‌پذیر · سبک',p:'۴۲,۰۰۰',c1:'#D4F0DF',c2:'#287850',svg:'<path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="rgba(40,120,80,.55)" stroke-width="1.5" stroke-linecap="round"/>'},
-  {n:'مینی پد اینویزیبل',b:'نازک و بی‌صدا',p:'۳۲,۰۰۰',c1:'#FFF0D0',c2:'#9A6820',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(154,104,32,.5)"/>'},
-  {n:'بامبو لایت',b:'فیبر بامبو · ملایم',p:'۵۴,۰۰۰',c1:'#FFE0EC',c2:'#A04070',svg:'<path d="M10 16v-6M10 10c0-3 2-5 2-5s-2-1-4 0S6 8 8 10" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linecap="round"/>'},
-  {n:'تامپون ورزشی',b:'برای شنا و فعالیت',p:'۳۵,۰۰۰',c1:'#D4F0DF',c2:'#287850',svg:'<path d="M10 4v12M7 13l3 3 3-3" stroke="rgba(40,120,80,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
+const psProducts = [
+  {id:'ps0',n:'نایت پرو ۸ ساعته',b:'پنبه ارگانیک · بالشتک بلند',p:'۴۵,۰۰۰',best:true,c1:'#EDE5FF',svg:'<path d="M14 10A6 6 0 1 1 8 4a5 5 0 0 0 6 6z" fill="rgba(139,107,174,.55)"/>'},
+  {id:'ps1',n:'اسپورت اولترا',b:'ضد حرکت · ورزشی',p:'۴۸,۰۰۰',c1:'#D4F0DF',svg:'<circle cx="10" cy="10" r="7" stroke="rgba(40,120,80,.55)" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="rgba(40,120,80,.55)" stroke-width="1.4" stroke-linecap="round"/>'},
+  {id:'ps2',n:'ارگانیک کاتن پد',b:'پوست حساس · بدون عطر',p:'۵۸,۰۰۰',best:true,c1:'#FFE0EC',svg:'<circle cx="10" cy="10" r="6" stroke="rgba(160,64,112,.55)" stroke-width="1.5"/><path d="M8 10l1.5 1.5 3-3" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'},
+  {id:'ps3',n:'ماکسی پلاس پرو',b:'روزهای سنگین · ظرفیت بالا',p:'۶۲,۰۰۰',c1:'#D6E8FF',svg:'<path d="M10 3v13M6.5 12l3.5 4 3.5-4" stroke="rgba(48,96,176,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
+  {id:'ps4',n:'تراول کیت',b:'مخصوص سفر · فشرده',p:'۱۲۵,۰۰۰',best:true,c1:'#FFF0D0',svg:'<rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(154,104,32,.55)" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(154,104,32,.45)" stroke-width="1.2" stroke-linecap="round"/>'},
+  {id:'ps5',n:'کاپ سیلیکونی',b:'قابل استفاده مجدد',p:'۱۸۵,۰۰۰',c1:'#FFE0EC',svg:'<path d="M6 7h8l-2 8H8L6 7z" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linejoin="round"/>'},
+  {id:'ps6',n:'شورت پریود شب',b:'پارچه‌ای · ضدنشت',p:'۲۲۰,۰۰۰',c1:'#EDE5FF',svg:'<path d="M5 7h10l-1.5 8H6.5L5 7z" stroke="rgba(139,107,174,.55)" stroke-width="1.4" stroke-linejoin="round"/>'},
+  {id:'ps7',n:'دیسک پریود',b:'درونی · ۱۲ ساعته',p:'۱۹۵,۰۰۰',c1:'#D6E8FF',svg:'<ellipse cx="10" cy="10" rx="7" ry="4" stroke="rgba(48,96,176,.55)" stroke-width="1.5"/>'},
+  {id:'ps8',n:'یوگا پد',b:'انعطاف‌پذیر · سبک',p:'۴۲,۰۰۰',c1:'#D4F0DF',svg:'<path d="M5 10c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="rgba(40,120,80,.55)" stroke-width="1.5" stroke-linecap="round"/>'},
+  {id:'ps9',n:'مینی پد اینویزیبل',b:'نازک و بی‌صدا',p:'۳۲,۰۰۰',c1:'#FFF0D0',svg:'<rect x="5" y="9" width="10" height="3" rx="1.5" fill="rgba(154,104,32,.5)"/>'},
+  {id:'ps10',n:'بامبو لایت',b:'فیبر بامبو · ملایم',p:'۵۴,۰۰۰',c1:'#FFE0EC',svg:'<path d="M10 16v-6M10 10c0-3 2-5 2-5s-2-1-4 0S6 8 8 10" stroke="rgba(160,64,112,.55)" stroke-width="1.4" stroke-linecap="round"/>'},
+  {id:'ps11',n:'تامپون ورزشی',b:'برای شنا و فعالیت',p:'۳۵,۰۰۰',c1:'#D4F0DF',svg:'<path d="M10 4v12M7 13l3 3 3-3" stroke="rgba(40,120,80,.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'},
 ];
-const PS_PER_PAGE=8;
-let psOffset=0;
-function buildPsSlider(){
-  const track=document.getElementById('psTrack'),dots=document.getElementById('psDots');
-  const pages=Math.ceil(psProducts.length/PS_PER_PAGE);
-  track.innerHTML='';
-  for(let i=0;i<pages;i++){
-    const items=psProducts.slice(i*PS_PER_PAGE,(i+1)*PS_PER_PAGE);
-    const page=document.createElement('div');page.className='ps-page';
-    page.innerHTML=items.map((p,j)=>`
+
+// Register products slider items
+psProducts.forEach(p => registerProduct(p.id, p.n, p.b, p.p, p.c1, p.svg));
+
+const PS_PER_PAGE = 8;
+let psOffset = 0;
+function buildPsSlider() {
+  const track = document.getElementById('psTrack'), dots = document.getElementById('psDots');
+  const pages = Math.ceil(psProducts.length / PS_PER_PAGE);
+  track.innerHTML = '';
+  for (let i = 0; i < pages; i++) {
+    const items = psProducts.slice(i * PS_PER_PAGE, (i+1) * PS_PER_PAGE);
+    const page = document.createElement('div');
+    page.className = 'ps-page';
+    page.innerHTML = items.map(p => `
       <div class="psc">
         <div class="psc-vis" style="background:${p.c1}">
           <svg viewBox="0 0 20 20" fill="none">${p.svg}</svg>
-          ${p.best?'<div class="psc-best">پیشنهاد ویژه</div>':''}
+          ${p.best ? '<div class="psc-best">پیشنهاد ویژه</div>' : ''}
         </div>
         <div class="psc-body">
           <div class="psc-name">${p.n}</div>
           <div class="psc-brand">${p.b}</div>
           <div class="psc-foot">
             <div class="psc-price">${p.p} ت</div>
-            <button class="psc-add" onclick="addToCart('ps-${i}-${j}','${p.n}','${p.b}','${p.p}','${p.c1}','${p.svg.replace(/'/g,"\\'")}')">+</button>
+            <button class="psc-add" onclick="addByKey('${p.id}')">+</button>
           </div>
         </div>
       </div>`).join('');
     track.appendChild(page);
   }
-  dots.innerHTML=Array.from({length:pages},(_,i)=>`<div class="psdot${i===0?' active':''}" onclick="goPsPage(${i})"></div>`).join('');
+  dots.innerHTML = Array.from({length:pages},(_,i) =>
+    `<div class="psdot${i===0?' active':''}" onclick="goPsPage(${i})"></div>`).join('');
 }
-function slidePs(dir){const pages=document.querySelectorAll('.ps-page').length;psOffset=Math.max(0,Math.min(psOffset+dir,pages-1));applyPs();}
-function goPsPage(i){psOffset=i;applyPs();}
-function applyPs(){document.getElementById('psTrack').style.transform=`translateX(${psOffset*100}%)`;document.querySelectorAll('.psdot').forEach((d,i)=>d.classList.toggle('active',i===psOffset));}
+function slidePs(dir) { const pages = document.querySelectorAll('.ps-page').length; psOffset = Math.max(0, Math.min(psOffset + dir, pages-1)); applyPs(); }
+function goPsPage(i) { psOffset = i; applyPs(); }
+function applyPs() { document.getElementById('psTrack').style.transform = `translateX(${psOffset*100}%)`; document.querySelectorAll('.psdot').forEach((d,i) => d.classList.toggle('active', i===psOffset)); }
 
 /* ─── BRAND DRAWER ─── */
-function openBrandDrawer(idx){
-  const b=brands[idx];
-  document.querySelectorAll('.brand-card').forEach((c,i)=>c.classList.toggle('active',i===idx));
-  document.getElementById('bdLogoWrap').innerHTML=b.svg;
-  document.getElementById('bdLogoWrap').style.background=b.color;
-  document.getElementById('bdBrandName').textContent=b.name;
-  document.getElementById('bdBrandDesc').textContent=b.desc;
-  document.getElementById('bdProducts').innerHTML=b.products.map((p,j)=>`
+function openBrandDrawer(idx) {
+  const b = brands[idx];
+  document.querySelectorAll('.brand-card').forEach((c,i) => c.classList.toggle('active', i===idx));
+  document.getElementById('bdLogoWrap').innerHTML = b.svg;
+  document.getElementById('bdLogoWrap').style.background = b.color;
+  document.getElementById('bdBrandName').textContent = b.name;
+  document.getElementById('bdBrandDesc').textContent = b.desc;
+  document.getElementById('bdProducts').innerHTML = b.products.map(p => `
     <div class="bdp">
       <div class="bdp-vis" style="background:${p.color}">
         <svg viewBox="0 0 24 24" fill="none">
           <rect x="4" y="9" width="16" height="7" rx="3.5" fill="${p.acnt}" opacity=".3"/>
           <rect x="6" y="11" width="12" height="3" rx="1.5" fill="${p.acnt}" opacity=".5"/>
         </svg>
-        ${p.best?'<div class="bdp-badge">انتخاب برتر</div>':''}
+        ${p.best ? '<div class="bdp-badge">انتخاب برتر</div>' : ''}
       </div>
       <div class="bdp-body">
         <div class="bdp-name">${p.n}</div>
         <div class="bdp-sub">${p.sub}</div>
         <div class="bdp-foot">
           <div class="bdp-price">${p.p} ت</div>
-          <button class="bdp-btn" onclick="addToCart('brand-${b.id}-${j}','${p.n}','${b.name} · ${p.sub}','${p.p}','${p.color}','<rect x=\\'4\\' y=\\'9\\' width=\\'16\\' height=\\'7\\' rx=\\'3.5\\' fill=\\'${p.acnt}\\' opacity=\\'.4\\'/>')">+</button>
+          <button class="bdp-btn" onclick="addByKey('${p.id}')">+</button>
         </div>
       </div>
     </div>`).join('');
-  document.getElementById('bdFooter').innerHTML=b.footer;
+  document.getElementById('bdFooter').innerHTML = b.footer;
   document.getElementById('bdOverlay').classList.add('on');
   document.getElementById('brandDrawer').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
-function closeBrandDrawer(){
+function closeBrandDrawer() {
   document.getElementById('bdOverlay').classList.remove('on');
   document.getElementById('brandDrawer').classList.remove('open');
-  document.body.style.overflow='';
-  document.querySelectorAll('.brand-card').forEach(c=>c.classList.remove('active'));
+  document.body.style.overflow = '';
+  document.querySelectorAll('.brand-card').forEach(c => c.classList.remove('active'));
 }
-const bd=document.getElementById('brandDrawer');
-let bdStartY=0;
-bd.addEventListener('touchstart',e=>{bdStartY=e.touches[0].clientY;});
-bd.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-bdStartY>80)closeBrandDrawer();});
+const bd = document.getElementById('brandDrawer');
+let bdStartY = 0;
+bd.addEventListener('touchstart', e => { bdStartY = e.touches[0].clientY; });
+bd.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - bdStartY > 80) closeBrandDrawer(); });
 
 /* ─── INIT ─── */
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', () => {
   buildCarousel();
   buildPsSlider();
   renderCartItems();
 
-  const track=document.getElementById('brandsTrack');
-  let isDragging=false,dragStartX=0;
-  track.addEventListener('mousedown',e=>{isDragging=true;dragStartX=e.clientX;});
-  document.addEventListener('mouseup',e=>{if(!isDragging)return;isDragging=false;const dx=e.clientX-dragStartX;if(Math.abs(dx)>40)slideBrands(dx>0?-1:1);});
-  track.addEventListener('touchstart',e=>{dragStartX=e.touches[0].clientX;},{passive:true});
-  track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-dragStartX;if(Math.abs(dx)>40)slideBrands(dx>0?-1:1);});
+  const track = document.getElementById('brandsTrack');
+  let isDragging = false, dragStartX = 0;
+  track.addEventListener('mousedown', e => { isDragging = true; dragStartX = e.clientX; });
+  document.addEventListener('mouseup', e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - dragStartX; if (Math.abs(dx) > 40) slideBrands(dx > 0 ? -1 : 1); });
+  track.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - dragStartX; if (Math.abs(dx) > 40) slideBrands(dx > 0 ? -1 : 1); });
 
-  const psTrack=document.getElementById('psTrack');
-  let psStartX=0,psDragging=false,psDragX=0;
-  psTrack.addEventListener('touchstart',e=>{psStartX=e.touches[0].clientX;},{passive:true});
-  psTrack.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-psStartX;if(Math.abs(dx)>40)slidePs(dx>0?-1:1);});
-  psTrack.addEventListener('mousedown',e=>{psDragging=true;psDragX=e.clientX;});
-  document.addEventListener('mouseup',e=>{if(!psDragging)return;psDragging=false;const dx=e.clientX-psDragX;if(Math.abs(dx)>40)slidePs(dx>0?-1:1);});
+  const psTrack = document.getElementById('psTrack');
+  let psDragging = false, psDragX = 0;
+  psTrack.addEventListener('touchstart', e => { psDragX = e.touches[0].clientX; }, {passive:true});
+  psTrack.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - psDragX; if (Math.abs(dx) > 40) slidePs(dx > 0 ? -1 : 1); });
+  psTrack.addEventListener('mousedown', e => { psDragging = true; psDragX = e.clientX; });
+  document.addEventListener('mouseup', e => { if (!psDragging) return; psDragging = false; const dx = e.clientX - psDragX; if (Math.abs(dx) > 40) slidePs(dx > 0 ? -1 : 1); });
 });
 </script>
 </body>
