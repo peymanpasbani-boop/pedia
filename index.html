@@ -119,12 +119,15 @@ body {
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: auto auto;
   gap: 12px;
-  width: 100%; max-width: 920px;
+  width: 100%; max-width: 960px;
   position:relative; z-index:1;
 }
 .bc { grid-column:span 1; grid-row:span 1; }
 .bc.tall { grid-row:span 2; }
 .bc.wide { grid-column:span 2; }
+
+/* night card spans 2 rows (tall), sport+sensitive stack on right */
+/* bottom row: heavy (wide) + travel */
 
 .bcard {
   border-radius: 28px;
@@ -298,6 +301,38 @@ body {
   cursor:pointer; font-family:var(--f); transition:opacity .18s;
 }
 .epc-add:hover { opacity:.72; }
+
+.ep-empathy-box {
+  background: var(--mist);
+  border: 1px solid rgba(140,110,180,.1);
+  border-radius: 20px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.ep-empathy-icon {
+  font-size: 22px; flex-shrink: 0; margin-top: 2px;
+}
+.ep-empathy-body {}
+.ep-empathy-quote {
+  font-size: 13.5px; font-weight: 500; color: var(--ink);
+  line-height: 1.75; margin-bottom: 6px;
+  letter-spacing: -.01em;
+}
+.ep-empathy-desc {
+  font-size: 11.5px; font-weight: 300; color: var(--slate);
+  line-height: 1.85;
+}
+.ep-footer-note {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 11px; font-weight: 300; color: var(--slate);
+  line-height: 1.9;
+  padding: 14px 20px;
+  background: var(--mist);
+  border-radius: 16px;
+}
+.ep-footer-note strong { font-weight: 700; color: var(--accent); }
 
 /* ═══ COMPANION ═══ */
 .companion {
@@ -832,9 +867,9 @@ input[type=range].fp-range::-webkit-slider-thumb {
               <path d="M16 10.5A7 7 0 1 1 9 3.5a5.5 5.5 0 0 0 7 7z" fill="rgba(100,70,160,.45)"/>
             </svg>
           </div>
-          <div class="bcard-label">نگرانی شب</div>
+          <div class="bcard-label">آرامش شبانه</div>
           <div class="bcard-title">شب آرومی بخوابم</div>
-          <p class="bcard-quote">می‌دونم که اون نگرانی آخر شب خیلی سخته.</p>
+          <p class="bcard-quote">می‌دونیم اون لحظه‌ای که چراغ رو خاموش می‌کنی، یه نگرانی کوچیک تو دلته. پدیا اینجاست تا اون نگرانی رو ببره.</p>
           <div class="bcard-features">
             <div class="bcard-feature">
               <div class="bcard-feature-icon">
@@ -848,76 +883,147 @@ input[type=range].fp-range::-webkit-slider-thumb {
               </div>
               <div class="bcard-feature-body">
                 <div class="bcard-feature-title">پوشش ۸ ساعته</div>
-                <div class="bcard-feature-desc">تا صبح بدون یه بار نگرانی بخواب — این حقته</div>
+                <div class="bcard-feature-desc">تا صبح بدون حتی یه بار بیدار شدن بخواب — این حقته و ما ضمانتش می‌کنیم</div>
               </div>
             </div>
             <div class="bcard-feature">
               <div class="bcard-feature-icon">
                 <svg viewBox="0 0 24 24" fill="none">
                   <rect x="4" y="11" width="16" height="7" rx="3.5" fill="rgba(180,150,230,.18)" stroke="rgba(140,110,180,.45)" stroke-width="1.2"/>
-                  <path d="M4 14C2.5 14 2 15.5 2 16C3.5 16 4 15 4 14.5" fill="rgba(180,150,230,.12)" stroke="rgba(140,110,180,.35)" stroke-width="1" stroke-linecap="round"/>
-                  <path d="M20 14C21.5 14 22 15.5 22 16C20.5 16 20 15 20 14.5" fill="rgba(180,150,230,.12)" stroke="rgba(140,110,180,.35)" stroke-width="1" stroke-linecap="round"/>
                   <path d="M9 6l1.5 1.5L13 5" stroke="rgba(140,110,180,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M11 3.5l-3.5 1.5v3c0 1.5 1.5 2.5 3.5 3 2-.5 3.5-1.5 3.5-3V5L11 3.5z" stroke="rgba(140,110,180,.4)" stroke-width="1.1" stroke-linejoin="round"/>
                 </svg>
               </div>
               <div class="bcard-feature-body">
-                <div class="bcard-feature-title">ضد نشت</div>
-                <div class="bcard-feature-desc">اون استرس آخر شب دیگه جایی نداره — محافظتت کردیم</div>
+                <div class="bcard-feature-title">ضد نشت از همه طرف</div>
+                <div class="bcard-feature-desc">اون استرس آخر شب برای همیشه تموم شد — بالشت و ملحفه‌ات امن هستن</div>
               </div>
             </div>
             <div class="bcard-feature">
               <div class="bcard-feature-icon">
                 <svg viewBox="0 0 24 24" fill="none">
                   <rect x="4" y="12" width="16" height="6" rx="3" fill="rgba(180,150,230,.18)" stroke="rgba(140,110,180,.45)" stroke-width="1.2"/>
-                  <path d="M4 14.5C2.5 14.5 2 15.5 2 16C3.5 16 4 15.3 4 15" fill="rgba(180,150,230,.1)" stroke="rgba(140,110,180,.3)" stroke-width=".9" stroke-linecap="round"/>
-                  <path d="M20 14.5C21.5 14.5 22 15.5 22 16C20.5 16 20 15.3 20 15" fill="rgba(180,150,230,.1)" stroke="rgba(140,110,180,.3)" stroke-width=".9" stroke-linecap="round"/>
                   <path d="M7 10c1-1 2-1 3 0s2 1 3 0 2-1 3 0" stroke="rgba(140,110,180,.35)" stroke-width="1" stroke-linecap="round"/>
                   <path d="M9 8c.8-.8 1.5-.8 2.5 0s1.5.8 2.5 0" stroke="rgba(140,110,180,.22)" stroke-width=".9" stroke-linecap="round"/>
                 </svg>
               </div>
               <div class="bcard-feature-body">
-                <div class="bcard-feature-title">نرم و راحت</div>
-                <div class="bcard-feature-desc">پوستت لایق بهترین لمسه، حتی وقتی خوابی</div>
+                <div class="bcard-feature-title">نرم مثل ابر</div>
+                <div class="bcard-feature-desc">پوستت لایق بهترین لمسه، مخصوصاً وقتی خوابی و بدنت استراحت می‌کنه</div>
+              </div>
+            </div>
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="8" stroke="rgba(140,110,180,.4)" stroke-width="1.2"/>
+                  <path d="M12 8v4l2.5 2.5" stroke="rgba(140,110,180,.6)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">بالشتک بلند شبانه</div>
+                <div class="bcard-feature-desc">طراحی شده برای وقتی که دراز می‌کشی — سایزش دقیقاً به اندازه آرامش شبانه‌ته</div>
               </div>
             </div>
           </div>
         </div>
         <button class="bcard-btn" onclick="openPanel('night');event.stopPropagation()">
-          مشاهده محصولات
+          انتخاب محصول شب
           <svg viewBox="0 0 12 12" fill="none"><path d="M10 6H2M6 2l4 4-4 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Sport — small -->
-    <div class="bcard small" data-mood="sport" tabindex="0" onclick="openPanel('sport')">
+    <!-- Sport — enriched -->
+    <div class="bcard" data-mood="sport" tabindex="0" onclick="openPanel('sport')">
       <div class="bcard-inner">
-        <div class="bcard-icon">
-          <svg viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="7" stroke="rgba(60,140,90,.55)" stroke-width="1.5"/>
-            <path d="M10 6.5v7M7 10h6" stroke="rgba(60,140,90,.55)" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="bcard-label">ورزش</div>
+        <div class="bcard-top">
+          <div class="bcard-icon">
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="rgba(60,140,90,.55)" stroke-width="1.5"/>
+              <path d="M10 6.5v7M7 10h6" stroke="rgba(60,140,90,.55)" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="bcard-label">ورزش و تحرک</div>
           <div class="bcard-title">فعالم و می‌دوم</div>
+          <p class="bcard-quote">تو حق داری بدوی، بپری، شنا کنی — پریود نباید هیچ‌وقت جلوت رو بگیره.</p>
+          <div class="bcard-features">
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="10" r="5" stroke="rgba(60,140,90,.5)" stroke-width="1.3"/>
+                  <path d="M8 19c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="rgba(60,140,90,.4)" stroke-width="1.2" stroke-linecap="round"/>
+                  <path d="M12 7v3l2 1.5" stroke="rgba(60,140,90,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">ضد حرکت و جابجایی</div>
+                <div class="bcard-feature-desc">چسبندگی قوی که حتی با شدیدترین حرکت‌ها هم تکون نمی‌خوره</div>
+              </div>
+            </div>
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 4c0 0-6 3-6 8s6 8 6 8 6-3 6-8-6-8-6-8z" stroke="rgba(60,140,90,.45)" stroke-width="1.2" stroke-linejoin="round"/>
+                  <path d="M12 4v16M6 12h12" stroke="rgba(60,140,90,.25)" stroke-width="1" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">تهویه و خنکی</div>
+                <div class="bcard-feature-desc">حتی توی گرمای ورزش، راحت و خشک می‌مونی — این آزادیته</div>
+              </div>
+            </div>
+          </div>
         </div>
+        <button class="bcard-btn" onclick="openPanel('sport');event.stopPropagation()">
+          محصولات ورزشی
+          <svg viewBox="0 0 12 12" fill="none"><path d="M10 6H2M6 2l4 4-4 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
 
-    <!-- Sensitive — small -->
-    <div class="bcard small" data-mood="sensitive" tabindex="0" onclick="openPanel('sensitive')">
+    <!-- Sensitive — enriched -->
+    <div class="bcard" data-mood="sensitive" tabindex="0" onclick="openPanel('sensitive')">
       <div class="bcard-inner">
-        <div class="bcard-icon">
-          <svg viewBox="0 0 20 20" fill="none">
-            <path d="M10 17S4 13 4 8a6 6 0 0 1 12 0c0 5-6 9-6 9z" stroke="rgba(180,80,120,.5)" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="bcard-label">حساسیت</div>
+        <div class="bcard-top">
+          <div class="bcard-icon">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M10 17S4 13 4 8a6 6 0 0 1 12 0c0 5-6 9-6 9z" stroke="rgba(180,80,120,.5)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="bcard-label">پوست حساس</div>
           <div class="bcard-title">پوستم حساسه</div>
+          <p class="bcard-quote">می‌دونیم که پوست حساس نیاز به مراقبت ویژه داره — هیچ ماده‌ای نباید اذیتت کنه.</p>
+          <div class="bcard-features">
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 4s-5 3.5-5 8c0 2.8 2.2 5 5 5s5-2.2 5-5c0-4.5-5-8-5-8z" fill="rgba(180,80,120,.12)" stroke="rgba(180,80,120,.45)" stroke-width="1.2" stroke-linejoin="round"/>
+                  <path d="M9 13l1.5 1.5 3-3" stroke="rgba(180,80,120,.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">۱۰۰٪ پنبه طبیعی</div>
+                <div class="bcard-feature-desc">بدون عطر، بدون رنگ مصنوعی — فقط طبیعت، همون‌طور که پوستت می‌خواد</div>
+              </div>
+            </div>
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="8" stroke="rgba(180,80,120,.4)" stroke-width="1.2"/>
+                  <path d="M9 12l2 2 4-4" stroke="rgba(180,80,120,.6)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">تست شده توسط متخصص</div>
+                <div class="bcard-feature-desc">پوست حساست لایق اطمینانه — ما این رو جدی می‌گیریم</div>
+              </div>
+            </div>
+          </div>
         </div>
+        <button class="bcard-btn" onclick="openPanel('sensitive');event.stopPropagation()">
+          محصولات ملایم
+          <svg viewBox="0 0 12 12" fill="none"><path d="M10 6H2M6 2l4 4-4 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
 
@@ -937,7 +1043,7 @@ input[type=range].fp-range::-webkit-slider-thumb {
               <div class="bcard-title">روزهای سنگین دارم</div>
             </div>
           </div>
-          <p class="bcard-quote">اون روزا که همه‌چیز سنگین‌تره — تنها نیستی.</p>
+          <p class="bcard-quote">اون روزایی که همه‌چیز سنگین‌تره — جسمت، حالت، همه‌چیز. ما می‌فهمیم و دقیقاً برای همین اینجاییم.</p>
           <div class="bcard-features" style="flex-direction:row; flex-wrap:wrap; gap:8px;">
             <div class="bcard-feature" style="flex:1; min-width:140px;">
               <div class="bcard-feature-icon">
@@ -950,48 +1056,43 @@ input[type=range].fp-range::-webkit-slider-thumb {
                 </svg>
               </div>
               <div class="bcard-feature-body">
-                <div class="bcard-feature-title">ظرفیت بالا</div>
-                <div class="bcard-feature-desc">هر چقدر هم سنگین باشه، کنارتیم</div>
+                <div class="bcard-feature-title">ظرفیت فوق‌العاده</div>
+                <div class="bcard-feature-desc">هر چقدر هم سنگین باشه، یه بار هم نمی‌ذاریم نگران باشی</div>
               </div>
             </div>
             <div class="bcard-feature" style="flex:1; min-width:140px;">
               <div class="bcard-feature-icon">
                 <svg viewBox="0 0 24 24" fill="none">
                   <rect x="4" y="11" width="16" height="7" rx="3.5" fill="rgba(100,150,230,.16)" stroke="rgba(80,120,200,.42)" stroke-width="1.2"/>
-                  <path d="M4 13.5C2.5 13.5 2 15 2 15.5C3.5 15.5 4 14.5 4 14" fill="rgba(100,150,230,.1)" stroke="rgba(80,120,200,.3)" stroke-width="1" stroke-linecap="round"/>
-                  <path d="M20 13.5C21.5 13.5 22 15 22 15.5C20.5 15.5 20 14.5 20 14" fill="rgba(100,150,230,.1)" stroke="rgba(80,120,200,.3)" stroke-width="1" stroke-linecap="round"/>
                   <path d="M7 9V11M12 8V11M17 9V11" stroke="rgba(80,120,200,.35)" stroke-width="1" stroke-linecap="round"/>
                 </svg>
               </div>
               <div class="bcard-feature-body">
-                <div class="bcard-feature-title">پوشش دوجانبه</div>
-                <div class="bcard-feature-desc">از همه طرف محافظتت می‌کنیم</div>
+                <div class="bcard-feature-title">پوشش ۳۶۰ درجه</div>
+                <div class="bcard-feature-desc">جلو، عقب، طرفین — از همه طرف کنارتیم، بدون هیچ نقطه‌ی کوری</div>
               </div>
             </div>
             <div class="bcard-feature" style="flex:1; min-width:140px;">
               <div class="bcard-feature-icon">
                 <svg viewBox="0 0 24 24" fill="none">
-                  <rect x="4" y="12" width="16" height="6" rx="3" fill="rgba(100,150,230,.16)" stroke="rgba(80,120,200,.42)" stroke-width="1.2"/>
-                  <path d="M4 14.5C2.5 14.5 2 15.5 2 16C3.5 16 4 15.3 4 15" fill="rgba(100,150,230,.1)" stroke="rgba(80,120,200,.28)" stroke-width=".9" stroke-linecap="round"/>
-                  <path d="M20 14.5C21.5 14.5 22 15.5 22 16C20.5 16 20 15.3 20 15" fill="rgba(100,150,230,.1)" stroke="rgba(80,120,200,.28)" stroke-width=".9" stroke-linecap="round"/>
                   <path d="M13 4l-3 5h3l-3 5" stroke="rgba(80,120,200,.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <div class="bcard-feature-body">
-                <div class="bcard-feature-title">جذب سریع</div>
-                <div class="bcard-feature-desc">لحظه‌ای که نیاز داری، هست</div>
+                <div class="bcard-feature-title">جذب آنی</div>
+                <div class="bcard-feature-desc">در کسری از ثانیه جذب می‌کنه — چون روزهای سنگین صبر ندارن</div>
               </div>
             </div>
           </div>
         </div>
         <button class="bcard-btn" onclick="openPanel('heavy');event.stopPropagation()">
-          مشاهده محصولات
+          محصولات روزهای سنگین
           <svg viewBox="0 0 12 12" fill="none"><path d="M10 6H2M6 2l4 4-4 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Travel -->
+    <!-- Travel — enriched -->
     <div class="bcard" data-mood="travel" tabindex="0" onclick="openPanel('travel')">
       <div class="bcard-inner">
         <div class="bcard-top">
@@ -1002,11 +1103,40 @@ input[type=range].fp-range::-webkit-slider-thumb {
               <path d="M5 11h10" stroke="rgba(160,110,40,.25)" stroke-width="1.1"/>
             </svg>
           </div>
-          <div class="bcard-label">سفر</div>
+          <div class="bcard-label">سفر و جاده</div>
           <div class="bcard-title">همیشه در راهم</div>
+          <p class="bcard-quote">چمدونت آماده‌ست، روحت آزاده — پریود نباید هیچ سفری رو لغو کنه.</p>
+          <div class="bcard-features">
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(160,110,40,.5)" stroke-width="1.3"/>
+                  <path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(160,110,40,.4)" stroke-width="1.2" stroke-linecap="round"/>
+                  <path d="M4 11h12" stroke="rgba(160,110,40,.2)" stroke-width="1"/>
+                  <rect x="17" y="9" width="3" height="5" rx="1" fill="rgba(160,110,40,.25)" stroke="rgba(160,110,40,.4)" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">کوچیک، سبک، بی‌صدا</div>
+                <div class="bcard-feature-desc">توی کیف دستی جا می‌شه و هیچ‌کس نمی‌فهمه — رازت پیش ماست</div>
+              </div>
+            </div>
+            <div class="bcard-feature">
+              <div class="bcard-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="rgba(160,110,40,.12)" stroke="rgba(160,110,40,.45)" stroke-width="1.2"/>
+                  <circle cx="12" cy="9" r="2.5" fill="rgba(160,110,40,.3)"/>
+                </svg>
+              </div>
+              <div class="bcard-feature-body">
+                <div class="bcard-feature-title">برای هر مقصدی آماده</div>
+                <div class="bcard-feature-desc">چه هوا گرم باشه چه سرد، چه هتل باشه چه چادر — کنارتیم</div>
+              </div>
+            </div>
+          </div>
         </div>
         <button class="bcard-btn" onclick="openPanel('travel');event.stopPropagation()">
-          محصولات
+          محصولات سفر
           <svg viewBox="0 0 12 12" fill="none"><path d="M10 6H2M6 2l4 4-4 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
@@ -1029,7 +1159,9 @@ input[type=range].fp-range::-webkit-slider-thumb {
   <div class="ep-context" id="epCtx"></div>
   <div class="ep-title" id="epTitle"></div>
   <div class="ep-sub" id="epSub"></div>
+  <div class="ep-empathy-box" id="epEmpathy"></div>
   <div class="ep-grid" id="epGrid"></div>
+  <div class="ep-footer-note" id="epFooter"></div>
 </div>
 
 <!-- COMPANION -->
@@ -1182,7 +1314,9 @@ calcUpdate();
 <script>
 const data = {
   night: {
-    ctx:'پیشنهاد ویژه برای شب', title:'شب آرومی بخوابم', sub:'پوشش ۸ ساعته بدون هیچ نگرانی',
+    ctx:'آرامش شبانه', title:'شب آرومی بخوابم', sub:'پوشش ۸ ساعته · ضد نشت · نرم مثل ابر',
+    empathy: { icon:'🌙', quote:'می‌دونیم اون لحظه‌ای که چراغ رو خاموش می‌کنی، یه نگرانی کوچیک توی دلته.', desc:'خواب آروم حق توئه — نه لوکس، نه آرزو. بالشت و ملحفه‌ات امن هستن و تو فقط کافیه چشماتو ببندی. ما اینجاییم.' },
+    footer: '💜 همه محصولات شبانه پدیا با <strong>تست ۸ ساعته</strong> تأیید شدن — چون خواب آروم یه شب، فردای بهتری می‌سازه.',
     bg:'linear-gradient(145deg,#EDE5FF,#F5F0FF,#FAF7FF)',
     items:[
       { n:'نایت پرو ۸ ساعته', b:'پدیا · بالشتک بلند', p:'۴۵,۰۰۰', best:true, svg:'<path d="M14 10A6 6 0 1 1 8 4a5 5 0 0 0 6 6z" fill="rgba(140,110,180,.5)"/>' },
@@ -1192,7 +1326,9 @@ const data = {
     ]
   },
   sport: {
-    ctx:'مناسب برای ورزش', title:'فعالم و می‌دوم', sub:'ضد حرکت، نازک، تهویه‌دار',
+    ctx:'آزادی در حرکت', title:'فعالم و می‌دوم', sub:'ضد حرکت · تهویه‌دار · نازک',
+    empathy: { icon:'🏃‍♀️', quote:'تو حق داری بدوی، بپری، شنا کنی — پریود نباید هیچ‌وقت جلوت رو بگیره.', desc:'ورزش کردن با پریود نیاز به شجاعت داره — و تو اون شجاعت رو داری. ما فقط مطمئن می‌شیم که محصولت هم به اندازه تو قوی باشه.' },
+    footer: '🌿 محصولات ورزشی پدیا با <strong>تکنولوژی ضد حرکت</strong> طراحی شدن — حتی توی شدیدترین تمرینا هم جا نمی‌زنن.',
     bg:'linear-gradient(145deg,#D4F0DF,#E8F8EE,#F4FCF7)',
     items:[
       { n:'اسپورت اولترا', b:'پدیا · ورزشی', p:'۴۸,۰۰۰', best:true, svg:'<circle cx="10" cy="10" r="7" stroke="rgba(60,140,90,.5)" stroke-width="1.5"/><path d="M10 7v6M7 10h6" stroke="rgba(60,140,90,.5)" stroke-width="1.4" stroke-linecap="round"/>' },
@@ -1202,7 +1338,9 @@ const data = {
     ]
   },
   sensitive: {
-    ctx:'ملایم برای پوست حساس', title:'پوستم حساسه', sub:'بدون عطر · لایه ارگانیک · تست شده',
+    ctx:'مراقبت ویژه', title:'پوستم حساسه', sub:'پنبه طبیعی · بدون عطر · تست‌شده',
+    empathy: { icon:'🌸', quote:'پوست حساس یعنی جسمت داره بهت می‌گه که به مراقبت بیشتری نیاز داره — و این اصلاً ضعف نیست.', desc:'می‌دونیم که تجربه‌های بدی داشتی — خارش، قرمزی، ناراحتی. محصولات ما با همین چالش طراحی شدن تا پوستت فقط آرامش حس کنه.' },
+    footer: '🌿 تمام محصولات حساس پدیا <strong>فاقد عطر، رنگ مصنوعی و مواد شیمیایی</strong> هستن — چون پوستت لایق بهترینه.',
     bg:'linear-gradient(145deg,#FFE0EC,#FFEEF5,#FFF5FA)',
     items:[
       { n:'ارگانیک کاتن پد', b:'پدیا · پنبه طبیعی', p:'۵۸,۰۰۰', best:true, svg:'<circle cx="10" cy="10" r="6" stroke="rgba(180,80,120,.5)" stroke-width="1.5"/><path d="M8 10l1.5 1.5 3-3" stroke="rgba(180,80,120,.5)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' },
@@ -1212,7 +1350,9 @@ const data = {
     ]
   },
   heavy: {
-    ctx:'پوشش قوی', title:'روزهای سنگین دارم', sub:'ظرفیت بالا · پوشش دوجانبه · جذب سریع',
+    ctx:'روزهای سنگین', title:'روزهای سنگین دارم', sub:'ظرفیت بالا · پوشش ۳۶۰° · جذب آنی',
+    empathy: { icon:'💙', quote:'اون روزایی که جسم و روحت هر دو سنگینن — می‌دونیم چقدر خسته‌کننده‌ست.', desc:'نه‌تنها درد داری، بلکه دائم نگران نشتی هم هستی. این استرس اضافه‌ای که لازم نیست تحملش کنی. ما ضمانت می‌کنیم که حداقل این یه نگرانی از دوشت برداشته بشه.' },
+    footer: '💙 محصولات سنگین پدیا با <strong>۳ برابر ظرفیت معمولی</strong> طراحی شدن — چون تو لایق آرامش توی سخت‌ترین روزاتی.',
     bg:'linear-gradient(145deg,#D6E8FF,#E8F2FF,#F4F8FF)',
     items:[
       { n:'ماکسی پلاس پرو', b:'پدیا · ظرفیت بالا', p:'۶۲,۰۰۰', best:true, svg:'<path d="M10 3v13M6.5 12l3.5 4 3.5-4" stroke="rgba(80,120,200,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' },
@@ -1222,7 +1362,9 @@ const data = {
     ]
   },
   travel: {
-    ctx:'همراه سفر', title:'همیشه در راهم', sub:'فشرده · بی‌صدا · قابل حمل',
+    ctx:'همراه سفر', title:'همیشه در راهم', sub:'کوچیک · بی‌صدا · قابل حمل',
+    empathy: { icon:'✈️', quote:'چمدونت بسته‌ست، قلبت هیجان‌زده‌ست — پریود نباید هیچ سفری رو لغو کنه.', desc:'می‌دونیم که برنامه‌ریزی سفر با پریود استرس خاص خودش رو داره. با پدیا دیگه نیازی نیست یه چمدون اضافه برای نگرانی‌هات ببری.' },
+    footer: '🧳 کیت سفر پدیا طوری طراحی شده که <strong>توی هر کیف دستی جا بشه</strong> — چون ماجراجویی باید راحت باشه.',
     bg:'linear-gradient(145deg,#FFF0D0,#FFF8E8,#FFFDF5)',
     items:[
       { n:'تراول کیت', b:'پدیا · بسته سفر', p:'۱۲۵,۰۰۰', best:true, svg:'<rect x="4" y="7" width="12" height="9" rx="2" stroke="rgba(160,110,40,.5)" stroke-width="1.4"/><path d="M7 7V6a3 3 0 0 1 6 0v1" stroke="rgba(160,110,40,.4)" stroke-width="1.2" stroke-linecap="round"/><path d="M4 11h12" stroke="rgba(160,110,40,.2)" stroke-width="1"/>' },
@@ -1253,6 +1395,13 @@ function openPanel(type) {
         </div>
       </div>
     </div>`).join('');
+  document.getElementById('epEmpathy').innerHTML = `
+    <div class="ep-empathy-icon">${d.empathy.icon}</div>
+    <div class="ep-empathy-body">
+      <div class="ep-empathy-quote">${d.empathy.quote}</div>
+      <div class="ep-empathy-desc">${d.empathy.desc}</div>
+    </div>`;
+  document.getElementById('epFooter').innerHTML = d.footer;
   document.getElementById('overlay').classList.add('on');
   document.getElementById('expPanel').classList.add('open');
   document.body.style.overflow='hidden';
